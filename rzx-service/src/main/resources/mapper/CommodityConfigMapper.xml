@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rzx.project.mapper.CommodityConfigMapper">
+
+    <resultMap type="com.rzx.project.domain.CommodityConfig" id="CommodityConfigResult">
+        <result property="commodityconfigId"    column="COMMODITYCONFIG_ID"    />
+        <result property="commodityCode"    column="COMMODITY_CODE"    />
+        <result property="commodityName"    column="COMMODITY_NAME"    />
+        <result property="brand"    column="BRAND"    />
+        <result property="model"    column="MODEL"    />
+        <result property="thumbnailImage"    column="THUMBNAIL_IMAGE"    />
+        <result property="image"    column="IMAGE"    />
+        <result property="imageUrls"    column="IMAGE_URLS"    />
+        <result property="explain"    column="EXPLAIN"    />
+        <result property="amount"    column="AMOUNT"    />
+        <result property="provid"    column="PROVID"    />
+        <result property="status"    column="STATUS"    />
+        <result property="createTime"    column="CREATE_TIME"    />
+        <result property="updateTime"    column="UPDATE_TIME"    />
+        <result property="productCate"    column="PRODUCT_CATE"    />
+        <result property="productPlace"    column="PRODUCT_PLACE"    />
+        <result property="saleStatus"    column="SALE_STATUS"    />
+        <result property="marketPrice"    column="MARKET_PRICE"    />
+        <result property="retailAmount"    column="RETAIL_AMOUNT"    />
+        <result property="isToReturn"    column="IS_TO_RETURN"    />
+        <result property="giftpackageId"    column="GIFTPACKAGE_ID"    />
+        <result property="chooseFlag"    column="CHOOSE_FLAG"    />
+        <result property="weight"    column="WEIGHT"    />
+        <result property="size"    column="SIZE"    />
+        <result property="typeId"    column="TYPE_ID"    />
+        <result property="providSource"    column="PROVID_SOURCE"    />
+    </resultMap>
+
+    <sql id="selectCommodityConfigVo">
+        select COMMODITYCONFIG_ID, COMMODITY_CODE, COMMODITY_NAME, BRAND, MODEL, THUMBNAIL_IMAGE, IMAGE, IMAGE_URLS, EXPLAIN, AMOUNT, PROVID, STATUS, CREATE_TIME, UPDATE_TIME, PRODUCT_CATE, PRODUCT_PLACE, SALE_STATUS, MARKET_PRICE, RETAIL_AMOUNT, IS_TO_RETURN, GIFTPACKAGE_ID, CHOOSE_FLAG, WEIGHT, SIZE, TYPE_ID, PROVID_SOURCE from rzx_commodity_config
+    </sql>
+
+    <select id="selectCommodityConfigList" parameterType="com.rzx.project.domain.CommodityConfig" resultMap="CommodityConfigResult">
+        <include refid="selectCommodityConfigVo"/>
+        <where>
+            <if test="commodityCode != null  and commodityCode != ''"> and COMMODITY_CODE = #{commodityCode}</if>
+            <if test="commodityName != null  and commodityName != ''"> and COMMODITY_NAME like concat('%', #{commodityName}, '%')</if>
+            <if test="brand != null  and brand != ''"> and BRAND = #{brand}</if>
+            <if test="model != null  and model != ''"> and MODEL = #{model}</if>
+            <if test="thumbnailImage != null  and thumbnailImage != ''"> and THUMBNAIL_IMAGE = #{thumbnailImage}</if>
+            <if test="image != null  and image != ''"> and IMAGE = #{image}</if>
+            <if test="imageUrls != null  and imageUrls != ''"> and IMAGE_URLS = #{imageUrls}</if>
+            <if test="explain != null  and explain != ''"> and EXPLAIN = #{explain}</if>
+            <if test="amount != null  and amount != ''"> and AMOUNT = #{amount}</if>
+            <if test="provid != null  and provid != ''"> and PROVID = #{provid}</if>
+            <if test="status != null  and status != ''"> and STATUS = #{status}</if>
+            <if test="createTime != null  and createTime != ''"> and CREATE_TIME = #{createTime}</if>
+            <if test="updateTime != null  and updateTime != ''"> and UPDATE_TIME = #{updateTime}</if>
+            <if test="productCate != null  and productCate != ''"> and PRODUCT_CATE = #{productCate}</if>
+            <if test="productPlace != null  and productPlace != ''"> and PRODUCT_PLACE = #{productPlace}</if>
+            <if test="saleStatus != null  and saleStatus != ''"> and SALE_STATUS = #{saleStatus}</if>
+            <if test="marketPrice != null  and marketPrice != ''"> and MARKET_PRICE = #{marketPrice}</if>
+            <if test="retailAmount != null  and retailAmount != ''"> and RETAIL_AMOUNT = #{retailAmount}</if>
+            <if test="isToReturn != null  and isToReturn != ''"> and IS_TO_RETURN = #{isToReturn}</if>
+            <if test="giftpackageId != null  and giftpackageId != ''"> and GIFTPACKAGE_ID = #{giftpackageId}</if>
+            <if test="chooseFlag != null  and chooseFlag != ''"> and CHOOSE_FLAG = #{chooseFlag}</if>
+            <if test="weight != null  and weight != ''"> and WEIGHT = #{weight}</if>
+            <if test="size != null  and size != ''"> and SIZE = #{size}</if>
+            <if test="typeId != null  and typeId != ''"> and TYPE_ID = #{typeId}</if>
+            <if test="providSource != null  and providSource != ''"> and PROVID_SOURCE = #{providSource}</if>
+        </where>
+    </select>
+
+    <select id="selectCommodityConfigById" parameterType="String" resultMap="CommodityConfigResult">
+        <include refid="selectCommodityConfigVo"/>
+        where COMMODITYCONFIG_ID = #{commodityconfigId}
+    </select>
+
+
+    <update id="updateCommodityConfig" parameterType="com.rzx.project.domain.CommodityConfig">
+        update rzx_commodity_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="commodityCode != null">COMMODITY_CODE = #{commodityCode},</if>
+            <if test="commodityName != null">COMMODITY_NAME = #{commodityName},</if>
+            <if test="brand != null">BRAND = #{brand},</if>
+            <if test="model != null">MODEL = #{model},</if>
+            <if test="thumbnailImage != null">THUMBNAIL_IMAGE = #{thumbnailImage},</if>
+            <if test="image != null">IMAGE = #{image},</if>
+            <if test="imageUrls != null">IMAGE_URLS = #{imageUrls},</if>
+            <if test="explain != null">EXPLAIN = #{explain},</if>
+            <if test="amount != null">AMOUNT = #{amount},</if>
+            <if test="provid != null">PROVID = #{provid},</if>
+            <if test="status != null">STATUS = #{status},</if>
+            <if test="createTime != null">CREATE_TIME = #{createTime},</if>
+            <if test="updateTime != null">UPDATE_TIME = #{updateTime},</if>
+            <if test="productCate != null">PRODUCT_CATE = #{productCate},</if>
+            <if test="productPlace != null">PRODUCT_PLACE = #{productPlace},</if>
+            <if test="saleStatus != null">SALE_STATUS = #{saleStatus},</if>
+            <if test="marketPrice != null">MARKET_PRICE = #{marketPrice},</if>
+            <if test="retailAmount != null">RETAIL_AMOUNT = #{retailAmount},</if>
+            <if test="isToReturn != null">IS_TO_RETURN = #{isToReturn},</if>
+            <if test="giftpackageId != null">GIFTPACKAGE_ID = #{giftpackageId},</if>
+            <if test="chooseFlag != null">CHOOSE_FLAG = #{chooseFlag},</if>
+            <if test="weight != null">WEIGHT = #{weight},</if>
+            <if test="size != null">SIZE = #{size},</if>
+            <if test="typeId != null">TYPE_ID = #{typeId},</if>
+            <if test="providSource != null">PROVID_SOURCE = #{providSource},</if>
+        </trim>
+        where COMMODITYCONFIG_ID = #{commodityconfigId}
+    </update>
+
+    <delete id="deleteCommodityConfigById" parameterType="String">
+        delete from rzx_commodity_config where COMMODITYCONFIG_ID = #{commodityconfigId}
+    </delete>
+
+    <delete id="deleteCommodityConfigByIds" parameterType="String">
+        delete from rzx_commodity_config where COMMODITYCONFIG_ID in
+        <foreach item="commodityconfigId" collection="array" open="(" separator="," close=")">
+            #{commodityconfigId}
+        </foreach>
+    </delete>
+</mapper>

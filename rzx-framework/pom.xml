@@ -57,6 +57,11 @@
             <artifactId>rzx-common</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.fenmi</groupId>
+            <artifactId>rzx-service</artifactId>
+        </dependency>
+
         <!--velocity代码生成使用模板 -->
         <dependency>
             <groupId>org.apache.velocity</groupId>

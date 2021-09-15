@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rzx.project.mapper.BillrecordMapper">
+
+    <resultMap type="com.rzx.project.domain.Billrecord" id="BillrecordResult">
+        <result property="billrecordId"    column="BILLRECORD_ID"    />
+        <result property="billStatus"    column="BILL_STATUS"    />
+        <result property="type"    column="TYPE"    />
+        <result property="upName"    column="UP_NAME"    />
+        <result property="email"    column="EMAIL"    />
+        <result property="taxNumber"    column="TAX_NUMBER"    />
+        <result property="companyAddress"    column="COMPANY_ADDRESS"    />
+        <result property="companyPhone"    column="COMPANY_PHONE"    />
+        <result property="openBank"    column="OPEN_BANK"    />
+        <result property="accountBank"    column="ACCOUNT_BANK"    />
+        <result property="createTime"    column="CREATE_TIME"    />
+        <result property="updateTime"    column="UPDATE_TIME"    />
+    </resultMap>
+
+    <sql id="selectBillrecordVo">
+        select BILLRECORD_ID, BILL_STATUS, TYPE, UP_NAME, EMAIL, TAX_NUMBER, COMPANY_ADDRESS, COMPANY_PHONE, OPEN_BANK, ACCOUNT_BANK, CREATE_TIME, UPDATE_TIME from rzx_billrecord
+    </sql>
+
+    <select id="selectBillrecordList" parameterType="com.rzx.project.domain.Billrecord" resultMap="BillrecordResult">
+        <include refid="selectBillrecordVo"/>
+        <where>
+            <if test="billStatus != null  and billStatus != ''"> and BILL_STATUS = #{billStatus}</if>
+            <if test="type != null  and type != ''"> and TYPE = #{type}</if>
+            <if test="upName != null  and upName != ''"> and UP_NAME like concat('%', #{upName}, '%')</if>
+            <if test="email != null  and email != ''"> and EMAIL = #{email}</if>
+            <if test="taxNumber != null  and taxNumber != ''"> and TAX_NUMBER = #{taxNumber}</if>
+            <if test="companyAddress != null  and companyAddress != ''"> and COMPANY_ADDRESS = #{companyAddress}</if>
+            <if test="companyPhone != null  and companyPhone != ''"> and COMPANY_PHONE = #{companyPhone}</if>
+            <if test="openBank != null  and openBank != ''"> and OPEN_BANK = #{openBank}</if>
+            <if test="accountBank != null  and accountBank != ''"> and ACCOUNT_BANK = #{accountBank}</if>
+            <if test="createTime != null  and createTime != ''"> and CREATE_TIME = #{createTime}</if>
+            <if test="updateTime != null  and updateTime != ''"> and UPDATE_TIME = #{updateTime}</if>
+        </where>
+    </select>
+
+    <select id="selectBillrecordById" parameterType="String" resultMap="BillrecordResult">
+        <include refid="selectBillrecordVo"/>
+        where BILLRECORD_ID = #{billrecordId}
+    </select>
+
+
+    <update id="updateBillrecord" parameterType="com.rzx.project.domain.Billrecord">
+        update rzx_billrecord
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="billStatus != null">BILL_STATUS = #{billStatus},</if>
+            <if test="type != null">TYPE = #{type},</if>
+            <if test="upName != null">UP_NAME = #{upName},</if>
+            <if test="email != null">EMAIL = #{email},</if>
+            <if test="taxNumber != null">TAX_NUMBER = #{taxNumber},</if>
+            <if test="companyAddress != null">COMPANY_ADDRESS = #{companyAddress},</if>
+            <if test="companyPhone != null">COMPANY_PHONE = #{companyPhone},</if>
+            <if test="openBank != null">OPEN_BANK = #{openBank},</if>
+            <if test="accountBank != null">ACCOUNT_BANK = #{accountBank},</if>
+            <if test="createTime != null">CREATE_TIME = #{createTime},</if>
+            <if test="updateTime != null">UPDATE_TIME = #{updateTime},</if>
+        </trim>
+        where BILLRECORD_ID = #{billrecordId}
+    </update>
+
+    <delete id="deleteBillrecordById" parameterType="String">
+        delete from rzx_billrecord where BILLRECORD_ID = #{billrecordId}
+    </delete>
+
+    <delete id="deleteBillrecordByIds" parameterType="String">
+        delete from rzx_billrecord where BILLRECORD_ID in
+        <foreach item="billrecordId" collection="array" open="(" separator="," close=")">
+            #{billrecordId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rzx.project.mapper.CouponsInfoMapper">
+
+    <resultMap type="com.rzx.project.domain.CouponsInfo" id="CouponsInfoResult">
+        <result property="couponsinfoId"    column="COUPONSINFO_ID"    />
+        <result property="batchNo"    column="BATCH_NO"    />
+        <result property="couponsPwd"    column="COUPONS_PWD"    />
+        <result property="saleStatus"    column="SALE_STATUS"    />
+        <result property="checkStatus"    column="CHECK_STATUS"    />
+        <result property="checkTime"    column="CHECK_TIME"    />
+        <result property="status"    column="STATUS"    />
+        <result property="createTime"    column="CREATE_TIME"    />
+        <result property="createBy"    column="CREATE_BY"    />
+        <result property="updateTime"    column="UPDATE_TIME"    />
+        <result property="updateBy"    column="UPDATE_BY"    />
+        <result property="couponsQrcode"    column="COUPONS_QRCODE"    />
+        <result property="inSource"    column="IN_SOURCE"    />
+        <result property="type"    column="TYPE"    />
+    </resultMap>
+
+    <sql id="selectCouponsInfoVo">
+        select COUPONSINFO_ID, BATCH_NO, COUPONS_PWD, SALE_STATUS, CHECK_STATUS, CHECK_TIME, STATUS, CREATE_TIME, CREATE_BY, UPDATE_TIME, UPDATE_BY, COUPONS_QRCODE, IN_SOURCE, TYPE from rzx_coupons_info
+    </sql>
+
+    <select id="selectCouponsInfoList" parameterType="com.rzx.project.domain.CouponsInfo" resultMap="CouponsInfoResult">
+        <include refid="selectCouponsInfoVo"/>
+        <where>
+            <if test="batchNo != null  and batchNo != ''"> and BATCH_NO = #{batchNo}</if>
+            <if test="couponsPwd != null  and couponsPwd != ''"> and COUPONS_PWD = #{couponsPwd}</if>
+            <if test="saleStatus != null  and saleStatus != ''"> and SALE_STATUS = #{saleStatus}</if>
+            <if test="checkStatus != null  and checkStatus != ''"> and CHECK_STATUS = #{checkStatus}</if>
+            <if test="checkTime != null  and checkTime != ''"> and CHECK_TIME = #{checkTime}</if>
+            <if test="status != null  and status != ''"> and STATUS = #{status}</if>
+            <if test="createTime != null  and createTime != ''"> and CREATE_TIME = #{createTime}</if>
+            <if test="createBy != null  and createBy != ''"> and CREATE_BY = #{createBy}</if>
+            <if test="updateTime != null  and updateTime != ''"> and UPDATE_TIME = #{updateTime}</if>
+            <if test="updateBy != null  and updateBy != ''"> and UPDATE_BY = #{updateBy}</if>
+            <if test="couponsQrcode != null  and couponsQrcode != ''"> and COUPONS_QRCODE = #{couponsQrcode}</if>
+            <if test="inSource != null  and inSource != ''"> and IN_SOURCE = #{inSource}</if>
+            <if test="type != null  and type != ''"> and TYPE = #{type}</if>
+        </where>
+    </select>
+
+    <select id="selectCouponsInfoById" parameterType="String" resultMap="CouponsInfoResult">
+        <include refid="selectCouponsInfoVo"/>
+        where COUPONSINFO_ID = #{couponsinfoId}
+    </select>
+
+
+    <update id="updateCouponsInfo" parameterType="com.rzx.project.domain.CouponsInfo">
+        update rzx_coupons_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="batchNo != null">BATCH_NO = #{batchNo},</if>
+            <if test="couponsPwd != null">COUPONS_PWD = #{couponsPwd},</if>
+            <if test="saleStatus != null">SALE_STATUS = #{saleStatus},</if>
+            <if test="checkStatus != null">CHECK_STATUS = #{checkStatus},</if>
+            <if test="checkTime != null">CHECK_TIME = #{checkTime},</if>
+            <if test="status != null">STATUS = #{status},</if>
+            <if test="createTime != null">CREATE_TIME = #{createTime},</if>
+            <if test="createBy != null">CREATE_BY = #{createBy},</if>
+            <if test="updateTime != null">UPDATE_TIME = #{updateTime},</if>
+            <if test="updateBy != null">UPDATE_BY = #{updateBy},</if>
+            <if test="couponsQrcode != null">COUPONS_QRCODE = #{couponsQrcode},</if>
+            <if test="inSource != null">IN_SOURCE = #{inSource},</if>
+            <if test="type != null">TYPE = #{type},</if>
+        </trim>
+        where COUPONSINFO_ID = #{couponsinfoId}
+    </update>
+
+    <delete id="deleteCouponsInfoById" parameterType="String">
+        delete from rzx_coupons_info where COUPONSINFO_ID = #{couponsinfoId}
+    </delete>
+
+    <delete id="deleteCouponsInfoByIds" parameterType="String">
+        delete from rzx_coupons_info where COUPONSINFO_ID in
+        <foreach item="couponsinfoId" collection="array" open="(" separator="," close=")">
+            #{couponsinfoId}
+        </foreach>
+    </delete>
+</mapper>

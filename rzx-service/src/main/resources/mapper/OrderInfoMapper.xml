@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rzx.project.mapper.OrderInfoMapper">
+
+    <resultMap type="com.rzx.project.domain.OrderInfo" id="OrderInfoResult">
+        <result property="salesorderId"    column="SALESORDER_ID"    />
+        <result property="orderId"    column="ORDER_ID"    />
+        <result property="orderKey"    column="ORDER_KEY"    />
+        <result property="orderShipmentFee"    column="ORDER_SHIPMENT_FEE"    />
+        <result property="salemanId"    column="SALEMAN_ID"    />
+        <result property="giftpackageId"    column="GIFTPACKAGE_ID"    />
+        <result property="commodityCode"    column="COMMODITY_CODE"    />
+        <result property="couponsinfoId"    column="COUPONSINFO_ID"    />
+        <result property="initTotalAmount"    column="INIT_TOTAL_AMOUNT"    />
+        <result property="saleTotalAmount"    column="SALE_TOTAL_AMOUNT"    />
+        <result property="payWay"    column="PAY_WAY"    />
+        <result property="outTradeId"    column="OUT_TRADE_ID"    />
+        <result property="notifyjson"    column="NOTIFYJSON"    />
+        <result property="qrCode"    column="QR_CODE"    />
+        <result property="orderStatus"    column="ORDER_STATUS"    />
+        <result property="saleTime"    column="SALE_TIME"    />
+        <result property="receiveaddressId"    column="RECEIVEADDRESS_ID"    />
+        <result property="remark"    column="REMARK"    />
+        <result property="orderProvid"    column="ORDER_PROVID"    />
+        <result property="errorCode"    column="ERROR_CODE"    />
+        <result property="errorMessage"    column="ERROR_MESSAGE"    />
+        <result property="status"    column="STATUS"    />
+        <result property="createTime"    column="CREATE_TIME"    />
+        <result property="createBy"    column="CREATE_BY"    />
+        <result property="updateTime"    column="UPDATE_TIME"    />
+        <result property="updateBy"    column="UPDATE_BY"    />
+        <result property="brokerage"    column="BROKERAGE"    />
+        <result property="qrBillUrl"    column="QR_BILL_URL"    />
+        <result property="billrecordId"    column="BILLRECORD_ID"    />
+        <result property="payEndTime"    column="PAY_END_TIME"    />
+        <result property="inSource"    column="IN_SOURCE"    />
+        <result property="orderType"    column="ORDER_TYPE"    />
+        <result property="parentId"    column="PARENT_ID"    />
+    </resultMap>
+
+    <sql id="selectOrderInfoVo">
+        select SALESORDER_ID, ORDER_ID, ORDER_KEY, ORDER_SHIPMENT_FEE, SALEMAN_ID, GIFTPACKAGE_ID, COMMODITY_CODE, COUPONSINFO_ID, INIT_TOTAL_AMOUNT, SALE_TOTAL_AMOUNT, PAY_WAY, OUT_TRADE_ID, NOTIFYJSON, QR_CODE, ORDER_STATUS, SALE_TIME, RECEIVEADDRESS_ID, REMARK, ORDER_PROVID, ERROR_CODE, ERROR_MESSAGE, STATUS, CREATE_TIME, CREATE_BY, UPDATE_TIME, UPDATE_BY, BROKERAGE, QR_BILL_URL, BILLRECORD_ID, PAY_END_TIME, IN_SOURCE, ORDER_TYPE, PARENT_ID from rzx_order_info
+    </sql>
+
+    <select id="selectOrderInfoList" parameterType="com.rzx.project.domain.OrderInfo" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        <where>
+            <if test="orderId != null  and orderId != ''"> and ORDER_ID = #{orderId}</if>
+            <if test="orderKey != null  and orderKey != ''"> and ORDER_KEY = #{orderKey}</if>
+            <if test="orderShipmentFee != null  and orderShipmentFee != ''"> and ORDER_SHIPMENT_FEE = #{orderShipmentFee}</if>
+            <if test="salemanId != null  and salemanId != ''"> and SALEMAN_ID = #{salemanId}</if>
+            <if test="giftpackageId != null  and giftpackageId != ''"> and GIFTPACKAGE_ID = #{giftpackageId}</if>
+            <if test="commodityCode != null  and commodityCode != ''"> and COMMODITY_CODE = #{commodityCode}</if>
+            <if test="couponsinfoId != null  and couponsinfoId != ''"> and COUPONSINFO_ID = #{couponsinfoId}</if>
+            <if test="initTotalAmount != null  and initTotalAmount != ''"> and INIT_TOTAL_AMOUNT = #{initTotalAmount}</if>
+            <if test="saleTotalAmount != null  and saleTotalAmount != ''"> and SALE_TOTAL_AMOUNT = #{saleTotalAmount}</if>
+            <if test="payWay != null  and payWay != ''"> and PAY_WAY = #{payWay}</if>
+            <if test="outTradeId != null  and outTradeId != ''"> and OUT_TRADE_ID = #{outTradeId}</if>
+            <if test="notifyjson != null  and notifyjson != ''"> and NOTIFYJSON = #{notifyjson}</if>
+            <if test="qrCode != null  and qrCode != ''"> and QR_CODE = #{qrCode}</if>
+            <if test="orderStatus != null  and orderStatus != ''"> and ORDER_STATUS = #{orderStatus}</if>
+            <if test="saleTime != null  and saleTime != ''"> and SALE_TIME = #{saleTime}</if>
+            <if test="receiveaddressId != null  and receiveaddressId != ''"> and RECEIVEADDRESS_ID = #{receiveaddressId}</if>
+            <if test="remark != null  and remark != ''"> and REMARK = #{remark}</if>
+            <if test="orderProvid != null  and orderProvid != ''"> and ORDER_PROVID = #{orderProvid}</if>
+            <if test="errorCode != null  and errorCode != ''"> and ERROR_CODE = #{errorCode}</if>
+            <if test="errorMessage != null  and errorMessage != ''"> and ERROR_MESSAGE = #{errorMessage}</if>
+            <if test="status != null  and status != ''"> and STATUS = #{status}</if>
+            <if test="createTime != null  and createTime != ''"> and CREATE_TIME = #{createTime}</if>
+            <if test="createBy != null  and createBy != ''"> and CREATE_BY = #{createBy}</if>
+            <if test="updateTime != null  and updateTime != ''"> and UPDATE_TIME = #{updateTime}</if>
+            <if test="updateBy != null  and updateBy != ''"> and UPDATE_BY = #{updateBy}</if>
+            <if test="brokerage != null  and brokerage != ''"> and BROKERAGE = #{brokerage}</if>
+            <if test="qrBillUrl != null  and qrBillUrl != ''"> and QR_BILL_URL = #{qrBillUrl}</if>
+            <if test="billrecordId != null  and billrecordId != ''"> and BILLRECORD_ID = #{billrecordId}</if>
+            <if test="payEndTime != null  and payEndTime != ''"> and PAY_END_TIME = #{payEndTime}</if>
+            <if test="inSource != null  and inSource != ''"> and IN_SOURCE = #{inSource}</if>
+            <if test="orderType != null  and orderType != ''"> and ORDER_TYPE = #{orderType}</if>
+            <if test="parentId != null  and parentId != ''"> and PARENT_ID = #{parentId}</if>
+        </where>
+    </select>
+
+    <select id="selectOrderInfoById" parameterType="String" resultMap="OrderInfoResult">
+        <include refid="selectOrderInfoVo"/>
+        where SALESORDER_ID = #{salesorderId}
+    </select>
+
+
+    <update id="updateOrderInfo" parameterType="com.rzx.project.domain.OrderInfo">
+        update rzx_order_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderId != null">ORDER_ID = #{orderId},</if>
+            <if test="orderKey != null">ORDER_KEY = #{orderKey},</if>
+            <if test="orderShipmentFee != null">ORDER_SHIPMENT_FEE = #{orderShipmentFee},</if>
+            <if test="salemanId != null">SALEMAN_ID = #{salemanId},</if>
+            <if test="giftpackageId != null">GIFTPACKAGE_ID = #{giftpackageId},</if>
+            <if test="commodityCode != null">COMMODITY_CODE = #{commodityCode},</if>
+            <if test="couponsinfoId != null">COUPONSINFO_ID = #{couponsinfoId},</if>
+            <if test="initTotalAmount != null">INIT_TOTAL_AMOUNT = #{initTotalAmount},</if>
+            <if test="saleTotalAmount != null">SALE_TOTAL_AMOUNT = #{saleTotalAmount},</if>
+            <if test="payWay != null">PAY_WAY = #{payWay},</if>
+            <if test="outTradeId != null">OUT_TRADE_ID = #{outTradeId},</if>
+            <if test="notifyjson != null">NOTIFYJSON = #{notifyjson},</if>
+            <if test="qrCode != null">QR_CODE = #{qrCode},</if>
+            <if test="orderStatus != null">ORDER_STATUS = #{orderStatus},</if>
+            <if test="saleTime != null">SALE_TIME = #{saleTime},</if>
+            <if test="receiveaddressId != null">RECEIVEADDRESS_ID = #{receiveaddressId},</if>
+            <if test="remark != null">REMARK = #{remark},</if>
+            <if test="orderProvid != null">ORDER_PROVID = #{orderProvid},</if>
+            <if test="errorCode != null">ERROR_CODE = #{errorCode},</if>
+            <if test="errorMessage != null">ERROR_MESSAGE = #{errorMessage},</if>
+            <if test="status != null">STATUS = #{status},</if>
+            <if test="createTime != null">CREATE_TIME = #{createTime},</if>
+            <if test="createBy != null">CREATE_BY = #{createBy},</if>
+            <if test="updateTime != null">UPDATE_TIME = #{updateTime},</if>
+            <if test="updateBy != null">UPDATE_BY = #{updateBy},</if>
+            <if test="brokerage != null">BROKERAGE = #{brokerage},</if>
+            <if test="qrBillUrl != null">QR_BILL_URL = #{qrBillUrl},</if>
+            <if test="billrecordId != null">BILLRECORD_ID = #{billrecordId},</if>
+            <if test="payEndTime != null">PAY_END_TIME = #{payEndTime},</if>
+            <if test="inSource != null">IN_SOURCE = #{inSource},</if>
+            <if test="orderType != null">ORDER_TYPE = #{orderType},</if>
+            <if test="parentId != null">PARENT_ID = #{parentId},</if>
+        </trim>
+        where SALESORDER_ID = #{salesorderId}
+    </update>
+
+    <delete id="deleteOrderInfoById" parameterType="String">
+        delete from rzx_order_info where SALESORDER_ID = #{salesorderId}
+    </delete>
+
+    <delete id="deleteOrderInfoByIds" parameterType="String">
+        delete from rzx_order_info where SALESORDER_ID in
+        <foreach item="salesorderId" collection="array" open="(" separator="," close=")">
+            #{salesorderId}
+        </foreach>
+    </delete>
+</mapper>

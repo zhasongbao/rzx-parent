@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rzx.project.mapper.ReceiveaddressInfoMapper">
+
+    <resultMap type="com.rzx.project.domain.ReceiveaddressInfo" id="ReceiveaddressInfoResult">
+        <result property="receiveaddressId"    column="RECEIVEADDRESS_ID"    />
+        <result property="salemanId"    column="SALEMAN_ID"    />
+        <result property="province"    column="PROVINCE"    />
+        <result property="provinceName"    column="PROVINCE_NAME"    />
+        <result property="city"    column="CITY"    />
+        <result property="cityName"    column="CITY_NAME"    />
+        <result property="county"    column="COUNTY"    />
+        <result property="countyName"    column="COUNTY_NAME"    />
+        <result property="town"    column="TOWN"    />
+        <result property="townName"    column="TOWN_NAME"    />
+        <result property="receiveName"    column="RECEIVE_NAME"    />
+        <result property="receivePhone"    column="RECEIVE_PHONE"    />
+        <result property="receiveAddress"    column="RECEIVE_ADDRESS"    />
+        <result property="status"    column="STATUS"    />
+        <result property="provid"    column="PROVID"    />
+        <result property="createTime"    column="CREATE_TIME"    />
+        <result property="updateTime"    column="UPDATE_TIME"    />
+    </resultMap>
+
+    <sql id="selectReceiveaddressInfoVo">
+        select RECEIVEADDRESS_ID, SALEMAN_ID, PROVINCE, PROVINCE_NAME, CITY, CITY_NAME, COUNTY, COUNTY_NAME, TOWN, TOWN_NAME, RECEIVE_NAME, RECEIVE_PHONE, RECEIVE_ADDRESS, STATUS, PROVID, CREATE_TIME, UPDATE_TIME from rzx_receiveaddress_info
+    </sql>
+
+    <select id="selectReceiveaddressInfoList" parameterType="com.rzx.project.domain.ReceiveaddressInfo" resultMap="ReceiveaddressInfoResult">
+        <include refid="selectReceiveaddressInfoVo"/>
+        <where>
+            <if test="salemanId != null  and salemanId != ''"> and SALEMAN_ID = #{salemanId}</if>
+            <if test="province != null  and province != ''"> and PROVINCE = #{province}</if>
+            <if test="provinceName != null  and provinceName != ''"> and PROVINCE_NAME like concat('%', #{provinceName}, '%')</if>
+            <if test="city != null  and city != ''"> and CITY = #{city}</if>
+            <if test="cityName != null  and cityName != ''"> and CITY_NAME like concat('%', #{cityName}, '%')</if>
+            <if test="county != null  and county != ''"> and COUNTY = #{county}</if>
+            <if test="countyName != null  and countyName != ''"> and COUNTY_NAME like concat('%', #{countyName}, '%')</if>
+            <if test="town != null  and town != ''"> and TOWN = #{town}</if>
+            <if test="townName != null  and townName != ''"> and TOWN_NAME like concat('%', #{townName}, '%')</if>
+            <if test="receiveName != null  and receiveName != ''"> and RECEIVE_NAME like concat('%', #{receiveName}, '%')</if>
+            <if test="receivePhone != null  and receivePhone != ''"> and RECEIVE_PHONE = #{receivePhone}</if>
+            <if test="receiveAddress != null  and receiveAddress != ''"> and RECEIVE_ADDRESS = #{receiveAddress}</if>
+            <if test="status != null  and status != ''"> and STATUS = #{status}</if>
+            <if test="provid != null  and provid != ''"> and PROVID = #{provid}</if>
+            <if test="createTime != null  and createTime != ''"> and CREATE_TIME = #{createTime}</if>
+            <if test="updateTime != null  and updateTime != ''"> and UPDATE_TIME = #{updateTime}</if>
+        </where>
+    </select>
+
+    <select id="selectReceiveaddressInfoById" parameterType="String" resultMap="ReceiveaddressInfoResult">
+        <include refid="selectReceiveaddressInfoVo"/>
+        where RECEIVEADDRESS_ID = #{receiveaddressId}
+    </select>
+
+
+    <update id="updateReceiveaddressInfo" parameterType="com.rzx.project.domain.ReceiveaddressInfo">
+        update rzx_receiveaddress_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="salemanId != null">SALEMAN_ID = #{salemanId},</if>
+            <if test="province != null">PROVINCE = #{province},</if>
+            <if test="provinceName != null">PROVINCE_NAME = #{provinceName},</if>
+            <if test="city != null">CITY = #{city},</if>
+            <if test="cityName != null">CITY_NAME = #{cityName},</if>
+            <if test="county != null">COUNTY = #{county},</if>
+            <if test="countyName != null">COUNTY_NAME = #{countyName},</if>
+            <if test="town != null">TOWN = #{town},</if>
+            <if test="townName != null">TOWN_NAME = #{townName},</if>
+            <if test="receiveName != null">RECEIVE_NAME = #{receiveName},</if>
+            <if test="receivePhone != null">RECEIVE_PHONE = #{receivePhone},</if>
+            <if test="receiveAddress != null">RECEIVE_ADDRESS = #{receiveAddress},</if>
+            <if test="status != null">STATUS = #{status},</if>
+            <if test="provid != null">PROVID = #{provid},</if>
+            <if test="createTime != null">CREATE_TIME = #{createTime},</if>
+            <if test="updateTime != null">UPDATE_TIME = #{updateTime},</if>
+        </trim>
+        where RECEIVEADDRESS_ID = #{receiveaddressId}
+    </update>
+
+    <delete id="deleteReceiveaddressInfoById" parameterType="String">
+        delete from rzx_receiveaddress_info where RECEIVEADDRESS_ID = #{receiveaddressId}
+    </delete>
+
+    <delete id="deleteReceiveaddressInfoByIds" parameterType="String">
+        delete from rzx_receiveaddress_info where RECEIVEADDRESS_ID in
+        <foreach item="receiveaddressId" collection="array" open="(" separator="," close=")">
+            #{receiveaddressId}
+        </foreach>
+    </delete>
+</mapper>
