@@ -55,22 +55,22 @@ public class Constants {
     /**
      * 验证码 redis key
      */
-    public static final String CAPTCHA_CODE_KEY = "captcha_codes:";
+    public static final String CAPTCHA_CODE_KEY = "rzx_captcha_codes:";
 
     /**
      * 登录用户 redis key
      */
-    public static final String LOGIN_TOKEN_KEY = "login_tokens:";
+    public static final String LOGIN_TOKEN_KEY = "rzx_login_tokens:";
 
     /**
      * app登录用户 redis key
      */
-    public static final String APP_LOGIN_TOKEN_KEY = "app_login_tokens:";
+    public static final String APP_LOGIN_TOKEN_KEY = "rzx_app_login_tokens:";
 
     /**
      * 防重提交 redis key
      */
-    public static final String REPEAT_SUBMIT_KEY = "repeat_submit:";
+    public static final String REPEAT_SUBMIT_KEY = "rzx_repeat_submit:";
 
     /**
      * 验证码有效期（分钟）

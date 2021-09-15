@@ -42,3 +42,4 @@ nbdist/
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml
+/rzx-common/src/main/java/rebel.xml
