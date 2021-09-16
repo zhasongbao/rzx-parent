@@ -70,6 +70,11 @@ public class Constants {
     public static final String APP_LOGIN_TOKEN_KEY = "rzx_app_login_tokens:";
 
     /**
+     * 渠道用户登录 redis key
+     */
+    public static final String CHANNEL_USER_TOKEN_KEY = "channelUser_tokens:";
+
+    /**
      * 防重提交 redis key
      */
     public static final String REPEAT_SUBMIT_KEY = "rzx_repeat_submit:";

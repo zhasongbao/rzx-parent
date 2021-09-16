@@ -3,6 +3,7 @@ package com.rzx.project.mapper;
 import java.util.List;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rzx.project.domain.OrderInfo;
+import com.rzx.project.domain.dto.OrderInfoDTO;
 
 /**
  * 任智行 销售订单Mapper接口
@@ -23,10 +24,10 @@ public interface OrderInfoMapper extends BaseMapper<OrderInfo> {
     /**
      * 查询任智行 销售订单列表
      *
-     * @param orderInfo 任智行 销售订单
+     * @param dto 任智行 销售订单
      * @return 任智行 销售订单集合
      */
-    List<OrderInfo> selectOrderInfoList(OrderInfo orderInfo);
+    List<OrderInfo> selectOrderInfoList(OrderInfoDTO dto);
 
 
     /**

@@ -7,37 +7,39 @@ import com.rzx.common.core.page.TableDataInfo;
 import com.rzx.common.enums.BusinessType;
 import com.rzx.common.utils.poi.ExcelUtil;
 import com.rzx.project.domain.OrderInfo;
+import com.rzx.project.domain.dto.OrderInfoDTO;
 import com.rzx.project.service.IOrderInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
- * 任智行 销售订单Controller
+ * 订单Controller
  *
  * @author zy
  * @date 2021-09-15
  */
-@Api(value = "任智行 销售订单控制器")
-@ApiModel(value = "任智行 销售订单Controller")
+@Api(value = "订单控制器")
+@ApiModel(value = "订单Controller")
 @RestController
-@RequestMapping("/bh/order")
+@RequestMapping("/order")
 public class OrderInfoController extends BaseController {
     @Autowired
     private IOrderInfoService orderInfoService;
 
     /**
-     * 查询任智行 销售订单列表
+     * 查询已购订单列表
      */
-    @GetMapping("/list")
-    @ApiOperation(value = "查询任智行 销售订单列表")
-    public TableDataInfo list(OrderInfo orderInfo){
+    @PostMapping("/list")
+    @ApiOperation(value = "查询已购订单列表")
+    public TableDataInfo list(OrderInfoDTO dto){
         startPage();
-        List<OrderInfo> list = orderInfoService.selectOrderInfoList(orderInfo);
+        List<OrderInfo> list = orderInfoService.selectOrderInfoList(dto);
         return getDataTable(list);
     }
     
@@ -48,8 +50,8 @@ public class OrderInfoController extends BaseController {
 //    @PreAuthorize(hasPermi = "project:info:export")
     @Log(title = "任智行 销售订单", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(OrderInfo orderInfo) {
-        List<OrderInfo> list = orderInfoService.selectOrderInfoList(orderInfo);
+    public void export(OrderInfoDTO dto) {
+        List<OrderInfo> list = orderInfoService.selectOrderInfoList(dto);
         ExcelUtil<OrderInfo> util = new ExcelUtil<OrderInfo>(OrderInfo.class);
         util.exportExcel(list, "info");
     }

@@ -3,6 +3,7 @@ package com.rzx.project.service;
 import java.util.List;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.rzx.project.domain.OrderInfo;
+import com.rzx.project.domain.dto.OrderInfoDTO;
 
 /**
  * 任智行 销售订单Service接口
@@ -23,10 +24,10 @@ public interface IOrderInfoService extends IService<OrderInfo> {
     /**
      * 查询任智行 销售订单列表
      *
-     * @param orderInfo 任智行 销售订单
+     * @param dto 任智行 销售订单
      * @return 任智行 销售订单集合
      */
-    List<OrderInfo> selectOrderInfoList(OrderInfo orderInfo);
+    List<OrderInfo> selectOrderInfoList(OrderInfoDTO dto);
 
     /**
      * 新增任智行 销售订单

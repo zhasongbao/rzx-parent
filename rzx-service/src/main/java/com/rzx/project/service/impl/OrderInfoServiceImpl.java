@@ -2,6 +2,8 @@ package com.rzx.project.service.impl;
 
 import java.util.List;
 import java.time.LocalDateTime;
+
+import com.rzx.project.domain.dto.OrderInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -34,12 +36,12 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper,OrderInfo>
     /**
      * 查询任智行 销售订单列表
      *
-     * @param orderInfo 任智行 销售订单
+     * @param dto 任智行 销售订单
      * @return 任智行 销售订单
      */
     @Override
-    public List<OrderInfo> selectOrderInfoList(OrderInfo orderInfo) {
-        return orderInfoMapper.selectOrderInfoList(orderInfo);
+    public List<OrderInfo> selectOrderInfoList(OrderInfoDTO dto) {
+        return orderInfoMapper.selectOrderInfoList(dto);
     }
 
     /**

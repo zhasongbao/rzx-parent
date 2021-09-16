@@ -40,7 +40,7 @@ public class SecurityUtils {
     /**
      * 获取App用户id
      **/
-    public static Long getAppUserId() {
+    public static String getAppUserId() {
         try {
             return getAppLoginUser().getUser().getUserId();
         } catch (Exception e) {

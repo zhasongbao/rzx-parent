@@ -1,7 +1,7 @@
 package com.rzx.common.core.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.rzx.common.core.domain.entity.LoanUserInfo;
+import com.rzx.common.core.domain.entity.ChannelUserInfo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -34,12 +34,12 @@ public class AppLoginUser implements UserDetails {
     /**
      * 用户信息
      */
-    private LoanUserInfo user;
+    private ChannelUserInfo user;
 
     public AppLoginUser() {
     }
 
-    public AppLoginUser(LoanUserInfo user) {
+    public AppLoginUser(ChannelUserInfo user) {
         this.user = user;
     }
 
@@ -110,11 +110,11 @@ public class AppLoginUser implements UserDetails {
         this.loginTime = loginTime;
     }
 
-    public LoanUserInfo getUser() {
+    public ChannelUserInfo getUser() {
         return user;
     }
 
-    public void setUser(LoanUserInfo user) {
+    public void setUser(ChannelUserInfo user) {
         this.user = user;
     }
 
