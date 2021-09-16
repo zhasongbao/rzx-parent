@@ -5,62 +5,60 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.rzx.project.mapper.CommodityClassMapper">
 
     <resultMap type="com.rzx.project.domain.CommodityClass" id="CommodityClassResult">
-        <result property="commodityclassId"    column="COMMODITYCLASS_ID"    />
-        <result property="code"    column="CODE"    />
-        <result property="name"    column="NAME"    />
-        <result property="level"    column="LEVEL"    />
-        <result property="provid"    column="PROVID"    />
-        <result property="parentid"    column="PARENTID"    />
-        <result property="status"    column="STATUS"    />
-        <result property="createTime"    column="CREATE_TIME"    />
-        <result property="updateTime"    column="UPDATE_TIME"    />
+        <result property="commodityclassId"    column="commodityclass_id"    />
+        <result property="code"    column="code"    />
+        <result property="name"    column="name"    />
+        <result property="level"    column="level"    />
+        <result property="provid"    column="provid"    />
+        <result property="parentid"    column="parentid"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
     </resultMap>
 
     <sql id="selectCommodityClassVo">
-        select COMMODITYCLASS_ID, CODE, NAME, LEVEL, PROVID, PARENTID, STATUS, CREATE_TIME, UPDATE_TIME from rzx_commodity_class
+        select commodityclass_id, code, name, level, provid, parentid, status, create_time, update_time from rzx_commodity_class
     </sql>
 
     <select id="selectCommodityClassList" parameterType="com.rzx.project.domain.CommodityClass" resultMap="CommodityClassResult">
         <include refid="selectCommodityClassVo"/>
         <where>
-            <if test="code != null  and code != ''"> and CODE = #{code}</if>
-            <if test="name != null  and name != ''"> and NAME like concat('%', #{name}, '%')</if>
-            <if test="level != null  and level != ''"> and LEVEL = #{level}</if>
-            <if test="provid != null  and provid != ''"> and PROVID = #{provid}</if>
-            <if test="parentid != null  and parentid != ''"> and PARENTID = #{parentid}</if>
-            <if test="status != null  and status != ''"> and STATUS = #{status}</if>
-            <if test="createTime != null  and createTime != ''"> and CREATE_TIME = #{createTime}</if>
-            <if test="updateTime != null  and updateTime != ''"> and UPDATE_TIME = #{updateTime}</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+            <if test="provid != null  and provid != ''"> and provid = #{provid}</if>
+            <if test="parentid != null  and parentid != ''"> and parentid = #{parentid}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
         </where>
     </select>
 
     <select id="selectCommodityClassById" parameterType="String" resultMap="CommodityClassResult">
         <include refid="selectCommodityClassVo"/>
-        where COMMODITYCLASS_ID = #{commodityclassId}
+        where commodityclass_id = #{commodityclassId}
     </select>
 
 
     <update id="updateCommodityClass" parameterType="com.rzx.project.domain.CommodityClass">
         update rzx_commodity_class
         <trim prefix="SET" suffixOverrides=",">
-            <if test="code != null">CODE = #{code},</if>
-            <if test="name != null">NAME = #{name},</if>
-            <if test="level != null">LEVEL = #{level},</if>
-            <if test="provid != null">PROVID = #{provid},</if>
-            <if test="parentid != null">PARENTID = #{parentid},</if>
-            <if test="status != null">STATUS = #{status},</if>
-            <if test="createTime != null">CREATE_TIME = #{createTime},</if>
-            <if test="updateTime != null">UPDATE_TIME = #{updateTime},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="provid != null">provid = #{provid},</if>
+            <if test="parentid != null">parentid = #{parentid},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
-        where COMMODITYCLASS_ID = #{commodityclassId}
+        where commodityclass_id = #{commodityclassId}
     </update>
 
     <delete id="deleteCommodityClassById" parameterType="String">
-        delete from rzx_commodity_class where COMMODITYCLASS_ID = #{commodityclassId}
+        delete from rzx_commodity_class where commodityclass_id = #{commodityclassId}
     </delete>
 
     <delete id="deleteCommodityClassByIds" parameterType="String">
-        delete from rzx_commodity_class where COMMODITYCLASS_ID in
+        delete from rzx_commodity_class where commodityclass_id in
         <foreach item="commodityclassId" collection="array" open="(" separator="," close=")">
             #{commodityclassId}
         </foreach>

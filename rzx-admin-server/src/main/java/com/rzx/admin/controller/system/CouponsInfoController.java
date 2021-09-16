@@ -43,8 +43,8 @@ public class CouponsInfoController extends BaseController {
      * 查询任智行 券信息列表
      */
 //    @PreAuthorize(hasPermi = "project:info:list")
-    @GetMapping("/list")
-    @ApiOperation(value = "查询任智行 券信息列表")
+    @PostMapping("/list")
+    @ApiOperation(value = "查询 券信息列表")
     public TableDataInfo list(CouponsInfo couponsInfo){
         startPage();
         List<CouponsInfo> list = couponsInfoService.selectCouponsInfoList(couponsInfo);
@@ -54,7 +54,7 @@ public class CouponsInfoController extends BaseController {
     /**
      * 导出任智行 券信息列表
      */
-    @ApiOperation(value = "导出任智行 券信息列表")
+    @ApiOperation(value = "导出 券信息列表")
 //    @PreAuthorize(hasPermi = "project:info:export")
     @Log(title = "任智行 券信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -68,19 +68,19 @@ public class CouponsInfoController extends BaseController {
      * 获取任智行 券信息详细信息
      */
 //    @PreAuthorize(hasPermi = "project:info:query")
-    @ApiOperation(value = "获取任智行 券信息详细信息")
+    @ApiOperation(value = "获取 券信息详细信息")
     @GetMapping(value = "/{couponsinfoId}")
     public AjaxResult<CouponsInfo> getInfo(@PathVariable("couponsinfoId") String couponsinfoId){
         return AjaxResult.success(couponsInfoService.selectCouponsInfoById(couponsinfoId));
     }
 
     /**
-     * 新增任智行 券信息
+     * 新增券号
      */
 //    @PreAuthorize(hasPermi = "project:info:add")
     @Log(title = "任智行 券信息", businessType = BusinessType.INSERT)
-    @ApiOperation(value = "新增任智行 券信息")
-    @PostMapping(value = "/add")
+    @ApiOperation(value = "新增券号")
+    @PostMapping(value = "/batchAdd")
     public AjaxResult<Integer> add(@RequestBody CouponsInfo couponsInfo){
         return toAjax(couponsInfoService.insertCouponsInfo(couponsInfo));
     }

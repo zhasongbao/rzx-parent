@@ -5,119 +5,117 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.rzx.project.mapper.GiftpackageConfigMapper">
 
     <resultMap type="com.rzx.project.domain.GiftpackageConfig" id="GiftpackageConfigResult">
-        <result property="giftpackageId"    column="GIFTPACKAGE_ID"    />
-        <result property="name"    column="NAME"    />
-        <result property="explain"    column="EXPLAIN"    />
-        <result property="initAmount"    column="INIT_AMOUNT"    />
-        <result property="saleAmount"    column="SALE_AMOUNT"    />
-        <result property="type"    column="TYPE"    />
-        <result property="status"    column="STATUS"    />
-        <result property="createTime"    column="CREATE_TIME"    />
-        <result property="updateTime"    column="UPDATE_TIME"    />
-        <result property="salloutCount"    column="SALLOUT_COUNT"    />
-        <result property="productOrder"    column="PRODUCT_ORDER"    />
-        <result property="productLogo"    column="PRODUCT_LOGO"    />
-        <result property="oneLevelIntegral"    column="ONE_LEVEL_INTEGRAL"    />
-        <result property="twoLevelIntegral"    column="TWO_LEVEL_INTEGRAL"    />
-        <result property="threeLevelIntegral"    column="THREE_LEVEL_INTEGRAL"    />
-        <result property="platformSubsidyAmt"    column="PLATFORM_SUBSIDY_AMT"    />
-        <result property="expensePolicy"    column="EXPENSE_POLICY"    />
-        <result property="martRate"    column="MART_RATE"    />
-        <result property="promoteRate"    column="PROMOTE_RATE"    />
-        <result property="manageRate"    column="MANAGE_RATE"    />
-        <result property="shareRate"    column="SHARE_RATE"    />
-        <result property="itRate"    column="IT_RATE"    />
-        <result property="aShareRate"    column="A_SHARE_RATE"    />
-        <result property="bShareRate"    column="B_SHARE_RATE"    />
-        <result property="martType"    column="MART_TYPE"    />
-        <result property="productTaxRate"    column="PRODUCT_TAX_RATE"    />
-        <result property="martValue"    column="MART_VALUE"    />
-        <result property="partner"    column="PARTNER"    />
+        <result property="giftpackageId"    column="giftpackage_id"    />
+        <result property="name"    column="name"    />
+        <result property="explain"    column="explain"    />
+        <result property="initAmount"    column="init_amount"    />
+        <result property="saleAmount"    column="sale_amount"    />
+        <result property="type"    column="type"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="salloutCount"    column="sallout_count"    />
+        <result property="productOrder"    column="product_order"    />
+        <result property="productLogo"    column="product_logo"    />
+        <result property="oneLevelIntegral"    column="one_level_integral"    />
+        <result property="twoLevelIntegral"    column="two_level_integral"    />
+        <result property="threeLevelIntegral"    column="three_level_integral"    />
+        <result property="platformSubsidyAmt"    column="platform_subsidy_amt"    />
+        <result property="expensePolicy"    column="expense_policy"    />
+        <result property="martRate"    column="mart_rate"    />
+        <result property="promoteRate"    column="promote_rate"    />
+        <result property="manageRate"    column="manage_rate"    />
+        <result property="shareRate"    column="share_rate"    />
+        <result property="itRate"    column="it_rate"    />
+        <result property="aShareRate"    column="a_share_rate"    />
+        <result property="bShareRate"    column="b_share_rate"    />
+        <result property="martType"    column="mart_type"    />
+        <result property="productTaxRate"    column="product_tax_rate"    />
+        <result property="martValue"    column="mart_value"    />
+        <result property="partner"    column="partner"    />
     </resultMap>
 
     <sql id="selectGiftpackageConfigVo">
-        select GIFTPACKAGE_ID, NAME, EXPLAIN, INIT_AMOUNT, SALE_AMOUNT, TYPE, STATUS, CREATE_TIME, UPDATE_TIME, SALLOUT_COUNT, PRODUCT_ORDER, PRODUCT_LOGO, ONE_LEVEL_INTEGRAL, TWO_LEVEL_INTEGRAL, THREE_LEVEL_INTEGRAL, PLATFORM_SUBSIDY_AMT, EXPENSE_POLICY, MART_RATE, PROMOTE_RATE, MANAGE_RATE, SHARE_RATE, IT_RATE, A_SHARE_RATE, B_SHARE_RATE, MART_TYPE, PRODUCT_TAX_RATE, MART_VALUE, PARTNER from rzx_giftpackage_config
+        select giftpackage_id, name, explain, init_amount, sale_amount, type, status, create_time, update_time, sallout_count, product_order, product_logo, one_level_integral, two_level_integral, three_level_integral, platform_subsidy_amt, expense_policy, mart_rate, promote_rate, manage_rate, share_rate, it_rate, a_share_rate, b_share_rate, mart_type, product_tax_rate, mart_value, partner from rzx_giftpackage_config
     </sql>
 
     <select id="selectGiftpackageConfigList" parameterType="com.rzx.project.domain.GiftpackageConfig" resultMap="GiftpackageConfigResult">
         <include refid="selectGiftpackageConfigVo"/>
         <where>
-            <if test="name != null  and name != ''"> and NAME like concat('%', #{name}, '%')</if>
-            <if test="explain != null  and explain != ''"> and EXPLAIN = #{explain}</if>
-            <if test="initAmount != null  and initAmount != ''"> and INIT_AMOUNT = #{initAmount}</if>
-            <if test="saleAmount != null  and saleAmount != ''"> and SALE_AMOUNT = #{saleAmount}</if>
-            <if test="type != null  and type != ''"> and TYPE = #{type}</if>
-            <if test="status != null  and status != ''"> and STATUS = #{status}</if>
-            <if test="createTime != null  and createTime != ''"> and CREATE_TIME = #{createTime}</if>
-            <if test="updateTime != null  and updateTime != ''"> and UPDATE_TIME = #{updateTime}</if>
-            <if test="salloutCount != null  and salloutCount != ''"> and SALLOUT_COUNT = #{salloutCount}</if>
-            <if test="productOrder != null "> and PRODUCT_ORDER = #{productOrder}</if>
-            <if test="productLogo != null  and productLogo != ''"> and PRODUCT_LOGO = #{productLogo}</if>
-            <if test="oneLevelIntegral != null  and oneLevelIntegral != ''"> and ONE_LEVEL_INTEGRAL = #{oneLevelIntegral}</if>
-            <if test="twoLevelIntegral != null  and twoLevelIntegral != ''"> and TWO_LEVEL_INTEGRAL = #{twoLevelIntegral}</if>
-            <if test="threeLevelIntegral != null  and threeLevelIntegral != ''"> and THREE_LEVEL_INTEGRAL = #{threeLevelIntegral}</if>
-            <if test="platformSubsidyAmt != null  and platformSubsidyAmt != ''"> and PLATFORM_SUBSIDY_AMT = #{platformSubsidyAmt}</if>
-            <if test="expensePolicy != null  and expensePolicy != ''"> and EXPENSE_POLICY = #{expensePolicy}</if>
-            <if test="martRate != null  and martRate != ''"> and MART_RATE = #{martRate}</if>
-            <if test="promoteRate != null  and promoteRate != ''"> and PROMOTE_RATE = #{promoteRate}</if>
-            <if test="manageRate != null  and manageRate != ''"> and MANAGE_RATE = #{manageRate}</if>
-            <if test="shareRate != null  and shareRate != ''"> and SHARE_RATE = #{shareRate}</if>
-            <if test="itRate != null  and itRate != ''"> and IT_RATE = #{itRate}</if>
-            <if test="aShareRate != null  and aShareRate != ''"> and A_SHARE_RATE = #{aShareRate}</if>
-            <if test="bShareRate != null  and bShareRate != ''"> and B_SHARE_RATE = #{bShareRate}</if>
-            <if test="martType != null  and martType != ''"> and MART_TYPE = #{martType}</if>
-            <if test="productTaxRate != null  and productTaxRate != ''"> and PRODUCT_TAX_RATE = #{productTaxRate}</if>
-            <if test="martValue != null  and martValue != ''"> and MART_VALUE = #{martValue}</if>
-            <if test="partner != null  and partner != ''"> and PARTNER = #{partner}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="explain != null  and explain != ''"> and explain = #{explain}</if>
+            <if test="initAmount != null  and initAmount != ''"> and init_amount = #{initAmount}</if>
+            <if test="saleAmount != null  and saleAmount != ''"> and sale_amount = #{saleAmount}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="salloutCount != null  and salloutCount != ''"> and sallout_count = #{salloutCount}</if>
+            <if test="productOrder != null "> and product_order = #{productOrder}</if>
+            <if test="productLogo != null  and productLogo != ''"> and product_logo = #{productLogo}</if>
+            <if test="oneLevelIntegral != null  and oneLevelIntegral != ''"> and one_level_integral = #{oneLevelIntegral}</if>
+            <if test="twoLevelIntegral != null  and twoLevelIntegral != ''"> and two_level_integral = #{twoLevelIntegral}</if>
+            <if test="threeLevelIntegral != null  and threeLevelIntegral != ''"> and three_level_integral = #{threeLevelIntegral}</if>
+            <if test="platformSubsidyAmt != null  and platformSubsidyAmt != ''"> and platform_subsidy_amt = #{platformSubsidyAmt}</if>
+            <if test="expensePolicy != null  and expensePolicy != ''"> and expense_policy = #{expensePolicy}</if>
+            <if test="martRate != null  and martRate != ''"> and mart_rate = #{martRate}</if>
+            <if test="promoteRate != null  and promoteRate != ''"> and promote_rate = #{promoteRate}</if>
+            <if test="manageRate != null  and manageRate != ''"> and manage_rate = #{manageRate}</if>
+            <if test="shareRate != null  and shareRate != ''"> and share_rate = #{shareRate}</if>
+            <if test="itRate != null  and itRate != ''"> and it_rate = #{itRate}</if>
+            <if test="aShareRate != null  and aShareRate != ''"> and a_share_rate = #{aShareRate}</if>
+            <if test="bShareRate != null  and bShareRate != ''"> and b_share_rate = #{bShareRate}</if>
+            <if test="martType != null  and martType != ''"> and mart_type = #{martType}</if>
+            <if test="productTaxRate != null  and productTaxRate != ''"> and product_tax_rate = #{productTaxRate}</if>
+            <if test="martValue != null  and martValue != ''"> and mart_value = #{martValue}</if>
+            <if test="partner != null  and partner != ''"> and partner = #{partner}</if>
         </where>
     </select>
 
     <select id="selectGiftpackageConfigById" parameterType="String" resultMap="GiftpackageConfigResult">
         <include refid="selectGiftpackageConfigVo"/>
-        where GIFTPACKAGE_ID = #{giftpackageId}
+        where giftpackage_id = #{giftpackageId}
     </select>
 
 
     <update id="updateGiftpackageConfig" parameterType="com.rzx.project.domain.GiftpackageConfig">
         update rzx_giftpackage_config
         <trim prefix="SET" suffixOverrides=",">
-            <if test="name != null">NAME = #{name},</if>
-            <if test="explain != null">EXPLAIN = #{explain},</if>
-            <if test="initAmount != null">INIT_AMOUNT = #{initAmount},</if>
-            <if test="saleAmount != null">SALE_AMOUNT = #{saleAmount},</if>
-            <if test="type != null">TYPE = #{type},</if>
-            <if test="status != null">STATUS = #{status},</if>
-            <if test="createTime != null">CREATE_TIME = #{createTime},</if>
-            <if test="updateTime != null">UPDATE_TIME = #{updateTime},</if>
-            <if test="salloutCount != null">SALLOUT_COUNT = #{salloutCount},</if>
-            <if test="productOrder != null">PRODUCT_ORDER = #{productOrder},</if>
-            <if test="productLogo != null">PRODUCT_LOGO = #{productLogo},</if>
-            <if test="oneLevelIntegral != null">ONE_LEVEL_INTEGRAL = #{oneLevelIntegral},</if>
-            <if test="twoLevelIntegral != null">TWO_LEVEL_INTEGRAL = #{twoLevelIntegral},</if>
-            <if test="threeLevelIntegral != null">THREE_LEVEL_INTEGRAL = #{threeLevelIntegral},</if>
-            <if test="platformSubsidyAmt != null">PLATFORM_SUBSIDY_AMT = #{platformSubsidyAmt},</if>
-            <if test="expensePolicy != null">EXPENSE_POLICY = #{expensePolicy},</if>
-            <if test="martRate != null">MART_RATE = #{martRate},</if>
-            <if test="promoteRate != null">PROMOTE_RATE = #{promoteRate},</if>
-            <if test="manageRate != null">MANAGE_RATE = #{manageRate},</if>
-            <if test="shareRate != null">SHARE_RATE = #{shareRate},</if>
-            <if test="itRate != null">IT_RATE = #{itRate},</if>
-            <if test="aShareRate != null">A_SHARE_RATE = #{aShareRate},</if>
-            <if test="bShareRate != null">B_SHARE_RATE = #{bShareRate},</if>
-            <if test="martType != null">MART_TYPE = #{martType},</if>
-            <if test="productTaxRate != null">PRODUCT_TAX_RATE = #{productTaxRate},</if>
-            <if test="martValue != null">MART_VALUE = #{martValue},</if>
-            <if test="partner != null">PARTNER = #{partner},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="explain != null">explain = #{explain},</if>
+            <if test="initAmount != null">init_amount = #{initAmount},</if>
+            <if test="saleAmount != null">sale_amount = #{saleAmount},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="salloutCount != null">sallout_count = #{salloutCount},</if>
+            <if test="productOrder != null">product_order = #{productOrder},</if>
+            <if test="productLogo != null">product_logo = #{productLogo},</if>
+            <if test="oneLevelIntegral != null">one_level_integral = #{oneLevelIntegral},</if>
+            <if test="twoLevelIntegral != null">two_level_integral = #{twoLevelIntegral},</if>
+            <if test="threeLevelIntegral != null">three_level_integral = #{threeLevelIntegral},</if>
+            <if test="platformSubsidyAmt != null">platform_subsidy_amt = #{platformSubsidyAmt},</if>
+            <if test="expensePolicy != null">expense_policy = #{expensePolicy},</if>
+            <if test="martRate != null">mart_rate = #{martRate},</if>
+            <if test="promoteRate != null">promote_rate = #{promoteRate},</if>
+            <if test="manageRate != null">manage_rate = #{manageRate},</if>
+            <if test="shareRate != null">share_rate = #{shareRate},</if>
+            <if test="itRate != null">it_rate = #{itRate},</if>
+            <if test="aShareRate != null">a_share_rate = #{aShareRate},</if>
+            <if test="bShareRate != null">b_share_rate = #{bShareRate},</if>
+            <if test="martType != null">mart_type = #{martType},</if>
+            <if test="productTaxRate != null">product_tax_rate = #{productTaxRate},</if>
+            <if test="martValue != null">mart_value = #{martValue},</if>
+            <if test="partner != null">partner = #{partner},</if>
         </trim>
-        where GIFTPACKAGE_ID = #{giftpackageId}
+        where giftpackage_id = #{giftpackageId}
     </update>
 
     <delete id="deleteGiftpackageConfigById" parameterType="String">
-        delete from rzx_giftpackage_config where GIFTPACKAGE_ID = #{giftpackageId}
+        delete from rzx_giftpackage_config where giftpackage_id = #{giftpackageId}
     </delete>
 
     <delete id="deleteGiftpackageConfigByIds" parameterType="String">
-        delete from rzx_giftpackage_config where GIFTPACKAGE_ID in
+        delete from rzx_giftpackage_config where giftpackage_id in
         <foreach item="giftpackageId" collection="array" open="(" separator="," close=")">
             #{giftpackageId}
         </foreach>

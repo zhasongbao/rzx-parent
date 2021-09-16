@@ -1,5 +1,7 @@
 package com.rzx.common.constant;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * 通用常量信息
  *
@@ -136,4 +138,21 @@ public class Constants {
      * 资源映射路径 前缀
      */
     public static final String RESOURCE_PREFIX = "/profile";
+
+    /**成功状态码*/
+    public final static String SUCCESS_CODE = "1";
+    /** 接口返回值 失败状态值 */
+    public static final String FAILURE_CODE = "0";
+
+    /** 通用标志-是 */
+    public static final String YES_FLAG = "1";
+    /** 通用标志-否 */
+    public static final String NO_FLAG = "0";
+    public static final String SUCCESS_MSG = "请求成功!";
+    public static final String SERVER_FAILURE_MSG = "服务器异常!";
+    public static final String FAILURE_MSG = "请求失败!";
+
+    public static final String YUNZHONGHE_REQUESTAPILOG = "YUNZHONGHE_REQUESTAPILOG";//请求云中鹤日志及结果
+    public static final String BAILIHUI_REQUESTAPILOG = "BAILIHUI_REQUESTAPILOG";//请求云中鹤日志及结果
+
 }

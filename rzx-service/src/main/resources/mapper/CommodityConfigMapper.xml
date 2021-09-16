@@ -5,113 +5,111 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.rzx.project.mapper.CommodityConfigMapper">
 
     <resultMap type="com.rzx.project.domain.CommodityConfig" id="CommodityConfigResult">
-        <result property="commodityconfigId"    column="COMMODITYCONFIG_ID"    />
-        <result property="commodityCode"    column="COMMODITY_CODE"    />
-        <result property="commodityName"    column="COMMODITY_NAME"    />
-        <result property="brand"    column="BRAND"    />
-        <result property="model"    column="MODEL"    />
-        <result property="thumbnailImage"    column="THUMBNAIL_IMAGE"    />
-        <result property="image"    column="IMAGE"    />
-        <result property="imageUrls"    column="IMAGE_URLS"    />
-        <result property="explain"    column="EXPLAIN"    />
-        <result property="amount"    column="AMOUNT"    />
-        <result property="provid"    column="PROVID"    />
-        <result property="status"    column="STATUS"    />
-        <result property="createTime"    column="CREATE_TIME"    />
-        <result property="updateTime"    column="UPDATE_TIME"    />
-        <result property="productCate"    column="PRODUCT_CATE"    />
-        <result property="productPlace"    column="PRODUCT_PLACE"    />
-        <result property="saleStatus"    column="SALE_STATUS"    />
-        <result property="marketPrice"    column="MARKET_PRICE"    />
-        <result property="retailAmount"    column="RETAIL_AMOUNT"    />
-        <result property="isToReturn"    column="IS_TO_RETURN"    />
-        <result property="giftpackageId"    column="GIFTPACKAGE_ID"    />
-        <result property="chooseFlag"    column="CHOOSE_FLAG"    />
-        <result property="weight"    column="WEIGHT"    />
-        <result property="size"    column="SIZE"    />
-        <result property="typeId"    column="TYPE_ID"    />
-        <result property="providSource"    column="PROVID_SOURCE"    />
+        <result property="commodityconfigId"    column="commodityconfig_id"    />
+        <result property="commodityCode"    column="commodity_code"    />
+        <result property="commodityName"    column="commodity_name"    />
+        <result property="brand"    column="brand"    />
+        <result property="model"    column="model"    />
+        <result property="thumbnailImage"    column="thumbnail_image"    />
+        <result property="image"    column="image"    />
+        <result property="imageUrls"    column="image_urls"    />
+        <result property="explain"    column="explain"    />
+        <result property="amount"    column="amount"    />
+        <result property="provid"    column="provid"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="productCate"    column="product_cate"    />
+        <result property="productPlace"    column="product_place"    />
+        <result property="saleStatus"    column="sale_status"    />
+        <result property="marketPrice"    column="market_price"    />
+        <result property="retailAmount"    column="retail_amount"    />
+        <result property="isToReturn"    column="is_to_return"    />
+        <result property="giftpackageId"    column="giftpackage_id"    />
+        <result property="chooseFlag"    column="choose_flag"    />
+        <result property="weight"    column="weight"    />
+        <result property="size"    column="size"    />
+        <result property="typeId"    column="type_id"    />
+        <result property="providSource"    column="provid_source"    />
     </resultMap>
 
     <sql id="selectCommodityConfigVo">
-        select COMMODITYCONFIG_ID, COMMODITY_CODE, COMMODITY_NAME, BRAND, MODEL, THUMBNAIL_IMAGE, IMAGE, IMAGE_URLS, EXPLAIN, AMOUNT, PROVID, STATUS, CREATE_TIME, UPDATE_TIME, PRODUCT_CATE, PRODUCT_PLACE, SALE_STATUS, MARKET_PRICE, RETAIL_AMOUNT, IS_TO_RETURN, GIFTPACKAGE_ID, CHOOSE_FLAG, WEIGHT, SIZE, TYPE_ID, PROVID_SOURCE from rzx_commodity_config
+        select commodityconfig_id, commodity_code, commodity_name, brand, model, thumbnail_image, image, image_urls, explain, amount, provid, status, create_time, update_time, product_cate, product_place, sale_status, market_price, retail_amount, is_to_return, giftpackage_id, choose_flag, weight, size, type_id, provid_source from rzx_commodity_config
     </sql>
 
     <select id="selectCommodityConfigList" parameterType="com.rzx.project.domain.CommodityConfig" resultMap="CommodityConfigResult">
         <include refid="selectCommodityConfigVo"/>
         <where>
-            <if test="commodityCode != null  and commodityCode != ''"> and COMMODITY_CODE = #{commodityCode}</if>
-            <if test="commodityName != null  and commodityName != ''"> and COMMODITY_NAME like concat('%', #{commodityName}, '%')</if>
-            <if test="brand != null  and brand != ''"> and BRAND = #{brand}</if>
-            <if test="model != null  and model != ''"> and MODEL = #{model}</if>
-            <if test="thumbnailImage != null  and thumbnailImage != ''"> and THUMBNAIL_IMAGE = #{thumbnailImage}</if>
-            <if test="image != null  and image != ''"> and IMAGE = #{image}</if>
-            <if test="imageUrls != null  and imageUrls != ''"> and IMAGE_URLS = #{imageUrls}</if>
-            <if test="explain != null  and explain != ''"> and EXPLAIN = #{explain}</if>
-            <if test="amount != null  and amount != ''"> and AMOUNT = #{amount}</if>
-            <if test="provid != null  and provid != ''"> and PROVID = #{provid}</if>
-            <if test="status != null  and status != ''"> and STATUS = #{status}</if>
-            <if test="createTime != null  and createTime != ''"> and CREATE_TIME = #{createTime}</if>
-            <if test="updateTime != null  and updateTime != ''"> and UPDATE_TIME = #{updateTime}</if>
-            <if test="productCate != null  and productCate != ''"> and PRODUCT_CATE = #{productCate}</if>
-            <if test="productPlace != null  and productPlace != ''"> and PRODUCT_PLACE = #{productPlace}</if>
-            <if test="saleStatus != null  and saleStatus != ''"> and SALE_STATUS = #{saleStatus}</if>
-            <if test="marketPrice != null  and marketPrice != ''"> and MARKET_PRICE = #{marketPrice}</if>
-            <if test="retailAmount != null  and retailAmount != ''"> and RETAIL_AMOUNT = #{retailAmount}</if>
-            <if test="isToReturn != null  and isToReturn != ''"> and IS_TO_RETURN = #{isToReturn}</if>
-            <if test="giftpackageId != null  and giftpackageId != ''"> and GIFTPACKAGE_ID = #{giftpackageId}</if>
-            <if test="chooseFlag != null  and chooseFlag != ''"> and CHOOSE_FLAG = #{chooseFlag}</if>
-            <if test="weight != null  and weight != ''"> and WEIGHT = #{weight}</if>
-            <if test="size != null  and size != ''"> and SIZE = #{size}</if>
-            <if test="typeId != null  and typeId != ''"> and TYPE_ID = #{typeId}</if>
-            <if test="providSource != null  and providSource != ''"> and PROVID_SOURCE = #{providSource}</if>
+            <if test="commodityCode != null  and commodityCode != ''"> and commodity_code = #{commodityCode}</if>
+            <if test="commodityName != null  and commodityName != ''"> and commodity_name like concat('%', #{commodityName}, '%')</if>
+            <if test="brand != null  and brand != ''"> and brand = #{brand}</if>
+            <if test="model != null  and model != ''"> and model = #{model}</if>
+            <if test="thumbnailImage != null  and thumbnailImage != ''"> and thumbnail_image = #{thumbnailImage}</if>
+            <if test="image != null  and image != ''"> and image = #{image}</if>
+            <if test="imageUrls != null  and imageUrls != ''"> and image_urls = #{imageUrls}</if>
+            <if test="explain != null  and explain != ''"> and explain = #{explain}</if>
+            <if test="amount != null  and amount != ''"> and amount = #{amount}</if>
+            <if test="provid != null  and provid != ''"> and provid = #{provid}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="productCate != null  and productCate != ''"> and product_cate = #{productCate}</if>
+            <if test="productPlace != null  and productPlace != ''"> and product_place = #{productPlace}</if>
+            <if test="saleStatus != null  and saleStatus != ''"> and sale_status = #{saleStatus}</if>
+            <if test="marketPrice != null  and marketPrice != ''"> and market_price = #{marketPrice}</if>
+            <if test="retailAmount != null  and retailAmount != ''"> and retail_amount = #{retailAmount}</if>
+            <if test="isToReturn != null  and isToReturn != ''"> and is_to_return = #{isToReturn}</if>
+            <if test="giftpackageId != null  and giftpackageId != ''"> and giftpackage_id = #{giftpackageId}</if>
+            <if test="chooseFlag != null  and chooseFlag != ''"> and choose_flag = #{chooseFlag}</if>
+            <if test="weight != null  and weight != ''"> and weight = #{weight}</if>
+            <if test="size != null  and size != ''"> and size = #{size}</if>
+            <if test="typeId != null  and typeId != ''"> and type_id = #{typeId}</if>
+            <if test="providSource != null  and providSource != ''"> and provid_source = #{providSource}</if>
         </where>
     </select>
 
     <select id="selectCommodityConfigById" parameterType="String" resultMap="CommodityConfigResult">
         <include refid="selectCommodityConfigVo"/>
-        where COMMODITYCONFIG_ID = #{commodityconfigId}
+        where commodityconfig_id = #{commodityconfigId}
     </select>
 
 
     <update id="updateCommodityConfig" parameterType="com.rzx.project.domain.CommodityConfig">
         update rzx_commodity_config
         <trim prefix="SET" suffixOverrides=",">
-            <if test="commodityCode != null">COMMODITY_CODE = #{commodityCode},</if>
-            <if test="commodityName != null">COMMODITY_NAME = #{commodityName},</if>
-            <if test="brand != null">BRAND = #{brand},</if>
-            <if test="model != null">MODEL = #{model},</if>
-            <if test="thumbnailImage != null">THUMBNAIL_IMAGE = #{thumbnailImage},</if>
-            <if test="image != null">IMAGE = #{image},</if>
-            <if test="imageUrls != null">IMAGE_URLS = #{imageUrls},</if>
-            <if test="explain != null">EXPLAIN = #{explain},</if>
-            <if test="amount != null">AMOUNT = #{amount},</if>
-            <if test="provid != null">PROVID = #{provid},</if>
-            <if test="status != null">STATUS = #{status},</if>
-            <if test="createTime != null">CREATE_TIME = #{createTime},</if>
-            <if test="updateTime != null">UPDATE_TIME = #{updateTime},</if>
-            <if test="productCate != null">PRODUCT_CATE = #{productCate},</if>
-            <if test="productPlace != null">PRODUCT_PLACE = #{productPlace},</if>
-            <if test="saleStatus != null">SALE_STATUS = #{saleStatus},</if>
-            <if test="marketPrice != null">MARKET_PRICE = #{marketPrice},</if>
-            <if test="retailAmount != null">RETAIL_AMOUNT = #{retailAmount},</if>
-            <if test="isToReturn != null">IS_TO_RETURN = #{isToReturn},</if>
-            <if test="giftpackageId != null">GIFTPACKAGE_ID = #{giftpackageId},</if>
-            <if test="chooseFlag != null">CHOOSE_FLAG = #{chooseFlag},</if>
-            <if test="weight != null">WEIGHT = #{weight},</if>
-            <if test="size != null">SIZE = #{size},</if>
-            <if test="typeId != null">TYPE_ID = #{typeId},</if>
-            <if test="providSource != null">PROVID_SOURCE = #{providSource},</if>
+            <if test="commodityCode != null">commodity_code = #{commodityCode},</if>
+            <if test="commodityName != null">commodity_name = #{commodityName},</if>
+            <if test="brand != null">brand = #{brand},</if>
+            <if test="model != null">model = #{model},</if>
+            <if test="thumbnailImage != null">thumbnail_image = #{thumbnailImage},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="imageUrls != null">image_urls = #{imageUrls},</if>
+            <if test="explain != null">explain = #{explain},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="provid != null">provid = #{provid},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="productCate != null">product_cate = #{productCate},</if>
+            <if test="productPlace != null">product_place = #{productPlace},</if>
+            <if test="saleStatus != null">sale_status = #{saleStatus},</if>
+            <if test="marketPrice != null">market_price = #{marketPrice},</if>
+            <if test="retailAmount != null">retail_amount = #{retailAmount},</if>
+            <if test="isToReturn != null">is_to_return = #{isToReturn},</if>
+            <if test="giftpackageId != null">giftpackage_id = #{giftpackageId},</if>
+            <if test="chooseFlag != null">choose_flag = #{chooseFlag},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="size != null">size = #{size},</if>
+            <if test="typeId != null">type_id = #{typeId},</if>
+            <if test="providSource != null">provid_source = #{providSource},</if>
         </trim>
-        where COMMODITYCONFIG_ID = #{commodityconfigId}
+        where commodityconfig_id = #{commodityconfigId}
     </update>
 
     <delete id="deleteCommodityConfigById" parameterType="String">
-        delete from rzx_commodity_config where COMMODITYCONFIG_ID = #{commodityconfigId}
+        delete from rzx_commodity_config where commodityconfig_id = #{commodityconfigId}
     </delete>
 
     <delete id="deleteCommodityConfigByIds" parameterType="String">
-        delete from rzx_commodity_config where COMMODITYCONFIG_ID in
+        delete from rzx_commodity_config where commodityconfig_id in
         <foreach item="commodityconfigId" collection="array" open="(" separator="," close=")">
             #{commodityconfigId}
         </foreach>

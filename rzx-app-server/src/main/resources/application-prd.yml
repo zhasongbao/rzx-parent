@@ -62,13 +62,4 @@ spring:
             multi-statement-allow: true
 
 
-#供应商配置
-provid:
-  yunzhonghe:
-    url: http://beta.open.limofang.cn/api
-    wid: 3597
-    accessToken: 3DyQs3P8gaNeXmhhGfutrqmwxFwagg
-  bailihui:
-    url: http://t.blhapi.li91.com
-    appId: 3000100071
-    appKey: cc3ded0b341572fd108d2911e0b8ac27
+#
