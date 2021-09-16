@@ -40,7 +40,7 @@ public class CommodityConfigController extends BaseController {
      * 查询任智行 商品配置列表
      */
 //    @PreAuthorize(hasPermi = "project:config:list")
-    @GetMapping("/list")
+    @PostMapping("/list")
     @ApiOperation(value = "查询任智行 商品配置列表")
     public TableDataInfo list(CommodityConfig commodityConfig){
         startPage();

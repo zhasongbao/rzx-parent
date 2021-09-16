@@ -34,12 +34,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectCommodityConfigVo">
-        select commodityconfig_id, commodity_code, commodity_name, brand, model, thumbnail_image, image, image_urls, explain, amount, provid, status, create_time, update_time, product_cate, product_place, sale_status, market_price, retail_amount, is_to_return, giftpackage_id, choose_flag, weight, size, type_id, provid_source from rzx_commodity_config
+        select commodityconfig_id, commodity_code, commodity_name, brand, model, thumbnail_image, image, image_urls, `explain`, amount, provid, status, create_time, update_time, product_cate, product_place, sale_status, market_price, retail_amount, is_to_return, giftpackage_id, choose_flag, weight, size, type_id, provid_source from rzx_commodity_config
     </sql>
 
     <select id="selectCommodityConfigList" parameterType="com.rzx.project.domain.CommodityConfig" resultMap="CommodityConfigResult">
         <include refid="selectCommodityConfigVo"/>
-        <where>
+        <trim prefix="where" prefixOverrides="AND|OR">
             <if test="commodityCode != null  and commodityCode != ''"> and commodity_code = #{commodityCode}</if>
             <if test="commodityName != null  and commodityName != ''"> and commodity_name like concat('%', #{commodityName}, '%')</if>
             <if test="brand != null  and brand != ''"> and brand = #{brand}</if>
@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="size != null  and size != ''"> and size = #{size}</if>
             <if test="typeId != null  and typeId != ''"> and type_id = #{typeId}</if>
             <if test="providSource != null  and providSource != ''"> and provid_source = #{providSource}</if>
-        </where>
+        </trim>
     </select>
 
     <select id="selectCommodityConfigById" parameterType="String" resultMap="CommodityConfigResult">

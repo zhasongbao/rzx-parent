@@ -26,11 +26,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectCouponsInfoVo">
-        select couponsinfo_id, batch_no, coupons_pwd, sale_status, check_status, check_time, status, create_time, create_by, update_time, update_by, coupons_qrcode, in_source, type,
+        select a.couponsinfo_id, a.batch_no, a.coupons_pwd, a.sale_status, a.check_status, a.check_time, a.status, a.create_time, a.create_by, a.update_time, a.update_by, a.coupons_qrcode, a.in_source, a.type,
             b.giftpackage_id,b.order_id,c.init_amount,c.sale_amount
-        from rzx_coupons_info
-        left join TB_SALESORDER b on a.COUPONSINFO_ID = b.COUPONSINFO_ID and b.ORDER_STATUS='1'
-        left join TB_GIFTPACKAGE c on  b.GIFTPACKAGE_ID = c.GIFTPACKAGE_ID
+        from rzx_coupons_info a
+        left join rzx_order_info b on a.couponsinfo_id = b.couponsinfo_id and b.order_status='1'
+        left join rzx_giftpackage_config c on  b.giftpackage_id = c.giftpackage_id
     </sql>
 
     <select id="selectCouponsInfoList" parameterType="com.rzx.project.domain.CouponsInfo" resultMap="CouponsInfoResult">
