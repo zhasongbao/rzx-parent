@@ -1,5 +1,6 @@
 package com.rzx.project.domain.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -20,6 +21,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class OrderInfoDTO implements Serializable {
 
-    @NotBlank(message = "用户id不能为空")
+//    @NotBlank(message = "用户id不能为空")
+    @ApiModelProperty("用户openId")
     private String userId;
 }

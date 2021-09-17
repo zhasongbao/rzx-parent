@@ -3,6 +3,7 @@ package com.rzx.app.controller;
 import com.rzx.common.annotation.Log;
 import com.rzx.common.core.controller.BaseController;
 import com.rzx.common.core.domain.AjaxResult;
+import com.rzx.common.core.domain.model.AppLoginUser;
 import com.rzx.common.core.page.TableDataInfo;
 import com.rzx.common.enums.BusinessType;
 import com.rzx.common.utils.poi.ExcelUtil;
@@ -14,6 +15,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,7 +39,7 @@ public class OrderInfoController extends BaseController {
      */
     @PostMapping("/list")
     @ApiOperation(value = "查询已购订单列表")
-    public TableDataInfo list(OrderInfoDTO dto){
+    public TableDataInfo list(@RequestBody @Validated OrderInfoDTO dto){
         startPage();
         List<OrderInfo> list = orderInfoService.selectOrderInfoList(dto);
         return getDataTable(list);

@@ -42,7 +42,7 @@ public class ChannelUserLoginService {
      */
     public String userLogin(UserLoginDTO dto) {
         ChannelUserInfo userInfo = userInfoService.selectUserInfoByIdAndInSource(dto);
-        if(ObjectUtils.isEmpty(userInfo) && !"88888888".equals(dto.getUserId())){
+        if(ObjectUtils.isEmpty(userInfo)){
             throw new CustomException("未找到用户信息!");
         }
         // 用户验证

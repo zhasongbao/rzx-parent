@@ -4,9 +4,7 @@ package com.rzx.framework.web.service;
 import com.rzx.common.constant.Constants;
 import com.rzx.common.core.domain.entity.ChannelUserInfo;
 import com.rzx.common.core.domain.model.AppLoginUser;
-import com.rzx.common.enums.UserStatus;
 import com.rzx.common.exception.BaseException;
-import com.rzx.framework.remote.hcb.RemoteTruckUserWallet;
 import com.rzx.project.domain.dto.UserLoginDTO;
 import com.rzx.project.service.IUserInfoService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,14 +27,12 @@ import java.util.Objects;
 public class ChannelUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private RemoteTruckUserWallet remoteTruckUserWallet;
-    @Autowired
     private IUserInfoService userInfoService;
 
     /**
      * 查询用户信息
      *
-     * @param userId 手机号码
+     * @param userId 渠道用户id
      * @return
      * @throws UsernameNotFoundException
      */

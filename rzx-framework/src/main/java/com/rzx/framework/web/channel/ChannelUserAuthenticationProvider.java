@@ -24,16 +24,15 @@ public class ChannelUserAuthenticationProvider implements AuthenticationProvider
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-        String mobile = (String) authentication.getPrincipal();
-        //根据手机号加载用户
-        UserDetails user = userDetailsService.loadUserByUsername(mobile);
+        String userId = (String) authentication.getPrincipal();
+        //根据userId加载用户
+        UserDetails user = userDetailsService.loadUserByUsername(userId);
 
         // 已认证的Token
         ChannelUserAuthenticationToken authenticationToken = new ChannelUserAuthenticationToken(user, user.getAuthorities());
 
         // 复制之前的请求信息到认证后的Token中
         authenticationToken.setDetails(authenticationToken.getDetails());
-//        return createSuccessAuthentication(user, authentication, user);
         return authenticationToken;
     }
 
