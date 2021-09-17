@@ -2,12 +2,8 @@ package com.rzx.app.controller;
 
 import com.rzx.common.constant.Constants;
 import com.rzx.common.core.domain.AjaxResult;
-import com.rzx.common.core.domain.model.MobileLoginBody;
-import com.rzx.framework.web.service.SmsCodeLoginService;
-import com.rzx.project.domain.UserInfo;
-import com.rzx.project.domain.dto.OrderInfoDTO;
+import com.rzx.framework.web.service.ChannelUserLoginService;
 import com.rzx.project.domain.dto.UserLoginDTO;
-import com.rzx.project.service.ISmsCodeService;
 import com.rzx.project.service.IUserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
@@ -33,8 +29,17 @@ public class AppLoginController {
     private IUserInfoService userInfoService;
 
     @Autowired
-    private SmsCodeLoginService smsCodeLoginService;
+    private ChannelUserLoginService smsCodeLoginService;
 
+
+//    @PostMapping(value = "/login")
+//    @ApiOperation(value = "app登录接口")
+//    public AjaxResult<Map<String, String>> appLogin(@RequestBody MobileLoginBody loginBody) {
+//        String token = smsCodeLoginService.smsCodeLogin(loginBody.getPhoneNumber(), loginBody.getVerifyCode());
+//        Map<String, String> map = new HashMap<>(2);
+//        map.put(Constants.TOKEN, token);
+//        return AjaxResult.success(map);
+//    }
 
     @PostMapping(value = "/login")
     @ApiOperation(value = "app登录接口")

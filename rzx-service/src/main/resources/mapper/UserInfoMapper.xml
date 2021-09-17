@@ -14,6 +14,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
+    <resultMap type="com.rzx.common.core.domain.entity.ChannelUserInfo" id="ChannelUserInfoResult">
+        <result property="userInfoId"    column="user_info_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="source"    column="source"    />
+        <result property="status"    column="status"    />
+        <result property="score"    column="score"    />
+    </resultMap>
+
     <sql id="selectUserInfoVo">
         select user_info_id, user_id, source, status, score, create_time, update_time from rzx_user_info
     </sql>
@@ -33,9 +41,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where user_info_id = #{userInfoId}
     </select>
 
-    <select id="selectUserInfoByIdAndInSource" parameterType="com.rzx.project.domain.dto.UserLoginDTO" resultMap="UserInfoResult">
+    <select id="selectUserInfoByIdAndInSource" parameterType="com.rzx.project.domain.dto.UserLoginDTO" resultMap="ChannelUserInfoResult">
         <include refid="selectUserInfoVo"/>
-        where user_id = #{userInfoId} and source =  #{source}
+        where user_id = #{userId} and source =  #{source}
     </select>
 
 

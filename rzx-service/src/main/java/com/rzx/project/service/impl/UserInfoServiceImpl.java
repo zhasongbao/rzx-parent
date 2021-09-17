@@ -3,6 +3,7 @@ package com.rzx.project.service.impl;
 import java.util.List;
 import java.time.LocalDateTime;
 
+import com.rzx.common.core.domain.entity.ChannelUserInfo;
 import com.rzx.project.domain.dto.UserLoginDTO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
      * @return 用户信息
      */
     @Override
-    public UserInfo selectUserInfoByIdAndInSource(UserLoginDTO dto) {
+    public ChannelUserInfo selectUserInfoByIdAndInSource(UserLoginDTO dto) {
         return userInfoMapper.selectUserInfoByIdAndInSource(dto);
     }
 

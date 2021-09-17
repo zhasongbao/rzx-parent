@@ -3,6 +3,7 @@ package com.rzx.project.service;
 import java.util.List;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.rzx.common.constant.CacheConstants;
+import com.rzx.common.core.domain.entity.ChannelUserInfo;
 import com.rzx.common.core.domain.model.AppLoginUser;
 import com.rzx.common.core.text.Convert;
 import com.rzx.common.exception.CustomException;
@@ -32,7 +33,7 @@ public interface IUserInfoService extends IService<UserInfo> {
      *
      * @return 用户信息
      */
-    UserInfo selectUserInfoByIdAndInSource(UserLoginDTO dtoe);
+    ChannelUserInfo selectUserInfoByIdAndInSource(UserLoginDTO dtoe);
 
     /**
      * 查询用户信息列表

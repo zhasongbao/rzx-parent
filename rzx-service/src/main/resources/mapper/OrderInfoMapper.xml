@@ -47,33 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectOrderInfoList" parameterType="com.rzx.project.domain.dto.OrderInfoDTO" resultMap="OrderInfoResult">
         <include refid="selectOrderInfoVo"/>
         <where>
-            <if test="orderId != null  and orderId != ''"> and order_id = #{orderId}</if>
-            <if test="orderKey != null  and orderKey != ''"> and order_key = #{orderKey}</if>
-            <if test="orderShipmentFee != null  and orderShipmentFee != ''"> and order_shipment_fee = #{orderShipmentFee}</if>
-            <if test="salemanId != null  and salemanId != ''"> and saleman_id = #{salemanId}</if>
-            <if test="giftpackageId != null  and giftpackageId != ''"> and giftpackage_id = #{giftpackageId}</if>
-            <if test="commodityCode != null  and commodityCode != ''"> and commodity_code = #{commodityCode}</if>
-            <if test="couponsinfoId != null  and couponsinfoId != ''"> and couponsinfo_id = #{couponsinfoId}</if>
-            <if test="initTotalAmount != null  and initTotalAmount != ''"> and init_total_amount = #{initTotalAmount}</if>
-            <if test="saleTotalAmount != null  and saleTotalAmount != ''"> and sale_total_amount = #{saleTotalAmount}</if>
-            <if test="payWay != null  and payWay != ''"> and pay_way = #{payWay}</if>
-            <if test="outTradeId != null  and outTradeId != ''"> and out_trade_id = #{outTradeId}</if>
-            <if test="notifyjson != null  and notifyjson != ''"> and notifyjson = #{notifyjson}</if>
-            <if test="qrCode != null  and qrCode != ''"> and qr_code = #{qrCode}</if>
-            <if test="orderStatus != null  and orderStatus != ''"> and order_status = #{orderStatus}</if>
-            <if test="saleTime != null  and saleTime != ''"> and sale_time = #{saleTime}</if>
-            <if test="receiveaddressId != null  and receiveaddressId != ''"> and receiveaddress_id = #{receiveaddressId}</if>
-            <if test="orderProvid != null  and orderProvid != ''"> and order_provid = #{orderProvid}</if>
-            <if test="errorCode != null  and errorCode != ''"> and error_code = #{errorCode}</if>
-            <if test="errorMessage != null  and errorMessage != ''"> and error_message = #{errorMessage}</if>
-            <if test="status != null  and status != ''"> and status = #{status}</if>
-            <if test="brokerage != null  and brokerage != ''"> and brokerage = #{brokerage}</if>
-            <if test="qrBillUrl != null  and qrBillUrl != ''"> and qr_bill_url = #{qrBillUrl}</if>
-            <if test="billrecordId != null  and billrecordId != ''"> and billrecord_id = #{billrecordId}</if>
-            <if test="payEndTime != null  and payEndTime != ''"> and pay_end_time = #{payEndTime}</if>
-            <if test="inSource != null  and inSource != ''"> and in_source = #{inSource}</if>
-            <if test="orderType != null  and orderType != ''"> and order_type = #{orderType}</if>
-            <if test="parentId != null  and parentId != ''"> and parent_id = #{parentId}</if>
+            <if test="userId != null  and userId != ''"> and saleman_id = #{userId}</if>
         </where>
     </select>
 

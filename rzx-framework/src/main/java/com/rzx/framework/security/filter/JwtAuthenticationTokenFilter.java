@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.rzx.common.core.domain.model.AppLoginUser;
+import com.rzx.framework.web.channel.ChannelUserAuthenticationToken;
 import com.rzx.framework.web.service.AppTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -47,9 +48,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             } else {
                 appTokenService.verifyToken(appLoginUser);
-//                SmsCodeAuthenticationToken authenticationToken = new SmsCodeAuthenticationToken(appLoginUser, appLoginUser.getAuthorities());
+//                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(appLoginUser, appLoginUser.getAuthorities());
 //                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 //                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                ChannelUserAuthenticationToken authenticationToken = new ChannelUserAuthenticationToken(appLoginUser, appLoginUser.getAuthorities());
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
         chain.doFilter(request, response);

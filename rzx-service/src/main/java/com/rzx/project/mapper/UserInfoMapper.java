@@ -2,6 +2,7 @@ package com.rzx.project.mapper;
 
 import java.util.List;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.rzx.common.core.domain.entity.ChannelUserInfo;
 import com.rzx.project.domain.UserInfo;
 import com.rzx.project.domain.dto.UserLoginDTO;
 
@@ -21,7 +22,7 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
      */
     UserInfo selectUserInfoById(String userInfoId);
 
-    UserInfo selectUserInfoByIdAndInSource(UserLoginDTO dto);
+    ChannelUserInfo selectUserInfoByIdAndInSource(UserLoginDTO dto);
 
     /**
      * 查询用户信息列表
