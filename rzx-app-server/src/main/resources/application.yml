@@ -1,7 +1,7 @@
 # 开发环境配置
 server:
-  # 服务器的HTTP端口，默认为8099
-  port: 8098
+  # 服务器的HTTP端口，默认为8092
+  port: 8092
   servlet:
     # 应用的访问路径
     context-path: /rzx-app
