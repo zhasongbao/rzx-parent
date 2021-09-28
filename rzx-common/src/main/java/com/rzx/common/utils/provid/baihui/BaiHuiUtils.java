@@ -59,62 +59,6 @@ public class BaiHuiUtils {
         return token;
     }
 
-//    /**
-//     * 请求URL
-//     */
-//    private static String URL_DEV = "http://t.blhapi.li91.com";
-//    private static String URL_PRO = "";
-//
-//    public static String APPID_DEV = "3000100071";
-//    public static String APPID_PRO = "";
-//    /**
-//     * 云中鹤 accessToken
-//     */
-//    private static String APPKEY_DEV = "cc3ded0b341572fd108d2911e0b8ac27";
-//    private static String APPKEY_PRO = "";
-
-//	public static String url{
-//		if(Constants.YES_FLAG.equals(Constants.getValue("RYX_CONFIG"))){
-//			return URL_PRO;
-//		}else{
-//			return URL_DEV;
-//		}
-//	}
-//
-//	public static String appId{
-//		if(Constants.YES_FLAG.equals(Constants.getValue("RYX_CONFIG"))){
-//			return APPID_PRO;
-//		}else{
-//			return APPID_DEV;
-//		}
-//	}
-//
-//	public static String appKey{
-//		if(Constants.YES_FLAG.equals(Constants.getValue("RYX_CONFIG"))){
-//			return APPKEY_PRO;
-//		}else{
-//			return APPKEY_DEV;
-//		}
-//	}
-
-//    /**
-//     * 通用日志保存
-//     *
-//     * @param requestDTO
-//     * @param method
-//     * @param responseDTO
-//     */
-//    public static void saveLog(String requestDTO, String method, JSONObject responseDTO) throws Exception {
-//        CommonService commonService = (CommonService) ServiceHelper.getService("commonService");
-//        if (commonService != null) {
-//            PageData pd = new PageData();
-//            pd.put("requestDTO", requestDTO);
-//            pd.put("method", method);
-//            pd.put("responseDTO", responseDTO);
-//            commonService.YZHRequestLogSave(pd);
-//        }
-//    }
-
     public static void main(String[] args) throws Exception {
 //		getToken(); 	//获取授权token f5315d3e05c6d3b9087e56afd3615ea8
 //		getGoodsId("41d3b67a9f2a1752f0ae0db43401dc26");	//查询商品ID 2000220,2000227,2000249,2000300,2000325,2000329,2000381
@@ -186,7 +130,7 @@ public class BaiHuiUtils {
                 resp = JSON.parseObject(HttpClientUtil.doPostToBaiHuiPro(url, JSONObject.toJSONString(param),"utf-8"));
             }else{
                 // 测试环境调用http
-                resp = requestToBh(url, param);
+                resp = HttpClientUtil.doPostToBaiHui(url, param);
             }
         } catch (Exception e) {
             logger.error("BaiHuiUtil_requestToBh_e=",e);
