@@ -13,15 +13,15 @@ import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 /**
- * 用户信息对象 rzx_user_info
+ * 任智行渠道用户信息对象 rzx_user_info
  *
  * @author zy
- * @date 2021-09-16
+ * @date 2021-09-28
  */
 @Data
 @ToString
 @TableName("rzx_user_info")
-@ApiModel(value = "用户信息对象", description = "用户信息rzx_user_info表")
+@ApiModel(value = "任智行渠道用户信息对象", description = "任智行渠道用户信息rzx_user_info表")
 @EqualsAndHashCode(callSuper = true)
 public class UserInfo extends BaseEntity {
 
@@ -32,15 +32,15 @@ public class UserInfo extends BaseEntity {
     @TableId(value ="user_info_id", type = IdType.ASSIGN_ID)
     private String userInfoId;
     
-    /** 来源用户id */
-    @Excel(name = "来源用户id")
-    @ApiModelProperty(value = "来源用户id")
+    /** 渠道来源用户id 各渠道用户openId */
+    @Excel(name = "渠道来源用户id 各渠道用户openId")
+    @ApiModelProperty(value = "渠道来源用户id 各渠道用户openId")
     @TableField(value = "user_id")
     private String userId;
     
-    /** 来源(1-任货行 2-任意行 3-任通行) */
-    @Excel(name = "来源(1-任货行 2-任意行 3-任通行)")
-    @ApiModelProperty(value = "来源(1-任货行 2-任意行 3-任通行)")
+    /** 渠道来源(1-任货行 2-任意行 3-任通行) */
+    @Excel(name = "渠道来源(1-任货行 2-任意行 3-任通行)")
+    @ApiModelProperty(value = "渠道来源(1-任货行 2-任意行 3-任通行)")
     @TableField(value = "source")
     private String source;
     
@@ -54,7 +54,7 @@ public class UserInfo extends BaseEntity {
     @Excel(name = "积分")
     @ApiModelProperty(value = "积分")
     @TableField(value = "score")
-    private String score;
+    private Integer score;
     
 
 

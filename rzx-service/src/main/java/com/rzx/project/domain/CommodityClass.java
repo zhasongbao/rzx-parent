@@ -13,15 +13,15 @@ import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 /**
- * 商品分类对象 rzx_commodity_class
+ * 任智行 商品分类对象 rzx_commodity_class
  *
  * @author zy
- * @date 2021-09-16
+ * @date 2021-09-28
  */
 @Data
 @ToString
 @TableName("rzx_commodity_class")
-@ApiModel(value = "商品分类对象", description = "商品分类rzx_commodity_class表")
+@ApiModel(value = "任智行 商品分类对象", description = "任智行 商品分类rzx_commodity_class表")
 @EqualsAndHashCode(callSuper = true)
 public class CommodityClass extends BaseEntity {
 

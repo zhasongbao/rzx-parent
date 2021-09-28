@@ -8,7 +8,7 @@ import com.rzx.project.domain.CouponsInfo;
  * 任智行 券信息Mapper接口
  *
  * @author zy
- * @date 2021-09-15
+ * @date 2021-09-28
  */
 public interface CouponsInfoMapper extends BaseMapper<CouponsInfo> {
 

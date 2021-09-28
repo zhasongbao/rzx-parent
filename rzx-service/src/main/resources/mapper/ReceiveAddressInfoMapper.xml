@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rzx.project.mapper.ReceiveaddressInfoMapper">
+<mapper namespace="com.rzx.project.mapper.ReceiveAddressInfoMapper">
 
-    <resultMap type="com.rzx.project.domain.ReceiveaddressInfo" id="ReceiveaddressInfoResult">
+    <resultMap type="ReceiveAddressInfo" id="ReceiveAddressInfoResult">
         <result property="receiveaddressId"    column="receiveaddress_id"    />
         <result property="salemanId"    column="saleman_id"    />
         <result property="province"    column="province"    />
@@ -19,17 +19,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="receivePhone"    column="receive_phone"    />
         <result property="receiveAddress"    column="receive_address"    />
         <result property="status"    column="status"    />
-        <result property="provid"    column="provid"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
-    <sql id="selectReceiveaddressInfoVo">
-        select receiveaddress_id, saleman_id, province, province_name, city, city_name, county, county_name, town, town_name, receive_name, receive_phone, receive_address, status, provid, create_time, update_time from rzx_receiveaddress_info
+    <sql id="selectReceiveAddressInfoVo">
+        select receiveaddress_id, saleman_id, province, province_name, city, city_name, county, county_name, town, town_name, receive_name, receive_phone, receive_address, status, create_time, update_time from rzx_receive_address_info
     </sql>
 
-    <select id="selectReceiveaddressInfoList" parameterType="com.rzx.project.domain.ReceiveaddressInfo" resultMap="ReceiveaddressInfoResult">
-        <include refid="selectReceiveaddressInfoVo"/>
+    <select id="selectReceiveAddressInfoList" parameterType="ReceiveAddressInfo" resultMap="ReceiveAddressInfoResult">
+        <include refid="selectReceiveAddressInfoVo"/>
         <where>
             <if test="salemanId != null  and salemanId != ''"> and saleman_id = #{salemanId}</if>
             <if test="province != null  and province != ''"> and province = #{province}</if>
@@ -44,18 +43,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="receivePhone != null  and receivePhone != ''"> and receive_phone = #{receivePhone}</if>
             <if test="receiveAddress != null  and receiveAddress != ''"> and receive_address = #{receiveAddress}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
-            <if test="provid != null  and provid != ''"> and provid = #{provid}</if>
         </where>
     </select>
 
-    <select id="selectReceiveaddressInfoById" parameterType="String" resultMap="ReceiveaddressInfoResult">
-        <include refid="selectReceiveaddressInfoVo"/>
+    <select id="selectReceiveAddressInfoById" parameterType="String" resultMap="ReceiveAddressInfoResult">
+        <include refid="selectReceiveAddressInfoVo"/>
         where receiveaddress_id = #{receiveaddressId}
     </select>
 
 
-    <update id="updateReceiveaddressInfo" parameterType="com.rzx.project.domain.ReceiveaddressInfo">
-        update rzx_receiveaddress_info
+    <update id="updateReceiveAddressInfo" parameterType="ReceiveAddressInfo">
+        update rzx_receive_address_info
         <trim prefix="SET" suffixOverrides=",">
             <if test="salemanId != null">saleman_id = #{salemanId},</if>
             <if test="province != null">province = #{province},</if>
@@ -70,19 +68,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="receivePhone != null">receive_phone = #{receivePhone},</if>
             <if test="receiveAddress != null">receive_address = #{receiveAddress},</if>
             <if test="status != null">status = #{status},</if>
-            <if test="provid != null">provid = #{provid},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
         where receiveaddress_id = #{receiveaddressId}
     </update>
 
-    <delete id="deleteReceiveaddressInfoById" parameterType="String">
-        delete from rzx_receiveaddress_info where receiveaddress_id = #{receiveaddressId}
+    <delete id="deleteReceiveAddressInfoById" parameterType="String">
+        delete from rzx_receive_address_info where receiveaddress_id = #{receiveaddressId}
     </delete>
 
-    <delete id="deleteReceiveaddressInfoByIds" parameterType="String">
-        delete from rzx_receiveaddress_info where receiveaddress_id in
+    <delete id="deleteReceiveAddressInfoByIds" parameterType="String">
+        delete from rzx_receive_address_info where receiveaddress_id in
         <foreach item="receiveaddressId" collection="array" open="(" separator="," close=")">
             #{receiveaddressId}
         </foreach>

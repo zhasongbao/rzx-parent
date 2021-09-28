@@ -15,7 +15,7 @@ import com.rzx.project.service.IOrderInfoService;
  * 任智行 销售订单Service业务层处理
  *
  * @author zy
- * @date 2021-09-15
+ * @date 2021-09-28
  */
 @Service
 public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper,OrderInfo> implements IOrderInfoService {
@@ -36,12 +36,12 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper,OrderInfo>
     /**
      * 查询任智行 销售订单列表
      *
-     * @param dto 任智行 销售订单
+     * @param orderInfo 任智行 销售订单
      * @return 任智行 销售订单
      */
     @Override
-    public List<OrderInfo> selectOrderInfoList(OrderInfoDTO dto) {
-        return orderInfoMapper.selectOrderInfoList(dto);
+    public List<OrderInfo> selectOrderInfoList(OrderInfoDTO orderInfo) {
+        return orderInfoMapper.selectOrderInfoList(orderInfo);
     }
 
     /**

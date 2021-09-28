@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rzx.project.mapper.BillrecordMapper">
+<mapper namespace="com.rzx.project.mapper.BillRecordMapper">
 
-    <resultMap type="com.rzx.project.domain.Billrecord" id="BillrecordResult">
-        <result property="billrecordId"    column="billrecord_id"    />
+    <resultMap type="BillRecord" id="BillRecordResult">
+        <result property="billRecordId"    column="bill_record_id"    />
         <result property="billStatus"    column="bill_status"    />
         <result property="type"    column="type"    />
         <result property="upName"    column="up_name"    />
@@ -19,12 +19,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
-    <sql id="selectBillrecordVo">
-        select billrecord_id, bill_status, type, up_name, email, tax_number, company_address, company_phone, open_bank, account_bank, create_time, update_time from rzx_billrecord
+    <sql id="selectBillRecordVo">
+        select bill_record_id, bill_status, type, up_name, email, tax_number, company_address, company_phone, open_bank, account_bank, create_time, update_time from rzx_bill_record
     </sql>
 
-    <select id="selectBillrecordList" parameterType="com.rzx.project.domain.Billrecord" resultMap="BillrecordResult">
-        <include refid="selectBillrecordVo"/>
+    <select id="selectBillRecordList" parameterType="BillRecord" resultMap="BillRecordResult">
+        <include refid="selectBillRecordVo"/>
         <where>
             <if test="billStatus != null  and billStatus != ''"> and bill_status = #{billStatus}</if>
             <if test="type != null  and type != ''"> and type = #{type}</if>
@@ -38,14 +38,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
 
-    <select id="selectBillrecordById" parameterType="String" resultMap="BillrecordResult">
-        <include refid="selectBillrecordVo"/>
-        where billrecord_id = #{billrecordId}
+    <select id="selectBillRecordById" parameterType="String" resultMap="BillRecordResult">
+        <include refid="selectBillRecordVo"/>
+        where bill_record_id = #{billRecordId}
     </select>
 
 
-    <update id="updateBillrecord" parameterType="com.rzx.project.domain.Billrecord">
-        update rzx_billrecord
+    <update id="updateBillRecord" parameterType="BillRecord">
+        update rzx_bill_record
         <trim prefix="SET" suffixOverrides=",">
             <if test="billStatus != null">bill_status = #{billStatus},</if>
             <if test="type != null">type = #{type},</if>
@@ -59,17 +59,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
-        where billrecord_id = #{billrecordId}
+        where bill_record_id = #{billRecordId}
     </update>
 
-    <delete id="deleteBillrecordById" parameterType="String">
-        delete from rzx_billrecord where billrecord_id = #{billrecordId}
+    <delete id="deleteBillRecordById" parameterType="String">
+        delete from rzx_bill_record where bill_record_id = #{billRecordId}
     </delete>
 
-    <delete id="deleteBillrecordByIds" parameterType="String">
-        delete from rzx_billrecord where billrecord_id in
-        <foreach item="billrecordId" collection="array" open="(" separator="," close=")">
-            #{billrecordId}
+    <delete id="deleteBillRecordByIds" parameterType="String">
+        delete from rzx_bill_record where bill_record_id in
+        <foreach item="billRecordId" collection="array" open="(" separator="," close=")">
+            #{billRecordId}
         </foreach>
     </delete>
 </mapper>

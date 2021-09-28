@@ -9,7 +9,7 @@ import com.rzx.project.domain.dto.OrderInfoDTO;
  * 任智行 销售订单Mapper接口
  *
  * @author zy
- * @date 2021-09-15
+ * @date 2021-09-28
  */
 public interface OrderInfoMapper extends BaseMapper<OrderInfo> {
 
@@ -24,10 +24,10 @@ public interface OrderInfoMapper extends BaseMapper<OrderInfo> {
     /**
      * 查询任智行 销售订单列表
      *
-     * @param dto 任智行 销售订单
+     * @param orderInfo 任智行 销售订单
      * @return 任智行 销售订单集合
      */
-    List<OrderInfo> selectOrderInfoList(OrderInfoDTO dto);
+    List<OrderInfo> selectOrderInfoList(OrderInfoDTO orderInfo);
 
 
     /**

@@ -6,7 +6,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.rzx.common.constant.Constants;
 import com.rzx.common.core.mongodb.MongodbUtils;
 import com.rzx.common.utils.MD5;
-import com.rzx.common.utils.PageData;
 import com.rzx.common.utils.http.HttpClientUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,7 +81,7 @@ public class YunZhongHeUtils {
 //	public static void saveLog(String requestDTO, String method, JSONObject responseDTO) throws Exception{
 //		CommonService commonService = (CommonService) ServiceHelper.getService("commonService");
 //		if (commonService != null) {
-//			PageData pd = new PageData();
+//			JSONObject pd = new JSONObject();
 //			pd.put("requestDTO", requestDTO);
 //			pd.put("method", method);
 //			pd.put("responseDTO", responseDTO);
@@ -133,7 +132,7 @@ public class YunZhongHeUtils {
 	 * @param address 物流信息
 	 * @return
 	 */
-	public static JSONObject createOrder(PageData order, PageData address) {
+	public static JSONObject createOrder(JSONObject order, JSONObject address) {
 		String timestamp = String.valueOf((new Date()).getTime());
 		String param = "wid="+ wid +"&timestamp="+timestamp+"&token=" + MD5.md5(wid + accessToken + timestamp).toUpperCase();
 		param = param + "&thirdOrder=" + order.getString("ORDER_ID")
@@ -161,6 +160,33 @@ public class YunZhongHeUtils {
 		param = param + "&thirdOrder=" + orderId;
 		JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url + "/order/cancel.php", param);
 		saveLog(param,respJson,orderId,"/order/cancel.php");
+		return respJson;
+	}
+
+	/**
+	 * 云中鹤 2.7.取消订单接口（子订单取消）
+	 * @param order	订单
+	 * @return
+	 */
+	public static JSONObject cancelByOrderKey(JSONObject order) {
+		String timestamp = String.valueOf((new Date()).getTime());
+		String param = "wid="+ wid +"&timestamp="+timestamp+"&token=" +MD5.md5(wid + accessToken + timestamp).toUpperCase();
+		param = param + "&thirdOrder=" + order.getString("ORDER_ID") + "&orderKey=" + order.getString("ORDER_KEY") ;
+		JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url + "/order/cancelByOrderKey.php", param);
+		return respJson;
+	}
+
+	/**
+	 * 云中鹤 1.10.批量查询商品库存（system产品库存少于10的时候返回库存数）
+	 * @param pid_nums	商品ID_数量， 多个使用逗号(,)拼接
+	 * @param pid_nums	配送地址ID, 格式：1_0_0 (分别代表1、2、3级地址)
+	 * @return
+	 */
+	public static JSONObject stockBatch(String pid_nums,String address) {
+		String timestamp = String.valueOf((new Date()).getTime());
+		String param = "wid="+ wid +"&timestamp="+timestamp+"&token=" +MD5.md5(wid + accessToken + timestamp).toUpperCase();
+		param = param + "&pid_nums=" + pid_nums + "&address=" + address;
+		JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url + "/product/v2/stockBatch.php", param);
 		return respJson;
 	}
 

@@ -13,7 +13,7 @@ import com.rzx.project.service.ICommodityConfigService;
  * 任智行 商品配置Service业务层处理
  *
  * @author zy
- * @date 2021-09-15
+ * @date 2021-09-28
  */
 @Service
 public class CommodityConfigServiceImpl extends ServiceImpl<CommodityConfigMapper,CommodityConfig> implements ICommodityConfigService {

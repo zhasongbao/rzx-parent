@@ -42,10 +42,10 @@ public class CouponsInfoController extends BaseController {
     /**
      * 查询任智行 券信息列表
      */
-//    @PreAuthorize(hasPermi = "project:info:list")
+    @PreAuthorize("@ss.hasPermi('project:info:list')")
     @PostMapping("/list")
     @ApiOperation(value = "查询 券信息列表")
-    public TableDataInfo list(CouponsInfo couponsInfo){
+    public TableDataInfo list(@RequestBody CouponsInfo couponsInfo){
         startPage();
         List<CouponsInfo> list = couponsInfoService.selectCouponsInfoList(couponsInfo);
         return getDataTable(list);

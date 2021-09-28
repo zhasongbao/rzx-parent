@@ -5,18 +5,23 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.rzx.common.constant.Constants;
 import com.rzx.common.core.controller.BaseController;
-import com.rzx.common.utils.PageData;
+import com.rzx.common.utils.BigDecimalUtils;
 import com.rzx.common.utils.Tools;
 import com.rzx.common.utils.provid.baihui.BaiHuiUtils;
+import com.rzx.project.domain.CommodityConfig;
+import com.rzx.project.domain.OrderInfo;
 import com.rzx.project.service.ICommodityConfigService;
+import com.rzx.project.service.ICommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import java.net.URLDecoder;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zhasbao
@@ -29,12 +34,15 @@ import java.util.Date;
 public class SuppliereBhImpl extends BaseController implements SuppliereInterface {
 
     @Autowired
-    private ICommodityConfigService commodityconfigService;
+    private ICommodityConfigService commodityConfigService;
+
+    @Autowired
+    private ICommonService commonService;
 
     @Override
-    public PageData createOrder(PageData order, PageData address) {
-        PageData resp = new PageData();
-        String token = BaiHuiUtils.getBaihuiToken();
+    public JSONObject createOrder(JSONObject order,JSONObject address) {
+        JSONObject resp = new JSONObject();
+        String token = commonService.getBaihuiToken();
         if(StringUtils.isEmpty(token)){
             resp.put("RC", Constants.FAILURE_CODE);
             resp.put("RM", "获取token失败");
@@ -55,9 +63,9 @@ public class SuppliereBhImpl extends BaseController implements SuppliereInterfac
     }
 
     @Override
-    public PageData getAddress(String type,String code) {
-        PageData resp = new PageData();
-        String token = BaiHuiUtils.getBaihuiToken();
+    public JSONObject getAddress(String type,String code) {
+        JSONObject resp = new JSONObject();
+        String token = commonService.getBaihuiToken();
         if(StringUtils.isEmpty(token)){
             resp.put("RC", Constants.FAILURE_CODE);
             resp.put("RM", "获取token失败");
@@ -81,9 +89,8 @@ public class SuppliereBhImpl extends BaseController implements SuppliereInterfac
             }
             if (!ObjectUtils.isEmpty(respJson) && respJson.getBoolean("result") && !ObjectUtils.isEmpty(respJson.getJSONObject("data"))
                     && !ObjectUtils.isEmpty(respJson.getJSONObject("data").getJSONArray("list"))) {
-                JSONObject o;
                 for (int i = 0; i < respJson.getJSONObject("data").getJSONArray("list").size(); i++) {
-                    o = (JSONObject) respJson.getJSONObject("data").getJSONArray("list").get(i);
+                    JSONObject o = (JSONObject) respJson.getJSONObject("data").getJSONArray("list").get(i);
                     o.put("code",o.getString("id"));
                     rows.add(o);
                 }
@@ -103,7 +110,7 @@ public class SuppliereBhImpl extends BaseController implements SuppliereInterfac
 
     @Override
     public boolean getValid(String provinceId,String cityId,String countyId,String townId) {
-        String token = BaiHuiUtils.getBaihuiToken();
+        String token = commonService.getBaihuiToken();
         if(StringUtils.isEmpty(token)){
             return false;
         }
@@ -121,29 +128,170 @@ public class SuppliereBhImpl extends BaseController implements SuppliereInterfac
     }
 
     @Override
-    public JSONObject orderTrack(String orderId) {
-        String token = BaiHuiUtils.getBaihuiToken();
-        return null;
+    public JSONObject orderTrack(OrderInfo order) {
+        JSONObject data = new JSONObject();
+        String token = commonService.getBaihuiToken();
+        if(StringUtils.isEmpty(token)){
+            return data;
+        }
+//        JSONObject resp = BaiHuiUtils.getOrderShipment(token, order.getString("ORDER_KEY"));
+//        if (!ObjectUtils.isEmpty(resp) && resp.getBoolean("result") && !ObjectUtils.isEmpty(resp.getJSONObject("data")) &&
+//                !ObjectUtil.isEmpty(resp.getJSONObject("data").getJSONArray("express"))) {
+//            JSONArray express = resp.getJSONObject("data").getJSONArray("express");
+//            JSONObject json = (JSONObject) express.get(0);
+//            data.put("third_order", order.getString("ORDER_ID"));
+//            data.put("shipment_name", json.getString("express_name"));
+//            data.put("shipment_order", json.getString("express_code"));
+//            String status = json.getString("express_status");
+//            if("0".equals(status)){
+//                status = "receive";
+//            }else if("3".equals(status)){
+//                status = "signed";
+//            }
+//            data.put("status", status);
+//            List<JSONObject> contents = new ArrayList<>();
+//            JSONArray express_track = json.getJSONArray("express_track");
+//            for (Object o : express_track) {
+//                JSONObject da = (JSONObject) o;
+//                JSONObject track = new JSONObject();
+//                track.put("time", da.getString("time"));
+//                track.put("description", da.getString("status"));
+//                contents.add(track);
+//            }
+//            data.put("contents", contents);
+//        }
+        if(!StringUtils.isEmpty(order.getExpressCode())){
+            JSONObject resp = BaiHuiUtils.getOrderExpress(token, order.getOrderKey(), order.getExpressCode());
+            if (!ObjectUtils.isEmpty(resp) && resp.getBoolean("result") && !ObjectUtils.isEmpty(resp.getJSONObject("data"))) {
+                data.put("third_order", order.getOrderId());
+                data.put("shipment_name", resp.getJSONObject("data").getString("expName"));
+                data.put("shipment_order", resp.getJSONObject("data").getString("expCode"));
+                String status = resp.getJSONObject("data").getString("expStatus");
+                if("0".equals(status)){
+                    status = "receive";
+                }else if("3".equals(status)){
+                    status = "signed";
+                }
+                data.put("status", status);
+                List<JSONObject> contents = new ArrayList<>();
+                JSONArray express_track = resp.getJSONObject("data").getJSONArray("expTrack");
+                for (Object o : express_track) {
+                    JSONObject da = (JSONObject) o;
+                    JSONObject track = new JSONObject();
+                    track.put("time", da.getString("time"));
+                    track.put("description", da.getString("status"));
+                    contents.add(track);
+                }
+                data.put("contents", contents);
+            }
+        }
+        return data;
     }
 
     @Override
-    public void detial(PageData commodity) {
+    public CommodityConfig detial(CommodityConfig commodity) {
         try {
-            String token = BaiHuiUtils.getBaihuiToken();
+            String token = commonService.getBaihuiToken();
             if(StringUtils.isEmpty(token)){
-                return;
+                return null;
             }
-            JSONObject infoResp = BaiHuiUtils.getGoodInfo(token,commodity.getString("COMMODITY_CODE"));
+            JSONObject infoResp = BaiHuiUtils.getGoodInfo(token,commodity.getCommodityCode());
             if(!ObjectUtil.isEmpty(infoResp) && infoResp.getBoolean("result") && !ObjectUtil.isEmpty(infoResp.getJSONObject("data"))
                     && !ObjectUtil.isEmpty(infoResp.getJSONObject("data").get("product"))){
                 JSONObject product = infoResp.getJSONObject("data").getJSONObject("product");
-                commodity.put("UPDATE_TIME", Tools.date2Str(new Date()));
+                commodity.setUpdateTime(LocalDateTime.now());
                 dowith(commodity, product);
-//                commodityconfigService.updateCommodityConfig(commodity);
+                commodityConfigService.updateCommodityConfig(commodity);
             }
         } catch (Exception e) {
             logger.error(e.toString(), e);
         }
+        return commodity;
+    }
+
+    @Override
+    public JSONObject cancelOrder(OrderInfo order) {
+        JSONObject resp = new JSONObject();
+        String token = commonService.getBaihuiToken();
+        if(StringUtils.isEmpty(token)){
+            resp.put("RC", Constants.FAILURE_CODE);
+            resp.put("RM", "获取token失败");
+            return resp;
+        }
+        JSONObject infoResp = BaiHuiUtils.cancelOrder(token,order.getOrderKey());
+        if(!ObjectUtil.isEmpty(infoResp) && infoResp.getBoolean("result")){
+            resp.put("RC", Constants.SUCCESS_CODE);
+            resp.put("RM", "获取token失败");
+            return resp;
+        }else{
+            resp.put("RC", Constants.FAILURE_CODE);
+            resp.put("RM", "调用百礼汇取消订单失败！");
+            return resp;
+        }
+    }
+
+    @Override
+    public List<JSONObject> stockBatch(List<Object> list, String province, String city, String county, String town) {
+        List<JSONObject> respList = new ArrayList<>();
+        String token = commonService.getBaihuiToken();
+        if(StringUtils.isEmpty(token)){
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject data = (JSONObject) list.get(i);
+                data.put("provid","2");
+                data.put("state","0");
+                data.put("detail_msg","获取token失败");
+                respList.add(data);
+            }
+            return respList;
+        }
+//        // 根据商品属性获取库存
+//        List<JSONObject> jdList = new ArrayList<>();
+//        List<JSONObject> notJdList = new ArrayList<>();
+//        for (int i = 0; i < list.size(); i++) {
+//            JSONObject data = (JSONObject) list.get(i);
+//            if("3".equals(data.getString("typeId"))){
+//                jdList.add(data);
+//            }else{
+//                notJdList.add(data);
+//            }
+//        }
+        // 查询区域库存
+        JSONObject json = BaiHuiUtils.getStoreAsNum(token, list, province, city, county, town);
+        if(!ObjectUtil.isEmpty(json) && json.getBoolean("result") && !ObjectUtil.isEmpty(json.getJSONObject("data"))){
+            for (Object o : json.getJSONObject("data").keySet()) {
+                JSONObject detail = (JSONObject) json.getJSONObject("data").get(o);
+                detail.put("provid","2");
+                respList.add(detail);
+            }
+        }else{
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject data = (JSONObject) list.get(i);
+                data.put("provid","2");
+                data.put("state","0");
+                data.put("detail_msg","获取百汇区域库存失败");
+                respList.add(data);
+            }
+        }
+//        if(CollectionUtils.isEmpty(notJdList)){
+//            // 查询商品区域库存
+//            String itemIds = "";
+//            for (int i = 0; i < notJdList.size(); i++) {
+//                if(StringUtils.isEmpty(itemIds)){
+//                    itemIds = notJdList.get(i).getString("itemId");
+//                }else{
+//                    itemIds = "," + notJdList.get(i).getString("itemId");
+//                }
+//            }
+//            JSONObject json = BaiHuiUtils.getRegionStore(token,itemIds, province, city, county, town);
+//            if(!ObjectUtil.isEmpty(json) && json.getBoolean("result") && !ObjectUtil.isEmpty(json.getJSONObject("data"))){
+//                for (Object o : json.getJSONObject("data").keySet()) {
+//                    JSONObject detail = (JSONObject) json.getJSONObject("data").get(o);
+//                    detail.put("provid","2");
+//                    respList.add(detail);
+//                }
+//            }
+//        }
+        return respList;
     }
 
     /**
@@ -151,34 +299,27 @@ public class SuppliereBhImpl extends BaseController implements SuppliereInterfac
      * @param pd
      * @param product
      */
-    public void dowith(PageData pd, JSONObject product) {
+    public void dowith(CommodityConfig pd, JSONObject product) {
         try {
-            pd.put("TYPE_ID", product.getString("typeid"));
-            pd.put("PROVID_SOURCE", product.getString("typeid"));
-            pd.put("COMMODITY_NAME", StringUtils.isEmpty(product.getString("product_name")) ? "" : URLDecoder.decode(product.getString("product_name")));
-            String PROVID_SOURCE = product.getString("product_group");
-            if ("1".equals(PROVID_SOURCE)) {
-                PROVID_SOURCE = "system";
-            } else if ("4".equals(PROVID_SOURCE)) {
-                PROVID_SOURCE = "jindong";
-            } else if ("5".equals(PROVID_SOURCE)) {
-                PROVID_SOURCE = "wangyi";
-            }
-            pd.put("PROVID_SOURCE", PROVID_SOURCE);
-            pd.put("EXPLAIN", StringUtils.isEmpty(product.getString("sell_point")) ? "" : URLDecoder.decode(product.getString("sell_point")));
-            pd.put("PRODUCT_CATE", product.getString("category_id"));
-            pd.put("BRAND", StringUtils.isEmpty(product.getString("brand")) ? "" : URLDecoder.decode(product.getString("brand")));
-            pd.put("MARKET_PRICE", product.getString("market_price"));
-            pd.put("RETAIL_AMOUNT", product.getString("settlement"));
-            pd.put("SALE_STATUS", product.getString("state").equals("1") ? "selling" : "undercarriage");
-            pd.put("THUMBNAIL_IMAGE", product.getString("product_images"));
-            pd.put("IMAGE_URLS", product.getString("images"));
+            pd.setTypeId(product.getString("typeid"));
+            pd.setCommodityName(StringUtils.isEmpty(product.getString("product_name")) ? "" : URLDecoder.decode(product.getString("product_name")));
+            pd.setProvidSource(product.getString("product_group"));
+            pd.setExplain(StringUtils.isEmpty(product.getString("sell_point")) ? "" : URLDecoder.decode(product.getString("sell_point")));
+            pd.setProductCate(product.getString("category_id"));
+            pd.setBrand(StringUtils.isEmpty(product.getString("brand")) ? "" : URLDecoder.decode(product.getString("brand")));
+            pd.setMarketPrice(product.getString("market_price"));
+            pd.setRetailAmount(product.getString("settlement"));
+            String amount = BigDecimalUtils.multiply(product.getString("settlement"),"1.1",2);
+            pd.setAmount(amount);
+            pd.setSaleStatus(product.getString("state"));
+            pd.setThumbnailImage(product.getString("product_images"));
+            pd.setImageUrls(product.getString("images"));
             if("0".equals(product.getString("state"))){
                 // 下架商品挪出礼包/商品库
-                pd.put("GIFTPACKAGE_ID", "");
-                pd.put("CHOOSE_FLAG", Constants.NO_FLAG);
+                pd.setGiftpackageId("");
+                pd.setChooseFlag(Constants.NO_FLAG);
             }
-            pd.put("IMAGE", StringUtils.isEmpty(product.getString("app_introduce")) ? "" : URLDecoder.decode(product.getString("app_introduce")));
+            pd.setImage(StringUtils.isEmpty(product.getString("app_introduce")) ? "" : URLDecoder.decode(product.getString("app_introduce")));
         } catch (Exception e) {
             logger.error("forCommodityBhTask_dowith_e=" + e);
         }

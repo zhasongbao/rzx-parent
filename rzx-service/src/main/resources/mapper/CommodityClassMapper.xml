@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rzx.project.mapper.CommodityClassMapper">
 
-    <resultMap type="com.rzx.project.domain.CommodityClass" id="CommodityClassResult">
+    <resultMap type="CommodityClass" id="CommodityClassResult">
         <result property="commodityclassId"    column="commodityclass_id"    />
         <result property="code"    column="code"    />
         <result property="name"    column="name"    />
@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select commodityclass_id, code, name, level, provid, parentid, status, create_time, update_time from rzx_commodity_class
     </sql>
 
-    <select id="selectCommodityClassList" parameterType="com.rzx.project.domain.CommodityClass" resultMap="CommodityClassResult">
+    <select id="selectCommodityClassList" parameterType="CommodityClass" resultMap="CommodityClassResult">
         <include refid="selectCommodityClassVo"/>
         <where>
             <if test="code != null  and code != ''"> and code = #{code}</if>
@@ -38,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 
-    <update id="updateCommodityClass" parameterType="com.rzx.project.domain.CommodityClass">
+    <update id="updateCommodityClass" parameterType="CommodityClass">
         update rzx_commodity_class
         <trim prefix="SET" suffixOverrides=",">
             <if test="code != null">code = #{code},</if>

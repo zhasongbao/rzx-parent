@@ -1,13 +1,11 @@
 package com.rzx.common.constant;
 
-import org.springframework.beans.factory.annotation.Value;
-
 /**
- * 通用常量信息
+ * MongoDB 表常量名
  *
- * @author zy
+ * @author zhasbao
  */
-public class Constants {
+public class MongoTable {
 
     /**
      * UTF-8 字符集

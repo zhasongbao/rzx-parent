@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 import com.rzx.common.core.domain.entity.ChannelUserInfo;
 import com.rzx.project.domain.dto.UserLoginDTO;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -14,10 +13,10 @@ import com.rzx.project.domain.UserInfo;
 import com.rzx.project.service.IUserInfoService;
 
 /**
- * 用户信息Service业务层处理
+ * 任智行渠道用户信息Service业务层处理
  *
  * @author zy
- * @date 2021-09-16
+ * @date 2021-09-28
  */
 @Service
 public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> implements IUserInfoService {
@@ -25,10 +24,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
     private UserInfoMapper userInfoMapper;
 
     /**
-     * 查询用户信息
+     * 查询任智行渠道用户信息
      *
-     * @param userInfoId 用户信息ID
-     * @return 用户信息
+     * @param userInfoId 任智行渠道用户信息ID
+     * @return 任智行渠道用户信息
      */
     @Override
     public UserInfo selectUserInfoById(String userInfoId) {
@@ -46,12 +45,11 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
         return userInfoMapper.selectUserInfoByIdAndInSource(dto);
     }
 
-
     /**
-     * 查询用户信息列表
+     * 查询任智行渠道用户信息列表
      *
-     * @param userInfo 用户信息
-     * @return 用户信息
+     * @param userInfo 任智行渠道用户信息
+     * @return 任智行渠道用户信息
      */
     @Override
     public List<UserInfo> selectUserInfoList(UserInfo userInfo) {
@@ -59,9 +57,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
     }
 
     /**
-     * 新增用户信息
+     * 新增任智行渠道用户信息
      *
-     * @param userInfo 用户信息
+     * @param userInfo 任智行渠道用户信息
      * @return 结果
      */
     @Override
@@ -73,9 +71,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
     }
 
     /**
-     * 修改用户信息
+     * 修改任智行渠道用户信息
      *
-     * @param userInfo 用户信息
+     * @param userInfo 任智行渠道用户信息
      * @return 结果
      */
     @Override
@@ -85,9 +83,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
     }
 
     /**
-     * 批量删除用户信息
+     * 批量删除任智行渠道用户信息
      *
-     * @param userInfoIds 需要删除的用户信息ID
+     * @param userInfoIds 需要删除的任智行渠道用户信息ID
      * @return 结果
      */
     @Override
@@ -96,9 +94,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
     }
 
     /**
-     * 删除用户信息信息
+     * 删除任智行渠道用户信息信息
      *
-     * @param userInfoId 用户信息ID
+     * @param userInfoId 任智行渠道用户信息ID
      * @return 结果
      */
     @Override

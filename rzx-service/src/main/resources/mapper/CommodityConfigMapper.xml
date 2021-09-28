@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rzx.project.mapper.CommodityConfigMapper">
 
-    <resultMap type="com.rzx.project.domain.CommodityConfig" id="CommodityConfigResult">
+    <resultMap type="CommodityConfig" id="CommodityConfigResult">
         <result property="commodityconfigId"    column="commodityconfig_id"    />
         <result property="commodityCode"    column="commodity_code"    />
         <result property="commodityName"    column="commodity_name"    />
@@ -31,15 +31,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="size"    column="size"    />
         <result property="typeId"    column="type_id"    />
         <result property="providSource"    column="provid_source"    />
+        <result property="rate"    column="rate"    />
     </resultMap>
 
     <sql id="selectCommodityConfigVo">
-        select commodityconfig_id, commodity_code, commodity_name, brand, model, thumbnail_image, image, image_urls, `explain`, amount, provid, status, create_time, update_time, product_cate, product_place, sale_status, market_price, retail_amount, is_to_return, giftpackage_id, choose_flag, weight, size, type_id, provid_source from rzx_commodity_config
+        select commodityconfig_id, commodity_code, commodity_name, brand, model, thumbnail_image, image, image_urls, explain, amount, provid, status, create_time, update_time, product_cate, product_place, sale_status, market_price, retail_amount, is_to_return, giftpackage_id, choose_flag, weight, size, type_id, provid_source, rate from rzx_commodity_config
     </sql>
 
-    <select id="selectCommodityConfigList" parameterType="com.rzx.project.domain.CommodityConfig" resultMap="CommodityConfigResult">
+    <select id="selectCommodityConfigList" parameterType="CommodityConfig" resultMap="CommodityConfigResult">
         <include refid="selectCommodityConfigVo"/>
-        <trim prefix="where" prefixOverrides="AND|OR">
+        <where>
             <if test="commodityCode != null  and commodityCode != ''"> and commodity_code = #{commodityCode}</if>
             <if test="commodityName != null  and commodityName != ''"> and commodity_name like concat('%', #{commodityName}, '%')</if>
             <if test="brand != null  and brand != ''"> and brand = #{brand}</if>
@@ -63,7 +64,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="size != null  and size != ''"> and size = #{size}</if>
             <if test="typeId != null  and typeId != ''"> and type_id = #{typeId}</if>
             <if test="providSource != null  and providSource != ''"> and provid_source = #{providSource}</if>
-        </trim>
+            <if test="rate != null  and rate != ''"> and rate = #{rate}</if>
+        </where>
     </select>
 
     <select id="selectCommodityConfigById" parameterType="String" resultMap="CommodityConfigResult">
@@ -72,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 
-    <update id="updateCommodityConfig" parameterType="com.rzx.project.domain.CommodityConfig">
+    <update id="updateCommodityConfig" parameterType="CommodityConfig">
         update rzx_commodity_config
         <trim prefix="SET" suffixOverrides=",">
             <if test="commodityCode != null">commodity_code = #{commodityCode},</if>
@@ -100,6 +102,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="size != null">size = #{size},</if>
             <if test="typeId != null">type_id = #{typeId},</if>
             <if test="providSource != null">provid_source = #{providSource},</if>
+            <if test="rate != null">rate = #{rate},</if>
         </trim>
         where commodityconfig_id = #{commodityconfigId}
     </update>

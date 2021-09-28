@@ -8,7 +8,7 @@ import com.rzx.project.domain.CommodityClass;
  * 任智行 商品分类Service接口
  *
  * @author zy
- * @date 2021-09-15
+ * @date 2021-09-28
  */
 public interface ICommodityClassService extends IService<CommodityClass> {
 

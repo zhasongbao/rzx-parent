@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rzx.project.mapper.GiftpackageConfigMapper">
+<mapper namespace="com.rzx.project.mapper.GiftPackageConfigMapper">
 
-    <resultMap type="com.rzx.project.domain.GiftpackageConfig" id="GiftpackageConfigResult">
+    <resultMap type="GiftPackageConfig" id="GiftPackageConfigResult">
         <result property="giftpackageId"    column="giftpackage_id"    />
         <result property="name"    column="name"    />
         <result property="explain"    column="explain"    />
@@ -35,12 +35,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="partner"    column="partner"    />
     </resultMap>
 
-    <sql id="selectGiftpackageConfigVo">
-        select giftpackage_id, name, explain, init_amount, sale_amount, type, status, create_time, update_time, sallout_count, product_order, product_logo, one_level_integral, two_level_integral, three_level_integral, platform_subsidy_amt, expense_policy, mart_rate, promote_rate, manage_rate, share_rate, it_rate, a_share_rate, b_share_rate, mart_type, product_tax_rate, mart_value, partner from rzx_giftpackage_config
+    <sql id="selectGiftPackageConfigVo">
+        select giftpackage_id, name, explain, init_amount, sale_amount, type, status, create_time, update_time, sallout_count, product_order, product_logo, one_level_integral, two_level_integral, three_level_integral, platform_subsidy_amt, expense_policy, mart_rate, promote_rate, manage_rate, share_rate, it_rate, a_share_rate, b_share_rate, mart_type, product_tax_rate, mart_value, partner from rzx_gift_package_config
     </sql>
 
-    <select id="selectGiftpackageConfigList" parameterType="com.rzx.project.domain.GiftpackageConfig" resultMap="GiftpackageConfigResult">
-        <include refid="selectGiftpackageConfigVo"/>
+    <select id="selectGiftPackageConfigList" parameterType="GiftPackageConfig" resultMap="GiftPackageConfigResult">
+        <include refid="selectGiftPackageConfigVo"/>
         <where>
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
             <if test="explain != null  and explain != ''"> and explain = #{explain}</if>
@@ -70,14 +70,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
 
-    <select id="selectGiftpackageConfigById" parameterType="String" resultMap="GiftpackageConfigResult">
-        <include refid="selectGiftpackageConfigVo"/>
+    <select id="selectGiftPackageConfigById" parameterType="String" resultMap="GiftPackageConfigResult">
+        <include refid="selectGiftPackageConfigVo"/>
         where giftpackage_id = #{giftpackageId}
     </select>
 
 
-    <update id="updateGiftpackageConfig" parameterType="com.rzx.project.domain.GiftpackageConfig">
-        update rzx_giftpackage_config
+    <update id="updateGiftPackageConfig" parameterType="GiftPackageConfig">
+        update rzx_gift_package_config
         <trim prefix="SET" suffixOverrides=",">
             <if test="name != null">name = #{name},</if>
             <if test="explain != null">explain = #{explain},</if>
@@ -110,12 +110,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where giftpackage_id = #{giftpackageId}
     </update>
 
-    <delete id="deleteGiftpackageConfigById" parameterType="String">
-        delete from rzx_giftpackage_config where giftpackage_id = #{giftpackageId}
+    <delete id="deleteGiftPackageConfigById" parameterType="String">
+        delete from rzx_gift_package_config where giftpackage_id = #{giftpackageId}
     </delete>
 
-    <delete id="deleteGiftpackageConfigByIds" parameterType="String">
-        delete from rzx_giftpackage_config where giftpackage_id in
+    <delete id="deleteGiftPackageConfigByIds" parameterType="String">
+        delete from rzx_gift_package_config where giftpackage_id in
         <foreach item="giftpackageId" collection="array" open="(" separator="," close=")">
             #{giftpackageId}
         </foreach>

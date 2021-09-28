@@ -13,15 +13,15 @@ import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 /**
- * 券信息对象 rzx_coupons_info
+ * 任智行 券信息对象 rzx_coupons_info
  *
  * @author zy
- * @date 2021-09-16
+ * @date 2021-09-28
  */
 @Data
 @ToString
 @TableName("rzx_coupons_info")
-@ApiModel(value = "券信息对象", description = "券信息rzx_coupons_info表")
+@ApiModel(value = "任智行 券信息对象", description = "任智行 券信息rzx_coupons_info表")
 @EqualsAndHashCode(callSuper = true)
 public class CouponsInfo extends BaseEntity {
 
@@ -85,10 +85,7 @@ public class CouponsInfo extends BaseEntity {
     @ApiModelProperty(value = "1-虚拟 2-实物")
     @TableField(value = "type")
     private String type;
+    
 
-    private String giftpackageId;
-    private String orderId;
-    private String initAmount;
-    private String saleAmount;
 
 }

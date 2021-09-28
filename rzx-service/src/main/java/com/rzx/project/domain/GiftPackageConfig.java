@@ -13,17 +13,17 @@ import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 /**
- * 礼包配置对象 rzx_giftpackage_config
+ * 任智行 礼包配置对象 rzx_gift_package_config
  *
  * @author zy
- * @date 2021-09-16
+ * @date 2021-09-28
  */
 @Data
 @ToString
-@TableName("rzx_giftpackage_config")
-@ApiModel(value = "礼包配置对象", description = "礼包配置rzx_giftpackage_config表")
+@TableName("rzx_gift_package_config")
+@ApiModel(value = "任智行 礼包配置对象", description = "任智行 礼包配置rzx_gift_package_config表")
 @EqualsAndHashCode(callSuper = true)
-public class GiftpackageConfig extends BaseEntity {
+public class GiftPackageConfig extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

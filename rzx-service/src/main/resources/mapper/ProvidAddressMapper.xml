@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rzx.project.mapper.ProvidAddressMapper">
+
+    <resultMap type="ProvidAddress" id="ProvidAddressResult">
+        <result property="providaddressId"    column="providaddress_id"    />
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="type"    column="type"    />
+        <result property="provid"    column="provid"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectProvidAddressVo">
+        select providaddress_id, id, name, parent_id, type, provid, status, create_time, update_time from rzx_provid_address
+    </sql>
+
+    <select id="selectProvidAddressList" parameterType="ProvidAddress" resultMap="ProvidAddressResult">
+        <include refid="selectProvidAddressVo"/>
+        <where>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="parentId != null  and parentId != ''"> and parent_id = #{parentId}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="provid != null  and provid != ''"> and provid = #{provid}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+
+    <select id="selectProvidAddressById" parameterType="String" resultMap="ProvidAddressResult">
+        <include refid="selectProvidAddressVo"/>
+        where providaddress_id = #{providaddressId}
+    </select>
+
+
+    <update id="updateProvidAddress" parameterType="ProvidAddress">
+        update rzx_provid_address
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="id != null">id = #{id},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="provid != null">provid = #{provid},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where providaddress_id = #{providaddressId}
+    </update>
+
+    <delete id="deleteProvidAddressById" parameterType="String">
+        delete from rzx_provid_address where providaddress_id = #{providaddressId}
+    </delete>
+
+    <delete id="deleteProvidAddressByIds" parameterType="String">
+        delete from rzx_provid_address where providaddress_id in
+        <foreach item="providaddressId" collection="array" open="(" separator="," close=")">
+            #{providaddressId}
+        </foreach>
+    </delete>
+</mapper>

@@ -13,15 +13,15 @@ import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 /**
- * 销售订单对象 rzx_order_info
+ * 任智行 销售订单对象 rzx_order_info
  *
  * @author zy
- * @date 2021-09-16
+ * @date 2021-09-28
  */
 @Data
 @ToString
 @TableName("rzx_order_info")
-@ApiModel(value = "销售订单对象", description = "销售订单rzx_order_info表")
+@ApiModel(value = "任智行 销售订单对象", description = "任智行 销售订单rzx_order_info表")
 @EqualsAndHashCode(callSuper = true)
 public class OrderInfo extends BaseEntity {
 
@@ -31,6 +31,12 @@ public class OrderInfo extends BaseEntity {
     @ApiModelProperty(value = "${column.columnComment}")
     @TableId(value ="salesorder_id", type = IdType.ASSIGN_ID)
     private String salesorderId;
+    
+    /** 商城订单号 */
+    @Excel(name = "商城订单号")
+    @ApiModelProperty(value = "商城订单号")
+    @TableField(value = "order_num")
+    private String orderNum;
     
     /** 销售订单号 */
     @Excel(name = "销售订单号")
@@ -56,6 +62,12 @@ public class OrderInfo extends BaseEntity {
     @TableField(value = "saleman_id")
     private String salemanId;
     
+    /** 任智行渠道用户id */
+    @Excel(name = "任智行渠道用户id")
+    @ApiModelProperty(value = "任智行渠道用户id")
+    @TableField(value = "user_info_id")
+    private String userInfoId;
+    
     /** 礼包ID */
     @Excel(name = "礼包ID")
     @ApiModelProperty(value = "礼包ID")
@@ -80,9 +92,9 @@ public class OrderInfo extends BaseEntity {
     @TableField(value = "init_total_amount")
     private String initTotalAmount;
     
-    /** 出售价格 */
-    @Excel(name = "出售价格")
-    @ApiModelProperty(value = "出售价格")
+    /** 出售价格（售价） */
+    @Excel(name = "出售价格", readConverterExp = "售=价")
+    @ApiModelProperty(value = "出售价格（售价）")
     @TableField(value = "sale_total_amount")
     private String saleTotalAmount;
     
@@ -110,9 +122,9 @@ public class OrderInfo extends BaseEntity {
     @TableField(value = "qr_code")
     private String qrCode;
     
-    /** 订单状态(0-未支付 1-已支付 2-支付失败 3-支付中) */
-    @Excel(name = "订单状态(0-未支付 1-已支付 2-支付失败 3-支付中)")
-    @ApiModelProperty(value = "订单状态(0-未支付 1-已支付 2-支付失败 3-支付中)")
+    /** 订单状态(0-未支付 1-已支付 2-支付失败 3-支付中 4-订单取消 9-订单创建失败) */
+    @Excel(name = "订单状态(0-未支付 1-已支付 2-支付失败 3-支付中 4-订单取消 9-订单创建失败)")
+    @ApiModelProperty(value = "订单状态(0-未支付 1-已支付 2-支付失败 3-支付中 4-订单取消 9-订单创建失败)")
     @TableField(value = "order_status")
     private String orderStatus;
     
@@ -188,11 +200,41 @@ public class OrderInfo extends BaseEntity {
     @TableField(value = "order_type")
     private String orderType;
     
-    /** 父订单ID */
-    @Excel(name = "父订单ID")
-    @ApiModelProperty(value = "父订单ID")
-    @TableField(value = "parent_id")
-    private String parentId;
+    /** 主订单号 */
+    @Excel(name = "主订单号")
+    @ApiModelProperty(value = "主订单号")
+    @TableField(value = "com_order_id")
+    private String comOrderId;
+    
+    /** 结算方式1-现金 2-现金+积分 3-积分 */
+    @Excel(name = "结算方式1-现金 2-现金+积分 3-积分")
+    @ApiModelProperty(value = "结算方式1-现金 2-现金+积分 3-积分")
+    @TableField(value = "pay_type")
+    private String payType;
+    
+    /** 支付积分 */
+    @Excel(name = "支付积分")
+    @ApiModelProperty(value = "支付积分")
+    @TableField(value = "pay_score")
+    private String payScore;
+    
+    /** 运单号 */
+    @Excel(name = "运单号")
+    @ApiModelProperty(value = "运单号")
+    @TableField(value = "express_code")
+    private String expressCode;
+    
+    /** 商品单价 */
+    @Excel(name = "商品单价")
+    @ApiModelProperty(value = "商品单价")
+    @TableField(value = "com_price")
+    private String comPrice;
+    
+    /** 商品数量 */
+    @Excel(name = "商品数量")
+    @ApiModelProperty(value = "商品数量")
+    @TableField(value = "com_count")
+    private String comCount;
     
 
 

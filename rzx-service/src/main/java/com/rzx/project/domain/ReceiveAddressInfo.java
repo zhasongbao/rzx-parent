@@ -13,17 +13,17 @@ import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 /**
- * 收货地址对象 rzx_receiveaddress_info
+ * 任智行 收货地址对象 rzx_receive_address_info
  *
  * @author zy
- * @date 2021-09-16
+ * @date 2021-09-28
  */
 @Data
 @ToString
-@TableName("rzx_receiveaddress_info")
-@ApiModel(value = "收货地址对象", description = "收货地址rzx_receiveaddress_info表")
+@TableName("rzx_receive_address_info")
+@ApiModel(value = "任智行 收货地址对象", description = "任智行 收货地址rzx_receive_address_info表")
 @EqualsAndHashCode(callSuper = true)
-public class ReceiveaddressInfo extends BaseEntity {
+public class ReceiveAddressInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -109,12 +109,6 @@ public class ReceiveaddressInfo extends BaseEntity {
     @ApiModelProperty(value = "状态(1-有效 0-无效)")
     @TableField(value = "status")
     private String status;
-    
-    /** 提供方（1-云中鹤，2-百汇） */
-    @Excel(name = "提供方", readConverterExp = "1=-云中鹤，2-百汇")
-    @ApiModelProperty(value = "提供方（1-云中鹤，2-百汇）")
-    @TableField(value = "provid")
-    private String provid;
     
 
 

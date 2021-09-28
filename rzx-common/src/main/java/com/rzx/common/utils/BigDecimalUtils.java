@@ -29,6 +29,18 @@ public class BigDecimalUtils {
         return multiplicand.multiply(multiplier);
     }
 
+    public static String multiply(String v1, String v2,int scale) {
+        if(StringUtils.isEmpty(v1)){
+            v1="0";
+        }
+        if(StringUtils.isEmpty(v2)){
+            v2="0";
+        }
+        BigDecimal b1 = new BigDecimal(v1);
+        BigDecimal b2 = new BigDecimal(v2);
+        return b1.multiply(b2).setScale(scale,BigDecimal.ROUND_HALF_UP).toString();
+    }
+
     /**
      * 除法
      *

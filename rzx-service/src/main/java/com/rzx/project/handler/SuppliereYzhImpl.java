@@ -4,16 +4,22 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.rzx.common.constant.Constants;
 import com.rzx.common.core.controller.BaseController;
-import com.rzx.common.utils.PageData;
+import com.rzx.common.utils.BigDecimalUtils;
 import com.rzx.common.utils.Tools;
 import com.rzx.common.utils.provid.yunzhonghe.YunZhongHeUtils;
+import com.rzx.project.domain.CommodityConfig;
+import com.rzx.project.domain.OrderInfo;
 import com.rzx.project.service.ICommodityConfigService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zhasbao
@@ -29,8 +35,8 @@ public class SuppliereYzhImpl extends BaseController implements SuppliereInterfa
     private ICommodityConfigService commodityconfigService;
 
     @Override
-    public PageData createOrder(PageData order, PageData address) {
-        PageData resp = new PageData();
+    public JSONObject createOrder(JSONObject order,JSONObject address) {
+        JSONObject resp = new JSONObject();
         try{
             JSONObject respJson = YunZhongHeUtils.createOrder(order, address);
             if(!ObjectUtils.isEmpty(respJson)){
@@ -50,7 +56,7 @@ public class SuppliereYzhImpl extends BaseController implements SuppliereInterfa
                 resp.put("RM", "调用云中鹤生成订单失败，请稍后再试！");
             }
         }catch (Exception e){
-            logger.error(e.toString(), e);
+            logger.error("SuppliereYzhImpl_createOrder_e={}",e);
             resp.put("RC", Constants.FAILURE_CODE);
             resp.put("RM", "调用云中鹤生成订单异常，请稍后再试！");
         }
@@ -58,8 +64,8 @@ public class SuppliereYzhImpl extends BaseController implements SuppliereInterfa
     }
 
     @Override
-    public PageData getAddress(String type,String code) {
-        PageData resp = new PageData();
+    public JSONObject getAddress(String type,String code) {
+        JSONObject resp = new JSONObject();
         JSONArray rows = new JSONArray();
         JSONObject respJson = new JSONObject();
         try{
@@ -86,7 +92,7 @@ public class SuppliereYzhImpl extends BaseController implements SuppliereInterfa
                 resp.put("RM", "获取供应商(云中鹤)地址失败");
             }
         }catch (Exception e){
-            logger.error(e.toString(), e);
+            logger.error("SuppliereYzhImpl_getAddress_e={}",e);
             resp.put("RC", Constants.FAILURE_CODE);
             resp.put("RM", "获取供应商(云中鹤)地址异常");
         }
@@ -117,9 +123,9 @@ public class SuppliereYzhImpl extends BaseController implements SuppliereInterfa
     }
 
     @Override
-    public JSONObject orderTrack(String orderId) {
+    public JSONObject orderTrack(OrderInfo order) {
         JSONObject data = new JSONObject();
-        JSONObject respJson = YunZhongHeUtils.orderTrack(orderId);
+        JSONObject respJson = YunZhongHeUtils.orderTrack(order.getOrderId());
         if (!ObjectUtils.isEmpty(respJson) && respJson.getBoolean("RESPONSE_STATUS")) {
             // 请求成功
             data = respJson.getJSONObject("RESULT_DATA");
@@ -128,18 +134,93 @@ public class SuppliereYzhImpl extends BaseController implements SuppliereInterfa
     }
 
     @Override
-    public void detial(PageData commodity) {
+    public CommodityConfig detial(CommodityConfig commodity) {
         try {
-            JSONObject infoResp = YunZhongHeUtils.detial(commodity.getString("COMMODITY_CODE"));
+            JSONObject infoResp = YunZhongHeUtils.detial(commodity.getCommodityCode());
+            commodity.setUpdateTime(LocalDateTime.now());
             if(!ObjectUtils.isEmpty(infoResp) && !ObjectUtils.isEmpty(infoResp.getJSONObject("RESULT_DATA"))){
                 JSONObject iResultData = infoResp.getJSONObject("RESULT_DATA");
-                commodity.put("UPDATE_TIME", Tools.date2Str(new Date()));
                 dowith(commodity, iResultData);
-//                commodityconfigService.edit(commodity);
+                commodityconfigService.updateCommodityConfig(commodity);
+            }else{
+                commodity.setSaleStatus(Constants.NO_FLAG);
+                commodityconfigService.updateCommodityConfig(commodity);
             }
         } catch (Exception e) {
-            logger.error(e.toString(), e);
+            logger.error("SuppliereYzhImpl_detial_e={}",e);
         }
+        return commodity;
+    }
+
+    @Override
+    public JSONObject cancelOrder(OrderInfo order) {
+        JSONObject resp = new JSONObject();
+        try {
+            JSONObject respJson = YunZhongHeUtils.cancelByOrderKey((JSONObject) JSONObject.toJSON(order));
+            if(!ObjectUtils.isEmpty(respJson)){
+                if(respJson.getBoolean("RESPONSE_STATUS")){
+                    JSONObject data = respJson.getJSONObject("RESULT_DATA");
+                    // 成功
+                    resp.put("RC", Constants.SUCCESS_CODE);
+                }else{
+                    // 失败
+                    resp.put("RC", Constants.FAILURE_CODE);
+                    resp.put("RM", respJson.getString("ERROR_MESSAGE"));
+                }
+            }else{
+                // 失败
+                resp.put("RC", Constants.FAILURE_CODE);
+                resp.put("RM", "调用云中鹤取消订单失败");
+            }
+        } catch (Exception e) {
+            logger.error("SuppliereYzhImpl_cancelOrder_e={}",e);
+        }
+        return resp;
+    }
+
+    @Override
+    public List<JSONObject> stockBatch(List<Object> list, String province, String city, String county, String town) {
+        List<JSONObject> resp = new ArrayList<>();
+        try {
+            String pidNums = "";
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject data = (JSONObject) list.get(i);
+                if(StringUtils.isEmpty(pidNums)){
+                    pidNums = data.getString("itemId")+"_1";
+                }else{
+                    pidNums = "," + data.getString("itemId")+"_1";
+                }
+            }
+            String address = province + "_" + city + "_" + county;
+            JSONObject respJson = YunZhongHeUtils.stockBatch(pidNums,address);
+            if(!ObjectUtils.isEmpty(respJson) && respJson.getBoolean("RESPONSE_STATUS") &&
+                    !ObjectUtils.isEmpty(respJson.getJSONArray("RESULT_DATA"))){
+                JSONArray respList = respJson.getJSONArray("RESULT_DATA");
+                for (int i = 0; i < respList.size(); i++) {
+                    JSONObject data = (JSONObject) respList.get(i);
+                    data.put("provid", "1");
+                    data.put("itemId", data.getString("product_id"));
+                    if(data.getBoolean("stock_status")){
+                        data.put("state","1");
+                    }else{
+                        data.put("state","0");
+                    }
+                    resp.add(data);
+                }
+            }else{
+                // 失败
+                logger.error("SuppliereYzhImpl_stockBatch_查询云中鹤获取区域库存失败_respJson=" + respJson);
+                for (int i = 0; i < list.size(); i++) {
+                    JSONObject data = (JSONObject) list.get(i);
+                    data.put("provid", "1");
+                    data.put("state","0");
+                    resp.add(data);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("SuppliereYzhImpl_stockBatch_e={}",e);
+        }
+        return resp;
     }
 
     /**
@@ -147,26 +228,43 @@ public class SuppliereYzhImpl extends BaseController implements SuppliereInterfa
      * @param pd
      * @param iResultData
      */
-    public void dowith(PageData pd, JSONObject iResultData) {
+    public void dowith(CommodityConfig pd, JSONObject iResultData) {
         if(!ObjectUtils.isEmpty(iResultData.getJSONObject("PRODUCT_DATA"))){
-            pd.put("COMMODITY_NAME", iResultData.getJSONObject("PRODUCT_DATA").getString("name"));
-            pd.put("BRAND", iResultData.getJSONObject("PRODUCT_DATA").getString("brand"));
-            pd.put("PRODUCT_CATE", iResultData.getJSONObject("PRODUCT_DATA").getString("productCate"));
-            pd.put("MODEL", iResultData.getJSONObject("PRODUCT_DATA").getString("productCode"));
-            pd.put("THUMBNAIL_IMAGE", iResultData.getJSONObject("PRODUCT_DATA").getString("thumbnailImage"));
-            pd.put("SALE_STATUS", iResultData.getJSONObject("PRODUCT_DATA").getString("status"));
+            pd.setCommodityName(iResultData.getJSONObject("PRODUCT_DATA").getString("name"));
+            pd.setBrand(iResultData.getJSONObject("PRODUCT_DATA").getString("brand"));
+            pd.setProductCate(iResultData.getJSONObject("PRODUCT_DATA").getString("productCate"));
+            pd.setModel(iResultData.getJSONObject("PRODUCT_DATA").getString("productCode"));
+            pd.setThumbnailImage(iResultData.getJSONObject("PRODUCT_DATA").getString("thumbnailImage"));
+            if("selling".equals(iResultData.getJSONObject("PRODUCT_DATA").getString("status"))){
+                pd.setSaleStatus("1");
+            }else{
+                pd.setSaleStatus("0");
+            }
+            String PROVID_SOURCE = iResultData.getJSONObject("PRODUCT_DATA").getString("type");
+            if ("system".equals(PROVID_SOURCE)) {
+                PROVID_SOURCE = "1";
+            } else if ("provider".equals(PROVID_SOURCE)) {
+                PROVID_SOURCE = "21";
+            } else if ("jindong".equals(PROVID_SOURCE) || "xinfutong".equals(PROVID_SOURCE)) {
+                PROVID_SOURCE = "4";
+            } else if ("wangyi".equals(PROVID_SOURCE)) {
+                PROVID_SOURCE = "5";
+            }
+            pd.setProvidSource(PROVID_SOURCE);
             if("undercarriage".equals(iResultData.getJSONObject("PRODUCT_DATA").getString("status"))){
                 // 下架商品挪出礼包
-                pd.put("GIFTPACKAGE_ID", "");
+                pd.setGiftpackageId("");
             }
-            pd.put("MARKET_PRICE", iResultData.getJSONObject("PRODUCT_DATA").getString("marketPrice"));
-            pd.put("RETAIL_AMOUNT", iResultData.getJSONObject("PRODUCT_DATA").getString("retailPrice"));
-            pd.put("PRODUCT_PLACE", iResultData.getJSONObject("PRODUCT_DATA").getString("productPlace"));
-            pd.put("IS_TO_RETURN", iResultData.getJSONObject("PRODUCT_DATA").getString("is7ToReturn"));
+            pd.setMarketPrice(iResultData.getJSONObject("PRODUCT_DATA").getString("marketPrice"));
+            pd.setRetailAmount(iResultData.getJSONObject("PRODUCT_DATA").getString("retailPrice"));
+            String amount = BigDecimalUtils.multiply(iResultData.getJSONObject("PRODUCT_DATA").getString("retailPrice"),"1.1",2);
+            pd.setAmount(amount);
+            pd.setProductPlace(iResultData.getJSONObject("PRODUCT_DATA").getString("productPlace"));
+            pd.setIsToReturn(iResultData.getJSONObject("PRODUCT_DATA").getString("is7ToReturn"));
 //            pd.put("EXPLAIN", iResultData.getJSONObject("PRODUCT_DATA").getString("features"));
         }
         if(!org.springframework.util.StringUtils.isEmpty(iResultData.getString("PRODUCT_DESCRIPTION"))){
-            pd.put("IMAGE", iResultData.getString("PRODUCT_DESCRIPTION").replace("\"",""));
+            pd.setImage(iResultData.getString("PRODUCT_DESCRIPTION").replace("\"",""));
         }
         if(!ObjectUtils.isEmpty(iResultData.getJSONArray("PRODUCT_IMAGE"))){
             JSONArray PRODUCT_IMAGE = iResultData.getJSONArray("PRODUCT_IMAGE");
@@ -180,7 +278,7 @@ public class SuppliereYzhImpl extends BaseController implements SuppliereInterfa
                     IMAGE_URLS = IMAGE_URLS + "," + pi.getString("imageUrl");
                 }
             }
-            pd.put("IMAGE_URLS", IMAGE_URLS);
+            pd.setImageUrls(IMAGE_URLS);
         }
     }
 }

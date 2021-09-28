@@ -4,8 +4,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rzx.project.mapper.ScoreRecordMapper">
 
-    <resultMap type="com.rzx.project.domain.ScoreRecord" id="ScoreRecordResult">
+    <resultMap type="ScoreRecord" id="ScoreRecordResult">
         <result property="scoreRecordId"    column="score_record_id"    />
+        <result property="userInfoId"    column="user_info_id"    />
         <result property="userId"    column="user_id"    />
         <result property="inSource"    column="in_source"    />
         <result property="sourceId"    column="source_id"    />
@@ -18,18 +19,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectScoreRecordVo">
-        select score_record_id, user_id, in_source, source_id, source_type, score, surplus_score, status, create_time, update_time from rzx_score_record
+        select score_record_id, user_info_id, user_id, in_source, source_id, source_type, score, surplus_score, status, create_time, update_time from rzx_score_record
     </sql>
 
-    <select id="selectScoreRecordList" parameterType="com.rzx.project.domain.ScoreRecord" resultMap="ScoreRecordResult">
+    <select id="selectScoreRecordList" parameterType="ScoreRecord" resultMap="ScoreRecordResult">
         <include refid="selectScoreRecordVo"/>
         <where>
+            <if test="userInfoId != null  and userInfoId != ''"> and user_info_id = #{userInfoId}</if>
             <if test="userId != null  and userId != ''"> and user_id = #{userId}</if>
             <if test="inSource != null  and inSource != ''"> and in_source = #{inSource}</if>
             <if test="sourceId != null  and sourceId != ''"> and source_id = #{sourceId}</if>
             <if test="sourceType != null  and sourceType != ''"> and source_type = #{sourceType}</if>
-            <if test="score != null  and score != ''"> and score = #{score}</if>
-            <if test="surplusScore != null  and surplusScore != ''"> and surplus_score = #{surplusScore}</if>
+            <if test="score != null "> and score = #{score}</if>
+            <if test="surplusScore != null "> and surplus_score = #{surplusScore}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
         </where>
     </select>
@@ -40,9 +42,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 
-    <update id="updateScoreRecord" parameterType="com.rzx.project.domain.ScoreRecord">
+    <update id="updateScoreRecord" parameterType="ScoreRecord">
         update rzx_score_record
         <trim prefix="SET" suffixOverrides=",">
+            <if test="userInfoId != null">user_info_id = #{userInfoId},</if>
             <if test="userId != null">user_id = #{userId},</if>
             <if test="inSource != null">in_source = #{inSource},</if>
             <if test="sourceId != null">source_id = #{sourceId},</if>

@@ -10,10 +10,10 @@ import com.rzx.project.domain.ScoreRecord;
 import com.rzx.project.service.IScoreRecordService;
 
 /**
- * 用户积分流水Service业务层处理
+ * 任智行渠道用户积分流水Service业务层处理
  *
  * @author zy
- * @date 2021-09-16
+ * @date 2021-09-28
  */
 @Service
 public class ScoreRecordServiceImpl extends ServiceImpl<ScoreRecordMapper,ScoreRecord> implements IScoreRecordService {
@@ -21,10 +21,10 @@ public class ScoreRecordServiceImpl extends ServiceImpl<ScoreRecordMapper,ScoreR
     private ScoreRecordMapper scoreRecordMapper;
 
     /**
-     * 查询用户积分流水
+     * 查询任智行渠道用户积分流水
      *
-     * @param scoreRecordId 用户积分流水ID
-     * @return 用户积分流水
+     * @param scoreRecordId 任智行渠道用户积分流水ID
+     * @return 任智行渠道用户积分流水
      */
     @Override
     public ScoreRecord selectScoreRecordById(String scoreRecordId) {
@@ -32,10 +32,10 @@ public class ScoreRecordServiceImpl extends ServiceImpl<ScoreRecordMapper,ScoreR
     }
 
     /**
-     * 查询用户积分流水列表
+     * 查询任智行渠道用户积分流水列表
      *
-     * @param scoreRecord 用户积分流水
-     * @return 用户积分流水
+     * @param scoreRecord 任智行渠道用户积分流水
+     * @return 任智行渠道用户积分流水
      */
     @Override
     public List<ScoreRecord> selectScoreRecordList(ScoreRecord scoreRecord) {
@@ -43,9 +43,9 @@ public class ScoreRecordServiceImpl extends ServiceImpl<ScoreRecordMapper,ScoreR
     }
 
     /**
-     * 新增用户积分流水
+     * 新增任智行渠道用户积分流水
      *
-     * @param scoreRecord 用户积分流水
+     * @param scoreRecord 任智行渠道用户积分流水
      * @return 结果
      */
     @Override
@@ -57,9 +57,9 @@ public class ScoreRecordServiceImpl extends ServiceImpl<ScoreRecordMapper,ScoreR
     }
 
     /**
-     * 修改用户积分流水
+     * 修改任智行渠道用户积分流水
      *
-     * @param scoreRecord 用户积分流水
+     * @param scoreRecord 任智行渠道用户积分流水
      * @return 结果
      */
     @Override
@@ -69,9 +69,9 @@ public class ScoreRecordServiceImpl extends ServiceImpl<ScoreRecordMapper,ScoreR
     }
 
     /**
-     * 批量删除用户积分流水
+     * 批量删除任智行渠道用户积分流水
      *
-     * @param scoreRecordIds 需要删除的用户积分流水ID
+     * @param scoreRecordIds 需要删除的任智行渠道用户积分流水ID
      * @return 结果
      */
     @Override
@@ -80,9 +80,9 @@ public class ScoreRecordServiceImpl extends ServiceImpl<ScoreRecordMapper,ScoreR
     }
 
     /**
-     * 删除用户积分流水信息
+     * 删除任智行渠道用户积分流水信息
      *
-     * @param scoreRecordId 用户积分流水ID
+     * @param scoreRecordId 任智行渠道用户积分流水ID
      * @return 结果
      */
     @Override

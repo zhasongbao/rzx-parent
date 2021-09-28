@@ -8,7 +8,7 @@ import com.rzx.project.domain.CommodityConfig;
  * 任智行 商品配置Mapper接口
  *
  * @author zy
- * @date 2021-09-15
+ * @date 2021-09-28
  */
 public interface CommodityConfigMapper extends BaseMapper<CommodityConfig> {
 

@@ -4,12 +4,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rzx.project.mapper.OrderInfoMapper">
 
-    <resultMap type="com.rzx.project.domain.OrderInfo" id="OrderInfoResult">
+    <resultMap type="OrderInfo" id="OrderInfoResult">
         <result property="salesorderId"    column="salesorder_id"    />
+        <result property="orderNum"    column="order_num"    />
         <result property="orderId"    column="order_id"    />
         <result property="orderKey"    column="order_key"    />
         <result property="orderShipmentFee"    column="order_shipment_fee"    />
         <result property="salemanId"    column="saleman_id"    />
+        <result property="userInfoId"    column="user_info_id"    />
         <result property="giftpackageId"    column="giftpackage_id"    />
         <result property="commodityCode"    column="commodity_code"    />
         <result property="couponsinfoId"    column="couponsinfo_id"    />
@@ -37,17 +39,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="payEndTime"    column="pay_end_time"    />
         <result property="inSource"    column="in_source"    />
         <result property="orderType"    column="order_type"    />
-        <result property="parentId"    column="parent_id"    />
+        <result property="comOrderId"    column="com_order_id"    />
+        <result property="payType"    column="pay_type"    />
+        <result property="payScore"    column="pay_score"    />
+        <result property="expressCode"    column="express_code"    />
+        <result property="comPrice"    column="com_price"    />
+        <result property="comCount"    column="com_count"    />
     </resultMap>
 
     <sql id="selectOrderInfoVo">
-        select salesorder_id, order_id, order_key, order_shipment_fee, saleman_id, giftpackage_id, commodity_code, couponsinfo_id, init_total_amount, sale_total_amount, pay_way, out_trade_id, notifyjson, qr_code, order_status, sale_time, receiveaddress_id, remark, order_provid, error_code, error_message, status, create_time, create_by, update_time, update_by, brokerage, qr_bill_url, billrecord_id, pay_end_time, in_source, order_type, parent_id from rzx_order_info
+        select salesorder_id, order_num, order_id, order_key, order_shipment_fee, saleman_id, user_info_id, giftpackage_id, commodity_code, couponsinfo_id, init_total_amount, sale_total_amount, pay_way, out_trade_id, notifyjson, qr_code, order_status, sale_time, receiveaddress_id, remark, order_provid, error_code, error_message, status, create_time, create_by, update_time, update_by, brokerage, qr_bill_url, billrecord_id, pay_end_time, in_source, order_type, com_order_id, pay_type, pay_score, express_code, com_price, com_count from rzx_order_info
     </sql>
 
     <select id="selectOrderInfoList" parameterType="com.rzx.project.domain.dto.OrderInfoDTO" resultMap="OrderInfoResult">
         <include refid="selectOrderInfoVo"/>
         <where>
-            <if test="userId != null  and userId != ''"> and saleman_id = #{userId}</if>
+            <if test="orderNum != null  and orderNum != ''"> and order_num = #{orderNum}</if>
+            <if test="orderId != null  and orderId != ''"> and order_id = #{orderId}</if>
+            <if test="orderKey != null  and orderKey != ''"> and order_key = #{orderKey}</if>
+            <if test="orderShipmentFee != null  and orderShipmentFee != ''"> and order_shipment_fee = #{orderShipmentFee}</if>
+            <if test="salemanId != null  and salemanId != ''"> and saleman_id = #{salemanId}</if>
+            <if test="userInfoId != null  and userInfoId != ''"> and user_info_id = #{userInfoId}</if>
+            <if test="giftpackageId != null  and giftpackageId != ''"> and giftpackage_id = #{giftpackageId}</if>
+            <if test="commodityCode != null  and commodityCode != ''"> and commodity_code = #{commodityCode}</if>
+            <if test="couponsinfoId != null  and couponsinfoId != ''"> and couponsinfo_id = #{couponsinfoId}</if>
+            <if test="initTotalAmount != null  and initTotalAmount != ''"> and init_total_amount = #{initTotalAmount}</if>
+            <if test="saleTotalAmount != null  and saleTotalAmount != ''"> and sale_total_amount = #{saleTotalAmount}</if>
+            <if test="payWay != null  and payWay != ''"> and pay_way = #{payWay}</if>
+            <if test="outTradeId != null  and outTradeId != ''"> and out_trade_id = #{outTradeId}</if>
+            <if test="notifyjson != null  and notifyjson != ''"> and notifyjson = #{notifyjson}</if>
+            <if test="qrCode != null  and qrCode != ''"> and qr_code = #{qrCode}</if>
+            <if test="orderStatus != null  and orderStatus != ''"> and order_status = #{orderStatus}</if>
+            <if test="saleTime != null  and saleTime != ''"> and sale_time = #{saleTime}</if>
+            <if test="receiveaddressId != null  and receiveaddressId != ''"> and receiveaddress_id = #{receiveaddressId}</if>
+            <if test="orderProvid != null  and orderProvid != ''"> and order_provid = #{orderProvid}</if>
+            <if test="errorCode != null  and errorCode != ''"> and error_code = #{errorCode}</if>
+            <if test="errorMessage != null  and errorMessage != ''"> and error_message = #{errorMessage}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="brokerage != null  and brokerage != ''"> and brokerage = #{brokerage}</if>
+            <if test="qrBillUrl != null  and qrBillUrl != ''"> and qr_bill_url = #{qrBillUrl}</if>
+            <if test="billrecordId != null  and billrecordId != ''"> and billrecord_id = #{billrecordId}</if>
+            <if test="payEndTime != null  and payEndTime != ''"> and pay_end_time = #{payEndTime}</if>
+            <if test="inSource != null  and inSource != ''"> and in_source = #{inSource}</if>
+            <if test="orderType != null  and orderType != ''"> and order_type = #{orderType}</if>
+            <if test="comOrderId != null  and comOrderId != ''"> and com_order_id = #{comOrderId}</if>
+            <if test="payType != null  and payType != ''"> and pay_type = #{payType}</if>
+            <if test="payScore != null  and payScore != ''"> and pay_score = #{payScore}</if>
+            <if test="expressCode != null  and expressCode != ''"> and express_code = #{expressCode}</if>
+            <if test="comPrice != null  and comPrice != ''"> and com_price = #{comPrice}</if>
+            <if test="comCount != null  and comCount != ''"> and com_count = #{comCount}</if>
         </where>
     </select>
 
@@ -57,13 +97,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 
-    <update id="updateOrderInfo" parameterType="com.rzx.project.domain.OrderInfo">
+    <update id="updateOrderInfo" parameterType="OrderInfo">
         update rzx_order_info
         <trim prefix="SET" suffixOverrides=",">
+            <if test="orderNum != null">order_num = #{orderNum},</if>
             <if test="orderId != null">order_id = #{orderId},</if>
             <if test="orderKey != null">order_key = #{orderKey},</if>
             <if test="orderShipmentFee != null">order_shipment_fee = #{orderShipmentFee},</if>
             <if test="salemanId != null">saleman_id = #{salemanId},</if>
+            <if test="userInfoId != null">user_info_id = #{userInfoId},</if>
             <if test="giftpackageId != null">giftpackage_id = #{giftpackageId},</if>
             <if test="commodityCode != null">commodity_code = #{commodityCode},</if>
             <if test="couponsinfoId != null">couponsinfo_id = #{couponsinfoId},</if>
@@ -91,7 +133,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="payEndTime != null">pay_end_time = #{payEndTime},</if>
             <if test="inSource != null">in_source = #{inSource},</if>
             <if test="orderType != null">order_type = #{orderType},</if>
-            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="comOrderId != null">com_order_id = #{comOrderId},</if>
+            <if test="payType != null">pay_type = #{payType},</if>
+            <if test="payScore != null">pay_score = #{payScore},</if>
+            <if test="expressCode != null">express_code = #{expressCode},</if>
+            <if test="comPrice != null">com_price = #{comPrice},</if>
+            <if test="comCount != null">com_count = #{comCount},</if>
         </trim>
         where salesorder_id = #{salesorderId}
     </update>

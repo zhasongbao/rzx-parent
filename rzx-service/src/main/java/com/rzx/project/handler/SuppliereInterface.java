@@ -2,7 +2,10 @@ package com.rzx.project.handler;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.rzx.common.utils.PageData;
+import com.rzx.project.domain.CommodityConfig;
+import com.rzx.project.domain.OrderInfo;
+
+import java.util.List;
 
 /**
  * @author zhasbao
@@ -19,14 +22,14 @@ public interface SuppliereInterface {
      * @param address 地址信息
      * @return
      */
-    PageData createOrder(PageData order, PageData address);
+    JSONObject createOrder(JSONObject order, JSONObject address);
 
     /**
      * 获取地址列表
      * @param type
      * @return
      */
-    PageData getAddress(String type,String code);
+    JSONObject getAddress(String type,String code);
 
     /**
      * 校验地址有效性
@@ -47,16 +50,34 @@ public interface SuppliereInterface {
 
     /**
      * 查询物流信息
-     * @param orderId 任意行订单号
+     * @param order 订单信息
      * @return
      */
-    JSONObject orderTrack(String orderId);
+    JSONObject orderTrack(OrderInfo order);
 
     /**
      * 同步供应商商品信息
      * @param commodityCode
      * @return
      */
-    void detial(PageData commodityCode);
+    CommodityConfig detial(CommodityConfig commodityCode);
+
+    /**
+     * 取消订单接口
+     * @param orderId 任意行订单号
+     * @return
+     */
+    JSONObject cancelOrder(OrderInfo orderId);
+
+    /**
+     *
+     * @param list 商品信息
+     * @param province
+     * @param city
+     * @param county
+     * @param town
+     * @return
+     */
+    List<JSONObject> stockBatch(List<Object> list, String province, String city, String county, String town);
 
 }

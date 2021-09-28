@@ -1,7 +1,7 @@
 package com.rzx.project.domain;
 
-import com.rzx.common.core.domain.BaseEntity;
-import lombok.EqualsAndHashCode;
+    import com.rzx.common.core.domain.BaseEntity;
+    import lombok.EqualsAndHashCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.rzx.common.annotation.Excel;
@@ -13,24 +13,24 @@ import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 /**
- * 开票信息对象 rzx_billrecord
+ * 任智行 开票信息对象 rzx_bill_record
  *
  * @author zy
- * @date 2021-09-16
+ * @date 2021-09-28
  */
 @Data
 @ToString
-@TableName("rzx_billrecord")
-@ApiModel(value = "开票信息对象", description = "开票信息rzx_billrecord表")
+@TableName("rzx_bill_record")
+@ApiModel(value = "任智行 开票信息对象", description = "任智行 开票信息rzx_bill_record表")
 @EqualsAndHashCode(callSuper = true)
-public class Billrecord extends BaseEntity {
+public class BillRecord extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     /** $column.columnComment */
     @ApiModelProperty(value = "${column.columnComment}")
-    @TableId(value ="billrecord_id", type = IdType.ASSIGN_ID)
-    private String billrecordId;
+    @TableId(value ="bill_record_id", type = IdType.ASSIGN_ID)
+    private String billRecordId;
     
     /** 是否已开票(0-否 1-是) */
     @Excel(name = "是否已开票(0-否 1-是)")

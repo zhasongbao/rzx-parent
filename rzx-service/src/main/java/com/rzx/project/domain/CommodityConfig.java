@@ -13,15 +13,15 @@ import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 /**
- * 商品配置对象 rzx_commodity_config
+ * 任智行 商品配置对象 rzx_commodity_config
  *
  * @author zy
- * @date 2021-09-16
+ * @date 2021-09-28
  */
 @Data
 @ToString
 @TableName("rzx_commodity_config")
-@ApiModel(value = "商品配置对象", description = "商品配置rzx_commodity_config表")
+@ApiModel(value = "任智行 商品配置对象", description = "任智行 商品配置rzx_commodity_config表")
 @EqualsAndHashCode(callSuper = true)
 public class CommodityConfig extends BaseEntity {
 
@@ -80,9 +80,9 @@ public class CommodityConfig extends BaseEntity {
     @TableField(value = "explain")
     private String explain;
     
-    /** 商品价格 */
-    @Excel(name = "商品价格")
-    @ApiModelProperty(value = "商品价格")
+    /** 商品价格 (=成本价+成本价*溢价比例) */
+    @Excel(name = "商品价格 (=成本价+成本价*溢价比例)")
+    @ApiModelProperty(value = "商品价格 (=成本价+成本价*溢价比例)")
     @TableField(value = "amount")
     private String amount;
     
@@ -110,9 +110,9 @@ public class CommodityConfig extends BaseEntity {
     @TableField(value = "product_place")
     private String productPlace;
     
-    /** 商品状态 (selling: 上架销售中, undercarriage: 下架) */
-    @Excel(name = "商品状态 (selling: 上架销售中, undercarriage: 下架)")
-    @ApiModelProperty(value = "商品状态 (selling: 上架销售中, undercarriage: 下架)")
+    /** 商品状态 1上架销售中, 0下架) */
+    @Excel(name = "商品状态 1上架销售中, 0下架)")
+    @ApiModelProperty(value = "商品状态 1上架销售中, 0下架)")
     @TableField(value = "sale_status")
     private String saleStatus;
     
@@ -164,11 +164,17 @@ public class CommodityConfig extends BaseEntity {
     @TableField(value = "type_id")
     private String typeId;
     
-    /** 提供方商品来源 (system: 系统, provider:供应商,jindong:京东, xinfutong：京东2,wangyi:网易严选) (2：卡券，3：直充，6：天猫) */
-    @Excel(name = "提供方商品来源 (system: 系统, provider:供应商,jindong:京东, xinfutong：京东2,wangyi:网易严选) (2：卡券，3：直充，6：天猫)")
-    @ApiModelProperty(value = "提供方商品来源 (system: 系统, provider:供应商,jindong:京东, xinfutong：京东2,wangyi:网易严选) (2：卡券，3：直充，6：天猫)")
+    /** 供应商商品来源 1：自营，2：卡券，3：直充，4：京东，5：严选，6：天猫   21:供应商 */
+    @Excel(name = "供应商商品来源 1：自营，2：卡券，3：直充，4：京东，5：严选，6：天猫   21:供应商")
+    @ApiModelProperty(value = "供应商商品来源 1：自营，2：卡券，3：直充，4：京东，5：严选，6：天猫   21:供应商")
     @TableField(value = "provid_source")
     private String providSource;
+    
+    /** 溢价比例% */
+    @Excel(name = "溢价比例%")
+    @ApiModelProperty(value = "溢价比例%")
+    @TableField(value = "rate")
+    private String rate;
     
 
 

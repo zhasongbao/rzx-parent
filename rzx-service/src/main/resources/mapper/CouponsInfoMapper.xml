@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rzx.project.mapper.CouponsInfoMapper">
 
-    <resultMap type="com.rzx.project.domain.CouponsInfo" id="CouponsInfoResult">
+    <resultMap type="CouponsInfo" id="CouponsInfoResult">
         <result property="couponsinfoId"    column="couponsinfo_id"    />
         <result property="batchNo"    column="batch_no"    />
         <result property="couponsPwd"    column="coupons_pwd"    />
@@ -19,21 +19,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="couponsQrcode"    column="coupons_qrcode"    />
         <result property="inSource"    column="in_source"    />
         <result property="type"    column="type"    />
-        <result property="giftpackageId"    column="giftpackage_id"    />
-        <result property="orderId"    column="order_id"    />
-        <result property="initAmount"    column="init_amount"    />
-        <result property="saleAmount"    column="sale_amount"    />
     </resultMap>
 
     <sql id="selectCouponsInfoVo">
-        select a.couponsinfo_id, a.batch_no, a.coupons_pwd, a.sale_status, a.check_status, a.check_time, a.status, a.create_time, a.create_by, a.update_time, a.update_by, a.coupons_qrcode, a.in_source, a.type,
-            b.giftpackage_id,b.order_id,c.init_amount,c.sale_amount
-        from rzx_coupons_info a
-        left join rzx_order_info b on a.couponsinfo_id = b.couponsinfo_id and b.order_status='1'
-        left join rzx_giftpackage_config c on  b.giftpackage_id = c.giftpackage_id
+        select couponsinfo_id, batch_no, coupons_pwd, sale_status, check_status, check_time, status, create_time, create_by, update_time, update_by, coupons_qrcode, in_source, type from rzx_coupons_info
     </sql>
 
-    <select id="selectCouponsInfoList" parameterType="com.rzx.project.domain.CouponsInfo" resultMap="CouponsInfoResult">
+    <select id="selectCouponsInfoList" parameterType="CouponsInfo" resultMap="CouponsInfoResult">
         <include refid="selectCouponsInfoVo"/>
         <where>
             <if test="batchNo != null  and batchNo != ''"> and batch_no = #{batchNo}</if>
@@ -54,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 
-    <update id="updateCouponsInfo" parameterType="com.rzx.project.domain.CouponsInfo">
+    <update id="updateCouponsInfo" parameterType="CouponsInfo">
         update rzx_coupons_info
         <trim prefix="SET" suffixOverrides=",">
             <if test="batchNo != null">batch_no = #{batchNo},</if>

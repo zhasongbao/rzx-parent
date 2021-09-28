@@ -2,13 +2,13 @@ package com.rzx.common.utils.provid.baihui;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.rzx.common.constant.Constants;
 import com.rzx.common.core.mongodb.MongodbUtils;
 import com.rzx.common.core.redis.RedisCache;
 import com.rzx.common.utils.MD5;
-import com.rzx.common.utils.PageData;
 import com.rzx.common.utils.Tools;
 import com.rzx.common.utils.http.HttpClientUtil;
 import com.rzx.common.utils.spring.SpringUtils;
@@ -19,6 +19,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,12 +33,15 @@ public class BaiHuiUtils {
 
 //    private CommonService commonService;
 
-    @Value("${provid.bailihui.url:}")
+    @Value("${provid.bailihui.url:http://t.blhapi.li91.com}")
     private static String url;
-    @Value("${provid.bailihui.appKey:}")
+    @Value("${provid.bailihui.appId:3000100071}")
     private static String appId;
-    @Value("${provid.bailihui.appKey:}")
+    @Value("${provid.bailihui.appKey:cc3ded0b341572fd108d2911e0b8ac27}")
     private static String appKey;
+
+    @Value("${spring.profiles.active:dev}")
+    private static String active;
 
     private static String REDIS_BH_TOKEN ="baihui:token";
 
@@ -149,7 +153,7 @@ public class BaiHuiUtils {
         products.add(product);
         param.put("products", products);
         param.put("sendcms", "1"); //1-出库时短信提示 0-不提示
-//		JSONObject respJson = HttpClientUtil.doPostToBaiHui(url + "/Order/createOrder", param);
+//		JSONObject respJson = requestToBh(url + "/Order/createOrder", param);
     }
 
     private static void saveLog(JSONObject paraJson, JSONObject result, String orderId, String urlPath) {
@@ -168,6 +172,29 @@ public class BaiHuiUtils {
     }
 
     /**
+     * 请求百汇方法
+     * 测试http 生产https
+     * @param url
+     * @param param
+     * @return
+     */
+    public static JSONObject requestToBh(String url, JSONObject param){
+        JSONObject resp = new JSONObject();
+        try {
+            if(active.equals("pro")){
+                // 生产环境调用https
+                resp = JSON.parseObject(HttpClientUtil.doPostToBaiHuiPro(url, JSONObject.toJSONString(param),"utf-8"));
+            }else{
+                // 测试环境调用http
+                resp = requestToBh(url, param);
+            }
+        } catch (Exception e) {
+            logger.error("BaiHuiUtil_requestToBh_e=",e);
+        }
+        return resp;
+    }
+
+    /**
      * 获取授权token  844df9e75e56b305959be50725493746
      */
     public static String getToken() {
@@ -180,7 +207,7 @@ public class BaiHuiUtils {
             param.put("tamptimes", tamptimes);
             String sign = MD5.md5("app_id=" + appId + ":app_key=" + appKey + ":tamptimes=" + tamptimes).toUpperCase();
             param.put("sign", sign);
-            JSONObject respJson = HttpClientUtil.doPostToBaiHui(url + "/Index/getToken", param);
+            JSONObject respJson = requestToBh(url + "/Index/getToken", param);
             if (!respJson.isEmpty() && respJson.getBoolean("result")) {
                 JSONObject data = (JSONObject) respJson.get("data");
                 if (!data.isEmpty()) {
@@ -201,7 +228,7 @@ public class BaiHuiUtils {
      * @param order   订单信息
      * @param address 地址信息
      */
-    public static JSONObject createOrder(String token, PageData order, PageData address) {
+    public static JSONObject createOrder(String token, JSONObject order, JSONObject address) {
         JSONObject respJson = new JSONObject();
         try {
             JSONObject param = new JSONObject();
@@ -225,10 +252,28 @@ public class BaiHuiUtils {
             products.add(product);
             param.put("products", products);
             param.put("sendcms", "1"); //1-出库时短信提示 0-不提示
-            respJson = HttpClientUtil.doPostToBaiHui(url + "/Order/createOrder", param);
+            respJson = requestToBh(url + "/Order/createOrder", param);
             saveLog(param,respJson,order.getString("ORDER_ID"),"/Order/createOrder");
         } catch (Exception e) {
             logger.error("BaiHuiUtil_getGoodsId_e", e);
+        }
+        return respJson;
+    }
+
+    /**
+     * 取消订单
+     * @param token 授权口令
+     * @param order_sn 订单号
+     */
+    public static JSONObject cancelOrder(String token,String order_sn) {
+        JSONObject respJson =  new JSONObject();
+        try {
+            JSONObject param = new JSONObject();
+            param.put("token", token);
+            param.put("order_sn", order_sn);
+            respJson = requestToBh(url + "/Order/createOrder", param);
+        } catch (Exception e) {
+            logger.error("BaiHuiUtil_getGoodsId_e",e);
         }
         return respJson;
     }
@@ -243,7 +288,7 @@ public class BaiHuiUtils {
         try {
             JSONObject param = new JSONObject();
             param.put("token", token);
-            respJson = HttpClientUtil.doPostToBaiHui(url + "/Product/getGoodsId", param);
+            respJson = requestToBh(url + "/Product/getGoodsId", param);
             saveLog(param,respJson,null,"/Product/getGoodsId");
         } catch (Exception e) {
             logger.error("BaiHuiUtil_getGoodsId_e", e);
@@ -263,7 +308,7 @@ public class BaiHuiUtils {
             JSONObject param = new JSONObject();
             param.put("token", token);
             param.put("itemId", itemId);
-            respJson = HttpClientUtil.doPostToBaiHui(url + "/Product/getGoodInfo", param);
+            respJson = requestToBh(url + "/Product/getGoodInfo", param);
             saveLog(param,respJson,itemId,"/Product/getGoodInfo");
         } catch (Exception e) {
             logger.error("BaiHuiUtil_getGoodInfo_e", e);
@@ -282,7 +327,7 @@ public class BaiHuiUtils {
         try {
             JSONObject param = new JSONObject();
             param.put("token", token);
-            respJson = HttpClientUtil.doPostToBaiHui(url + "/Product/getCategorys", param);
+            respJson = requestToBh(url + "/Product/getCategorys", param);
             saveLog(param,respJson,null,"/Product/getCategorys");
         } catch (Exception e) {
             logger.error("BaiHuiUtil_getCategorys_e=", e);
@@ -301,7 +346,7 @@ public class BaiHuiUtils {
         try {
             JSONObject param = new JSONObject();
             param.put("token", token);
-            respJson = HttpClientUtil.doPostToBaiHui(url + "/Area/getProvince", param);
+            respJson = requestToBh(url + "/Area/getProvince", param);
             saveLog(param,respJson,null,"/Area/getProvince");
         } catch (Exception e) {
             logger.error("BaiHuiUtil_getProvince_e", e);
@@ -322,7 +367,7 @@ public class BaiHuiUtils {
             JSONObject param = new JSONObject();
             param.put("token", token);
             param.put("area_id", areaId);
-            respJson = HttpClientUtil.doPostToBaiHui(url + "/Area/getCity", param);
+            respJson = requestToBh(url + "/Area/getCity", param);
             saveLog(param,respJson,null,"/Area/getCity");
         } catch (Exception e) {
             logger.error("BaiHuiUtil_getCity_e", e);
@@ -343,7 +388,7 @@ public class BaiHuiUtils {
             JSONObject param = new JSONObject();
             param.put("token", token);
             param.put("area_id", cityId);
-            respJson = HttpClientUtil.doPostToBaiHui(url + "/Area/getCounty", param);
+            respJson = requestToBh(url + "/Area/getCounty", param);
             saveLog(param,respJson,null,"/Area/getCounty");
         } catch (Exception e) {
             logger.error("BaiHuiUtil_getCounty_e", e);
@@ -364,7 +409,7 @@ public class BaiHuiUtils {
             JSONObject param = new JSONObject();
             param.put("token", token);
             param.put("area_id", countyId);
-            respJson = HttpClientUtil.doPostToBaiHui(url + "/Area/getTown", param);
+            respJson = requestToBh(url + "/Area/getTown", param);
             saveLog(param,respJson,null,"/Area/getTown");
         } catch (Exception e) {
             logger.error("BaiHuiUtil_getTown_e", e);
@@ -398,7 +443,7 @@ public class BaiHuiUtils {
             JSONObject param = new JSONObject();
             param.put("token", token);
             param.put("area_ids", area_ids.toString());
-            respJson = HttpClientUtil.doPostToBaiHui(url + "/Area/getValid", param);
+            respJson = requestToBh(url + "/Area/getValid", param);
             saveLog(param,respJson,null,"/Area/getValid");
         } catch (Exception e) {
             logger.error("BaiHuiUtil_getBhValid_e", e);
@@ -406,5 +451,122 @@ public class BaiHuiUtils {
         return respJson;
     }
 
+    /**
+     * 查询京东商品区域库存（附带商品数量）
+     * @param token 授权口令
+     * @return
+     */
+    public static JSONObject getStoreAsNum(String token, List<Object> list, String provinceId, String cityId, String countyId, String townId) {
+        JSONObject respJson =  new JSONObject();
+        try {
+            JSONObject param = new JSONObject();
+            param.put("token", token);
+            param.put("products", list);
+            param.put("province", provinceId);
+            param.put("city", cityId);
+            param.put("county", countyId);
+            param.put("town", townId);
+            respJson = requestToBh(url + "/Store/getStoreAsNum", param);
+        } catch (Exception e) {
+            logger.error("BaiHuiUtil_getStoreAsNum_e",e);
+        }
+        return respJson;
+    }
+
+    /**
+     * 查询实物订单包裹信息
+     * @param token 授权口令
+     * @param order_sn 百汇订单号
+     * @param nums 运单号
+     * @return
+     */
+    public static JSONObject getOrderExpress(String token, String order_sn, String nums) {
+        JSONObject respJson =  new JSONObject();
+        try {
+            JSONObject param = new JSONObject();
+            param.put("token", token);
+            param.put("order_sn", order_sn);
+            param.put("nums", nums);
+            respJson = requestToBh(url + "/Special/getOrderExpress", param);
+        } catch (Exception e) {
+            logger.error("BaiHuiUtil_getOrderShipment_e",e);
+        }
+        return respJson;
+    }
+
+    /**
+     * 查询实物订单配送信息
+     * @param token 授权口令
+     * @return
+     */
+    public static JSONObject getOrderShipment(String token, String order_sn) {
+        JSONObject respJson =  new JSONObject();
+        try {
+            JSONObject param = new JSONObject();
+            param.put("token", token);
+            param.put("order_sn", order_sn);
+            respJson = requestToBh(url + "/Order/getOrderShipment", param);
+        } catch (Exception e) {
+            logger.error("BaiHuiUtil_getOrderShipment_e",e);
+        }
+        return respJson;
+    }
+
+    /**
+     * 查询商品区域库存状态
+     * @param token 授权口令
+     * @return
+     */
+    public static JSONObject getRegionStore(String token, String itemIds, String provinceId, String cityId, String countyId, String townId) {
+        JSONObject respJson =  new JSONObject();
+        try {
+            JSONObject param = new JSONObject();
+            param.put("token", token);
+            param.put("itemIds", itemIds);
+            param.put("province", provinceId);
+            param.put("city", cityId);
+            param.put("county", countyId);
+            param.put("town", townId);
+            respJson = requestToBh(url + "/Store/getRegionStore", param);
+        } catch (Exception e) {
+            logger.error("BaiHuiUtil_getRegionStore_e",e);
+        }
+        return respJson;
+    }
+
+    /**
+     * 查询通知
+     * @param token 授权口令
+     * @return
+     */
+    public static JSONObject getNotics(String token) {
+        JSONObject respJson =  new JSONObject();
+        try {
+            JSONObject param = new JSONObject();
+            param.put("token", token);
+            respJson = requestToBh(url + "/Notic/getNotics", param);
+        } catch (Exception e) {
+            logger.error("BaiHuiUtil_getNotics_e",e);
+        }
+        return respJson;
+    }
+
+    /**
+     * 删除通知消息
+     * @param token 授权口令
+     * @return
+     */
+    public static JSONObject doNotics(String token,String notice_ids) {
+        JSONObject respJson =  new JSONObject();
+        try {
+            JSONObject param = new JSONObject();
+            param.put("token", token);
+            param.put("notice_ids", notice_ids);
+            respJson = requestToBh(url + "/Notic/doNotics", param);
+        } catch (Exception e) {
+            logger.error("BaiHuiUtil_doNotics_e",e);
+        }
+        return respJson;
+    }
 
 }
