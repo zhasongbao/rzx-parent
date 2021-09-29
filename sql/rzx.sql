@@ -43,13 +43,14 @@ DROP TABLE IF EXISTS `rzx_user_info`;
 CREATE TABLE `rzx_user_info`  (
   `user_info_id` 		varchar(32) NOT NULL,
   `user_id` 			varchar(32) DEFAULT NULL COMMENT '渠道来源用户id 各渠道用户openId',
+  `user_type` 			varchar(1) DEFAULT NULL COMMENT '渠道用户类型(0-代理分销用户 1-普通用户 )',
   `source` 				varchar(1)  DEFAULT NULL COMMENT '渠道来源(1-任货行 2-任意行 3-任通行)',
   `status` 				varchar(1) 	DEFAULT '1' COMMENT '状态(1-有效 0-无效)',
   `score` 				int(10) 	DEFAULT NULL COMMENT '积分',
   `create_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`user_info_id`) USING BTREE,
-  UNIQUE INDEX `user_id_source`(`user_id`, `source`) USING BTREE
+  UNIQUE KEY `user_source` (`user_id`,`user_type`,`source`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '任智行渠道用户信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------

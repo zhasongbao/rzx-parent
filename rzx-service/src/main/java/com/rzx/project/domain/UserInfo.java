@@ -37,6 +37,12 @@ public class UserInfo extends BaseEntity {
     @ApiModelProperty(value = "渠道来源用户id 各渠道用户openId")
     @TableField(value = "user_id")
     private String userId;
+
+    /** 渠道来源用户id 各渠道用户openId */
+    @Excel(name = "渠道用户类型")
+    @ApiModelProperty(value = "渠道用户类型(0-代理分销用户 1-普通用户 )")
+    @TableField(value = "user_type")
+    private String userType;
     
     /** 渠道来源(1-任货行 2-任意行 3-任通行) */
     @Excel(name = "渠道来源(1-任货行 2-任意行 3-任通行)")

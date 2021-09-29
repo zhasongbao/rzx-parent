@@ -25,6 +25,10 @@ public class UserLoginDTO implements Serializable {
     @ApiModelProperty("用户openId")
     private String userId;
 
+    @NotBlank(message = "渠道用户类型不能为空")
+    @ApiModelProperty("渠道用户类型(0-代理分销用户 1-普通用户 )")
+    private String userType;
+
     @NotBlank(message = "渠道来源不能为空")
     @ApiModelProperty("渠道来源(1-任货行 2-任意行 3-任通行)")
     private String source;
