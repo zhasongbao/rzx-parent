@@ -27,7 +27,7 @@ public interface OrderInfoMapper extends BaseMapper<OrderInfo> {
      * @param orderInfo 任智行 销售订单
      * @return 任智行 销售订单集合
      */
-    List<OrderInfo> selectOrderInfoList(OrderInfoDTO orderInfo);
+    List<OrderInfo> selectOrderInfoList(OrderInfo orderInfo);
 
 
     /**

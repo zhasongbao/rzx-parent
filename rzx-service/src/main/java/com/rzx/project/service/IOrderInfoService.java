@@ -27,7 +27,7 @@ public interface IOrderInfoService extends IService<OrderInfo> {
      * @param dto 任智行 销售订单
      * @return 任智行 销售订单集合
      */
-    List<OrderInfo> selectOrderInfoList(OrderInfoDTO dto);
+    List<OrderInfo> selectOrderInfoList(OrderInfo dto);
 
     /**
      * 新增任智行 销售订单

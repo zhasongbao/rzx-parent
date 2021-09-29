@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select salesorder_id, order_num, order_id, order_key, order_shipment_fee, saleman_id, user_info_id, giftpackage_id, commodity_code, couponsinfo_id, init_total_amount, sale_total_amount, pay_way, out_trade_id, notifyjson, qr_code, order_status, sale_time, receiveaddress_id, remark, order_provid, error_code, error_message, status, create_time, create_by, update_time, update_by, brokerage, qr_bill_url, billrecord_id, pay_end_time, in_source, order_type, com_order_id, pay_type, pay_score, express_code, com_price, com_count from rzx_order_info
     </sql>
 
-    <select id="selectOrderInfoList" parameterType="com.rzx.project.domain.dto.OrderInfoDTO" resultMap="OrderInfoResult">
+    <select id="selectOrderInfoList" parameterType="com.rzx.project.domain.OrderInfo" resultMap="OrderInfoResult">
         <include refid="selectOrderInfoVo"/>
         <where>
             <if test="orderNum != null  and orderNum != ''"> and order_num = #{orderNum}</if>

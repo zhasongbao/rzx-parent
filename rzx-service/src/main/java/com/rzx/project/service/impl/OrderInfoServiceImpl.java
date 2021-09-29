@@ -40,7 +40,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper,OrderInfo>
      * @return 任智行 销售订单
      */
     @Override
-    public List<OrderInfo> selectOrderInfoList(OrderInfoDTO orderInfo) {
+    public List<OrderInfo> selectOrderInfoList(OrderInfo orderInfo) {
         return orderInfoMapper.selectOrderInfoList(orderInfo);
     }
 

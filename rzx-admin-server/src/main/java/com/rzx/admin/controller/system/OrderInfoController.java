@@ -45,7 +45,7 @@ public class OrderInfoController extends BaseController {
 //    @PreAuthorize(hasPermi = "project:info:list")
     @GetMapping("/list")
     @ApiOperation(value = "查询任智行 销售订单列表")
-    public TableDataInfo list(OrderInfoDTO orderInfo){
+    public TableDataInfo list(OrderInfo orderInfo){
         startPage();
         List<OrderInfo> list = orderInfoService.selectOrderInfoList(orderInfo);
         return getDataTable(list);
@@ -58,7 +58,7 @@ public class OrderInfoController extends BaseController {
 //    @PreAuthorize(hasPermi = "project:info:export")
     @Log(title = "任智行 销售订单", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(OrderInfoDTO orderInfo) {
+    public void export(OrderInfo orderInfo) {
         List<OrderInfo> list = orderInfoService.selectOrderInfoList(orderInfo);
         ExcelUtil<OrderInfo> util = new ExcelUtil<OrderInfo>(OrderInfo.class);
         util.exportExcel(list, "info");
