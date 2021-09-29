@@ -1,6 +1,7 @@
 package com.rzx.project.domain;
 
     import com.rzx.common.core.domain.BaseEntity;
+    import lombok.Builder;
     import lombok.EqualsAndHashCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.ToString;
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableId;
+    import lombok.experimental.Tolerate;
 
 /**
  * 任智行 销售订单对象 rzx_order_info
@@ -19,13 +21,17 @@ import com.baomidou.mybatisplus.annotation.TableId;
  * @date 2021-09-28
  */
 @Data
-@ToString
+@Builder
 @TableName("rzx_order_info")
 @ApiModel(value = "任智行 销售订单对象", description = "任智行 销售订单rzx_order_info表")
 @EqualsAndHashCode(callSuper = true)
 public class OrderInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
+
+    @Tolerate
+    public OrderInfo() {
+    }
 
     /** $column.columnComment */
     @ApiModelProperty(value = "${column.columnComment}")

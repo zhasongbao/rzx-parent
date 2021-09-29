@@ -62,4 +62,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{providaddressId}
         </foreach>
     </delete>
+
+    <!-- 批量插入 -->
+    <insert id="batchInsertOrUpdate" parameterType="com.rzx.project.domain.ProvidAddress">
+        insert into
+        rzx_provid_address
+        (
+            id,
+            `name`,
+            parent_id,
+            `type`,
+            provid,
+            status,
+            create_time,
+            update_time,
+            providaddress_id
+        )
+        values
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.id},
+                #{item.name},
+                #{item.parentId},
+                #{item.type},
+                #{item.provid},
+                #{item.status},
+                #{item.createTime},
+                #{item.updateTime},
+                #{item.providAddressId}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        update_time = now()
+    </insert>
 </mapper>

@@ -59,4 +59,11 @@ public interface IProvidAddressService extends IService<ProvidAddress> {
      * @return 结果
      */
     int deleteProvidAddressById(String providaddressId);
+
+    /**
+     * 批量插入/更新
+     * @param list
+     * @throws Exception
+     */
+    int batchInsertOrUpdate(List<ProvidAddress> list);
 }

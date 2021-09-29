@@ -52,4 +52,11 @@ public interface ProvidAddressMapper extends BaseMapper<ProvidAddress> {
      * @return 结果
      */
     int deleteProvidAddressByIds(String[] providaddressIds);
+
+    /**
+     * 批量插入/更新
+     *
+     * @param list
+     */
+    int batchInsertOrUpdate(List<ProvidAddress> list);
 }

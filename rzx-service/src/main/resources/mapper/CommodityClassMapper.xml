@@ -63,4 +63,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{commodityclassId}
         </foreach>
     </delete>
+
+    <!-- 批量插入 -->
+    <insert id="batchInsertOrUpdate" parameterType="com.rzx.project.domain.CommodityClass">
+        insert into
+        rzx_commodity_class
+        (
+            CODE,
+            `NAME`,
+            `LEVEL`,
+            PROVID,
+            PARENTID,
+            STATUS,
+            CREATE_TIME,
+            UPDATE_TIME,
+            COMMODITYCLASS_ID
+        )
+        values
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.code},
+            #{item.name},
+            #{item.level},
+            #{item.provid},
+            #{item.parentId},
+            #{item.status},
+            #{item.createTime},
+            #{item.updateTime},
+            #{item.commodityclassId}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        UPDATE_TIME = now(),
+        `NAME` = VALUES(`name`),
+        `LEVEL` = VALUES(`level`),
+        PARENTID = VALUES(parentId),
+        STATUS = VALUES(status)
+    </insert>
 </mapper>

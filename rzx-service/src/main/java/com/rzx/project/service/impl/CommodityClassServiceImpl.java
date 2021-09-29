@@ -89,4 +89,15 @@ public class CommodityClassServiceImpl extends ServiceImpl<CommodityClassMapper,
     public int deleteCommodityClassById(String commodityclassId) {
         return commodityClassMapper.deleteCommodityClassById(commodityclassId);
     }
+
+    /**
+     * 批量插入
+     * @param list
+     * @throws Exception
+     */
+    @Override
+    public int batchInsertOrUpdate(List<CommodityClass> list){
+        return commodityClassMapper.batchInsertOrUpdate(list);
+    }
+
 }

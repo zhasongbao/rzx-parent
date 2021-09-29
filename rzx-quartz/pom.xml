@@ -32,6 +32,10 @@
             <groupId>com.fenmi</groupId>
             <artifactId>rzx-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.fenmi</groupId>
+            <artifactId>rzx-service</artifactId>
+        </dependency>
 
     </dependencies>
 

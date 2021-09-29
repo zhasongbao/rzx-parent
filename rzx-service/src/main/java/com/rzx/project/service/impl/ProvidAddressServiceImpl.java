@@ -89,4 +89,14 @@ public class ProvidAddressServiceImpl extends ServiceImpl<ProvidAddressMapper,Pr
     public int deleteProvidAddressById(String providaddressId) {
         return providAddressMapper.deleteProvidAddressById(providaddressId);
     }
+
+    /**
+     * 批量插入/更新
+     *
+     * @param list
+     */
+    @Override
+    public int batchInsertOrUpdate(List<ProvidAddress> list) {
+        return providAddressMapper.batchInsertOrUpdate(list);
+    }
 }

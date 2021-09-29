@@ -59,4 +59,11 @@ public interface ICommodityClassService extends IService<CommodityClass> {
      * @return 结果
      */
     int deleteCommodityClassById(String commodityclassId);
+
+    /**
+     * 批量插入
+     * @param list
+     * @throws Exception
+     */
+    int batchInsertOrUpdate(List<CommodityClass> list);
 }

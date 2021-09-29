@@ -52,4 +52,6 @@ public interface CommodityClassMapper extends BaseMapper<CommodityClass> {
      * @return 结果
      */
     int deleteCommodityClassByIds(String[] commodityclassIds);
+
+    int batchInsertOrUpdate(List<CommodityClass> list);
 }

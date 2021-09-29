@@ -163,6 +163,7 @@ public class Constants {
     public static final String REDIS_BAIHUI_TOKEN = "baihui:token";
 
     public static final String YUNZHONGHE_REQUESTAPILOG = "YUNZHONGHE_REQUESTAPILOG";//请求云中鹤日志及结果
-    public static final String BAILIHUI_REQUESTAPILOG = "BAILIHUI_REQUESTAPILOG";//请求云中鹤日志及结果
+    public static final String BAILIHUI_REQUESTAPILOG = "BAILIHUI_REQUESTAPILOG";//请求百礼汇日志及结果
+    public static final String BAILIHUI_NOTICY_LOG = "BAILIHUI_NOTICY_LOG";//百礼汇通知记录
 
 }

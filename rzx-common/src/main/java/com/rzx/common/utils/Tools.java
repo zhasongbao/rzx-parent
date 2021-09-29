@@ -1,5 +1,6 @@
 package com.rzx.common.utils;
 
+import cn.hutool.core.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -95,5 +96,15 @@ public class Tools {
             return "";
         }
     }
+
+    /**
+     * 获取32位UUID
+     *
+     * @return
+     */
+    public static String get32UUID() {
+        return RandomUtil.randomUUID().replace("-","");
+    }
+
 
 }
