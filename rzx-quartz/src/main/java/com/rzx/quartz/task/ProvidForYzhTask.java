@@ -18,7 +18,7 @@ import com.rzx.project.service.IProvidAddressService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -32,7 +32,7 @@ import java.util.concurrent.Executors;
  * 供应商 云中鹤定时任务
  * @author zhasbao
  */
-@Service("providForYzhTask")
+@Component("providForYzhTask")
 public class ProvidForYzhTask {
     private static final Logger logger = LoggerFactory.getLogger(ProvidForYzhTask.class);
 
@@ -49,7 +49,7 @@ public class ProvidForYzhTask {
      * 云中鹤商品数据全量获取
      */
     public void execute() {
-        logger.error("forCommodityYzhTask_execute_start...." + Tools.date2Str(new Date()));
+        logger.error("providForYzhTask_execute_start...." + Tools.date2Str(new Date()));
         try {
             // 获取总页数
             JSONObject getResp = YunZhongHeUtils.getProductIdsByPage(1);
@@ -60,7 +60,7 @@ public class ProvidForYzhTask {
                 for (Integer i = 1; i <= getResp.getInteger("TOTAL_PAGE"); i++) {
                     Integer finalI = i;
                     fixedThreadPool.execute(()->{
-                        logger.error("forCommodityYzhTask_execute_page=" + finalI);
+                        logger.error("providForYzhTask_execute_page=" + finalI);
                         JSONObject resp = YunZhongHeUtils.getProductIdsByPage(finalI);
                         if (!ObjectUtil.isEmpty(resp) && !StringUtils.isEmpty(resp.getString("RESULT_DATA"))) {
                             String cResultData = resp.getString("RESULT_DATA");
@@ -101,10 +101,10 @@ public class ProvidForYzhTask {
                 }
             }
         } catch (Exception e) {
-            logger.error("forCommodityYzhTask_execute_e=" + e);
+            logger.error("providForYzhTask_execute_e=" + e);
             logger.error(e.getMessage(), e);
         }
-        logger.error("forCommodityYzhTask_execute_end...." + Tools.date2Str(new Date()));
+        logger.error("providForYzhTask_execute_end...." + Tools.date2Str(new Date()));
     }
 
     /**
@@ -171,7 +171,7 @@ public class ProvidForYzhTask {
      * 定时获取 云中鹤商品分类数据全量获取
      */
     public void getAllClass() {
-        logger.error("forCommodityYzhTask_getAllClass_start...." + Tools.date2Str(new Date()));
+        logger.error("providForYzhTask_getAllClass_start...." + Tools.date2Str(new Date()));
         try {
             // 获取一级产品分类
             JSONObject resp = YunZhongHeUtils.cateRootCate();
@@ -183,9 +183,9 @@ public class ProvidForYzhTask {
                 getChilds(oneList);
             }
         } catch (Exception e) {
-            logger.error("forCommodityYzhTask_getAllClass_e=" + e);
+            logger.error("providForYzhTask_getAllClass_e=" + e);
         }
-        logger.error("forCommodityYzhTask_getAllClass_end...." + Tools.date2Str(new Date()));
+        logger.error("providForYzhTask_getAllClass_end...." + Tools.date2Str(new Date()));
     }
 
     /**
@@ -241,7 +241,7 @@ public class ProvidForYzhTask {
      * 定时获取 云中鹤系统地址
      */
     public void getAddress() {
-        logger.error("forCommodityYzhTask_getAddress_start...." + Tools.date2Str(new Date()));
+        logger.error("providForYzhTask_getAddress_start...." + Tools.date2Str(new Date()));
         try {
             // 获取一级地址 省
             JSONObject resp = YunZhongHeUtils.getProvince();
@@ -253,9 +253,9 @@ public class ProvidForYzhTask {
                 getAddress2(provinceList);
             }
         } catch (Exception e) {
-            logger.error("forCommodityYzhTask_getAddress_e=" + e);
+            logger.error("providForYzhTask_getAddress_e=" + e);
         }
-        logger.error("forCommodityYzhTask_getAddress_end...." + Tools.date2Str(new Date()));
+        logger.error("providForYzhTask_getAddress_end...." + Tools.date2Str(new Date()));
     }
 
     /**

@@ -35,10 +35,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectCommodityConfigVo">
-        select commodityconfig_id, commodity_code, commodity_name, brand, model, thumbnail_image, image, image_urls, explain, amount, provid, status, create_time, update_time, product_cate, product_place, sale_status, market_price, retail_amount, is_to_return, giftpackage_id, choose_flag, weight, size, type_id, provid_source, rate from rzx_commodity_config
+        select commodityconfig_id, commodity_code, commodity_name, brand, model, thumbnail_image, image, image_urls, `explain`, amount, provid, status, create_time, update_time, product_cate, product_place, sale_status, market_price, retail_amount, is_to_return, giftpackage_id, choose_flag, weight, size, type_id, provid_source, rate from rzx_commodity_config
     </sql>
 
-    <select id="selectCommodityConfigList" parameterType="CommodityConfig" resultMap="CommodityConfigResult">
+    <select id="selectCommodityConfigList" parameterType="com.rzx.project.domain.CommodityConfig" resultMap="CommodityConfigResult">
         <include refid="selectCommodityConfigVo"/>
         <where>
             <if test="commodityCode != null  and commodityCode != ''"> and commodity_code = #{commodityCode}</if>

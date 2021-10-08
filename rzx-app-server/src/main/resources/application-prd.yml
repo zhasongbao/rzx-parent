@@ -60,15 +60,3 @@ spring:
         wall:
           config:
             multi-statement-allow: true
-
-
-#供应商配置
-provid:
-  yunzhonghe:
-    url: http://open.fygift.com/api
-    wid: 4066
-    accessToken: tytdn4MkvDhGGRV9JqUb6ynbZDtFk5
-  bailihui:
-    url: https://blhapi.li91.com
-    appId: 3000100107
-    appKey: 72028d49f8dcedddfedfa9545dd4b7c4
