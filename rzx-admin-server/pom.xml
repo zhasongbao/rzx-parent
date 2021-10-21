@@ -60,12 +60,6 @@
             <artifactId>rzx-framework</artifactId>
         </dependency>
 
-        <!-- 定时任务-->
-        <dependency>
-            <groupId>com.fenmi</groupId>
-            <artifactId>rzx-quartz</artifactId>
-        </dependency>
-
 <!--        <dependency>-->
 <!--            <groupId>com.baomidou</groupId>-->
 <!--            <artifactId>mybatis-plus-boot-starter</artifactId>-->

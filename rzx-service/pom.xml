@@ -12,6 +12,9 @@
     <artifactId>rzx-service</artifactId>
     <description>任智行公共service</description>
 
+    <properties>
+        <dynamic-datasource.version>3.1.0</dynamic-datasource.version>
+    </properties>
     <dependencies>
 
         <!-- swagger2-->
@@ -51,5 +54,10 @@
             <artifactId>rzx-common</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>${dynamic-datasource.version}</version>
+        </dependency>
     </dependencies>
 </project>

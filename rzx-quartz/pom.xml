@@ -14,7 +14,6 @@
     <description>quartz定时任务</description>
 
     <dependencies>
-
         <!-- 定时任务 -->
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
@@ -37,6 +36,36 @@
             <artifactId>rzx-service</artifactId>
         </dependency>
 
+        <!-- 核心模块-->
+        <dependency>
+            <groupId>com.fenmi</groupId>
+            <artifactId>rzx-framework</artifactId>
+        </dependency>
+        <!-- Mysql驱动包 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.1.1.RELEASE</version>
+                <configuration>
+                    <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <finalName>${project.artifactId}</finalName>
+    </build>
 
 </project>
