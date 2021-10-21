@@ -2,61 +2,42 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://192.168.0.101:27017/jdbdb
+      uri: mongodb://192.168.0.101:27017/ryxdb
       username: writer
       password: Fenmi1q2w3e
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    driverClassName: com.mysql.cj.jdbc.Driver
-    druid:
-      # 主库数据源
-      master:
-        url: jdbc:mysql://192.168.0.84:3306/rzx?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-        username: root
-        password: Mol_Qiprh0_s
-      # 从库数据源
-      slave:
-        # 从数据源开关/默认关闭
-        enabled: false
-        url:
-        username:
-        password:
-      # 初始连接数
-      initialSize: 5
-      # 最小连接池数量
-      minIdle: 10
-      # 最大连接池数量
-      maxActive: 20
-      # 配置获取连接等待超时的时间
-      maxWait: 60000
-      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-      timeBetweenEvictionRunsMillis: 60000
-      # 配置一个连接在池中最小生存的时间，单位是毫秒
-      minEvictableIdleTimeMillis: 300000
-      # 配置一个连接在池中最大生存的时间，单位是毫秒
-      maxEvictableIdleTimeMillis: 900000
-      # 配置检测连接是否有效
-      validationQuery: SELECT 1 FROM DUAL
-      testWhileIdle: true
-      testOnBorrow: false
-      testOnReturn: false
-      webStatFilter:
-        enabled: true
-      statViewServlet:
-        enabled: true
-        # 设置白名单，不填则允许所有访问
-        allow:
-        url-pattern: /druid/*
-        # 控制台管理用户名和密码
-        login-username: admin
-        login-password: 123456
-      filter:
-        stat:
-          enabled: true
-          # 慢SQL记录
-          log-slow-sql: true
-          slow-sql-millis: 1000
-          merge-sql: true
-        wall:
-          config:
-            multi-statement-allow: true
+  datasource: #数据库链接相关配置
+    dynamic:
+      druid: #以下是全局默认值，可以全局更改
+        #监控统计拦截的filters
+        filters: stat
+        #配置初始化大小/最小/最大
+        initial-size: 1
+        min-idle: 1
+        max-active: 20
+        #获取连接等待超时时间
+        max-wait: 60000
+        #间隔多久进行一次检测，检测需要关闭的空闲连接
+        time-between-eviction-runs-millis: 60000
+        #一个连接在池中最小生存的时间
+        min-evictable-idle-time-millis: 300000
+        max-evictable-idle-time-millis: 900000
+        validation-query: SELECT 'x'
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+        pool-prepared-statements: false
+        max-pool-prepared-statement-per-connection-size: 20
+        primary: master #设置默认的数据源或者数据源组,默认值即为master
+        strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        master:
+          url: jdbc:mysql://192.168.0.84:3306/rzx?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+          username: root
+          password: Mol_Qiprh0_s
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        slave_1:
+          url: jdbc:mysql://192.168.0.84:3306/hcb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+          username: root
+          password: Mol_Qiprh0_s
+          driver-class-name: com.mysql.cj.jdbc.Driver
