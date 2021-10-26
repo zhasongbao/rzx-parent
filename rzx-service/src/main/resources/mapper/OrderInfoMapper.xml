@@ -45,10 +45,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="expressCode"    column="express_code"    />
         <result property="comPrice"    column="com_price"    />
         <result property="comCount"    column="com_count"    />
+        <result property="noticsStatus"    column="notics_status"    />
+        <result property="checkStatus"    column="check_status"    />
     </resultMap>
 
     <sql id="selectOrderInfoVo">
-        select salesorder_id, order_num, order_id, order_key, order_shipment_fee, saleman_id, user_info_id, giftpackage_id, commodity_code, couponsinfo_id, init_total_amount, sale_total_amount, pay_way, out_trade_id, notifyjson, qr_code, order_status, sale_time, receiveaddress_id, remark, order_provid, error_code, error_message, status, create_time, create_by, update_time, update_by, brokerage, qr_bill_url, billrecord_id, pay_end_time, in_source, order_type, com_order_id, pay_type, pay_score, express_code, com_price, com_count from rzx_order_info
+        select salesorder_id, order_num, order_id, order_key, order_shipment_fee, saleman_id, user_info_id, giftpackage_id, commodity_code, couponsinfo_id, init_total_amount, sale_total_amount, pay_way, out_trade_id, notifyjson, qr_code, order_status, sale_time, receiveaddress_id, remark, order_provid, error_code, error_message, status, create_time, create_by, update_time, update_by, brokerage, qr_bill_url, billrecord_id, pay_end_time, in_source, order_type, com_order_id, pay_type, pay_score, express_code, com_price, com_count, notics_status, check_status from rzx_order_info
     </sql>
 
     <select id="selectOrderInfoList" parameterType="com.rzx.project.domain.OrderInfo" resultMap="OrderInfoResult">
@@ -88,6 +90,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="expressCode != null  and expressCode != ''"> and express_code = #{expressCode}</if>
             <if test="comPrice != null  and comPrice != ''"> and com_price = #{comPrice}</if>
             <if test="comCount != null  and comCount != ''"> and com_count = #{comCount}</if>
+            <if test="noticsStatus != null  and noticsStatus != ''"> and notics_status = #{noticsStatus}</if>
+            <if test="checkStatus != null  and checkStatus != ''"> and check_status = #{checkStatus}</if>
         </where>
     </select>
 
@@ -139,6 +143,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="expressCode != null">express_code = #{expressCode},</if>
             <if test="comPrice != null">com_price = #{comPrice},</if>
             <if test="comCount != null">com_count = #{comCount},</if>
+            <if test="noticsStatus != null">notics_status = #{noticsStatus},</if>
+            <if test="checkStatus != null">check_status = #{checkStatus},</if>
         </trim>
         where salesorder_id = #{salesorderId}
     </update>

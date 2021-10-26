@@ -115,6 +115,8 @@ CREATE TABLE `rzx_order_info`  (
   `express_code` 		varchar(50)  DEFAULT NULL COMMENT '运单号',
   `com_price` 			varchar(10)  DEFAULT NULL COMMENT '商品单价',
   `com_count` 			varchar(10)  DEFAULT NULL COMMENT '商品数量',
+  `notics_status`       varchar(1)   DEFAULT NULL COMMENT '商城订单同步结果 0-同步失败 1同步成功',
+  `check_status`        varchar(2)   DEFAULT NULL COMMENT '核销状态(0-未核销 1-已核销)',
   PRIMARY KEY (`salesorder_id`) USING BTREE,
   INDEX `order_id_index`(`order_id`) USING BTREE,
   INDEX `saleman_id_index`(`saleman_id`) USING BTREE,

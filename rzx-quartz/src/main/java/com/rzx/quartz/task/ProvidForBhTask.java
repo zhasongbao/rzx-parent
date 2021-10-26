@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -33,8 +34,6 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * 供应商 百礼汇定时任务
@@ -54,7 +53,8 @@ public class ProvidForBhTask {
     private ICommodityClassService commodityClassService;
     @Autowired
     private IOrderInfoService orderInfoService;
-    private static ExecutorService fixedThreadPool = Executors.newFixedThreadPool(20);
+    @Autowired
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
     @Resource
     private MongoTemplate mongoTemplate;
     @Autowired
@@ -87,7 +87,7 @@ public class ProvidForBhTask {
                     String[] ids = data.getString("ids").split(",");
                     for (int i = 0; i < ids.length; i++) {
                         int finalI = i;
-                        fixedThreadPool.execute(()->{
+                        threadPoolTaskExecutor.execute(()->{
                             try {
                                 String comId = ids[finalI];
                                 if(StringUtils.isEmpty(comId)){

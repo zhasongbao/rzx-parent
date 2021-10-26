@@ -18,6 +18,7 @@ import com.rzx.project.service.IProvidAddressService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -25,8 +26,6 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * 供应商 云中鹤定时任务
@@ -43,7 +42,8 @@ public class ProvidForYzhTask {
     private ICommodityClassService commodityClassService;
     @Autowired
     private IProvidAddressService providAddressService;
-    private static ExecutorService fixedThreadPool = Executors.newFixedThreadPool(50);
+    @Autowired
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     /**
      * 云中鹤商品数据全量获取
@@ -59,7 +59,7 @@ public class ProvidForYzhTask {
                 // 分页获取商品ID
                 for (Integer i = 1; i <= getResp.getInteger("TOTAL_PAGE"); i++) {
                     Integer finalI = i;
-                    fixedThreadPool.execute(()->{
+                    threadPoolTaskExecutor.execute(()->{
                         logger.error("providForYzhTask_execute_page=" + finalI);
                         JSONObject resp = YunZhongHeUtils.getProductIdsByPage(finalI);
                         if (!ObjectUtil.isEmpty(resp) && !StringUtils.isEmpty(resp.getString("RESULT_DATA"))) {
