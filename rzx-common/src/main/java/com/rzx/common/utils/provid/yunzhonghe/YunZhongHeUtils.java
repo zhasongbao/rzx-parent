@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.rzx.common.constant.Constants;
+import com.rzx.common.core.mongodb.MongodbService;
 import com.rzx.common.core.mongodb.MongodbUtils;
 import com.rzx.common.utils.MD5;
 import com.rzx.common.utils.http.HttpClientUtil;
@@ -23,6 +24,7 @@ import java.util.Map;
 public class YunZhongHeUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(YunZhongHeUtils.class);
+    private static MongodbService mongodbService = SpringUtils.getBean(MongodbService.class);
 
     //当前环境
     private static final String ACTIVE = SpringUtils.getActiveProfiles()[0];
@@ -92,7 +94,7 @@ public class YunZhongHeUtils {
 //		}
 //	}
 
-    private static void saveLog(String paraJson, JSONObject result, String orderId, String urlPath) {
+    public static void saveLog(String paraJson, JSONObject result, String orderId, String urlPath) {
         // 保存日志
         final Map<String, Object> paraPd = new HashMap<>();
         paraPd.put("result", result == null ? "" : result);
@@ -103,7 +105,7 @@ public class YunZhongHeUtils {
             paraPd.put("a_id", IdUtil.simpleUUID());
             paraPd.put("a_createTime", DateUtil.now());
             paraPd.put("paraJson", paraJson);
-            MongodbUtils.save(paraJson, Constants.YUNZHONGHE_REQUESTAPILOG);
+            mongodbService.save(paraPd, Constants.YUNZHONGHE_REQUESTAPILOG);
         }).start();
     }
 

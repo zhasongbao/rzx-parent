@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.rzx.common.constant.Constants;
-import com.rzx.common.core.mongodb.MongodbUtils;
+import com.rzx.common.core.mongodb.MongodbService;
 import com.rzx.common.core.redis.RedisCache;
 import com.rzx.common.utils.MD5;
 import com.rzx.common.utils.Tools;
@@ -14,7 +14,6 @@ import com.rzx.common.utils.http.HttpClientUtil;
 import com.rzx.common.utils.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
 import java.util.Date;
@@ -30,6 +29,7 @@ public class BaiHuiUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(BaiHuiUtils.class);
     private static RedisCache redisDaoImpl = SpringUtils.getBean(RedisCache.class);
+    private static MongodbService mongodbService = SpringUtils.getBean(MongodbService.class);
 
     //当前环境
     private static final String ACTIVE = SpringUtils.getActiveProfiles()[0];
@@ -141,7 +141,7 @@ public class BaiHuiUtils {
             paraPd.put("a_id", IdUtil.simpleUUID());
             paraPd.put("a_createTime", DateUtil.now());
             paraPd.put("paraJson", paraJson);
-            MongodbUtils.save(paraJson, Constants.BAILIHUI_REQUESTAPILOG);
+            mongodbService.save(paraPd, Constants.BAILIHUI_REQUESTAPILOG);
         }).start();
     }
 
