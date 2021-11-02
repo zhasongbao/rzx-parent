@@ -1,5 +1,7 @@
 package com.rzx.app.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.JSONObjectCodec;
 import com.rzx.common.annotation.Log;
 import com.rzx.common.core.controller.BaseController;
 import com.rzx.common.core.domain.AjaxResult;
@@ -8,7 +10,10 @@ import com.rzx.common.core.page.TableDataInfo;
 import com.rzx.common.enums.BusinessType;
 import com.rzx.common.utils.poi.ExcelUtil;
 import com.rzx.project.domain.OrderInfo;
+import com.rzx.project.domain.dto.BuyPackageDTO;
 import com.rzx.project.domain.dto.OrderInfoDTO;
+import com.rzx.project.domain.dto.PackageLinkCouponsDTO;
+import com.rzx.project.domain.vo.BuyPackageVO;
 import com.rzx.project.service.IOrderInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
@@ -100,4 +105,29 @@ public class OrderInfoController extends BaseController {
     public AjaxResult<Integer> remove(@PathVariable String[] salesorderIds){
         return toAjax(orderInfoService.deleteOrderInfoByIds(salesorderIds));
     }
+
+    /**
+     * 购买礼包 buyPackage.action
+     * @param dto
+     * @return
+     */
+    @ApiOperation(value = "购买礼包")
+    @Log(title = "任智行 购买礼包 入口为商城销售礼包icon跳转", businessType = BusinessType.INSERT)
+    @PostMapping("/buyPackage")
+    public AjaxResult<BuyPackageVO> buyPackage(@Validated BuyPackageDTO dto){
+        return AjaxResult.success(orderInfoService.buyPackage(dto));
+    }
+
+    /**
+     * 礼包绑定券号生成订单 giftPackageLinkCoupons.action
+     * @param dto
+     * @return
+     */
+    @ApiOperation(value = "礼包绑定券号生成订单")
+    @Log(title = "任智行 礼包绑定券号生成订单", businessType = BusinessType.UPDATE)
+    @PostMapping("/giftPackageLinkCoupons")
+    public AjaxResult<JSONObject> giftPackageLinkCoupons(@Validated PackageLinkCouponsDTO dto){
+        return AjaxResult.success(orderInfoService.giftPackageLinkCoupons(dto));
+    }
+
 }

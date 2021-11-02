@@ -2,6 +2,8 @@ package com.rzx.project.service.impl;
 
 import java.util.List;
 import java.time.LocalDateTime;
+
+import com.rzx.common.enums.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -39,6 +41,7 @@ public class GiftPackageConfigServiceImpl extends ServiceImpl<GiftPackageConfigM
      */
     @Override
     public List<GiftPackageConfig> selectGiftPackageConfigList(GiftPackageConfig giftPackageConfig) {
+        giftPackageConfig.setStatus(StatusEnum.VALID.getCode());
         return giftPackageConfigMapper.selectGiftPackageConfigList(giftPackageConfig);
     }
 

@@ -1,11 +1,12 @@
 package com.rzx.common.utils.uuid;
 
+import com.rzx.common.exception.UtilException;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-import com.rzx.common.exception.UtilException;
 
 /**
  * 提供通用唯一识别码（universally unique identifier）（UUID）实现
@@ -481,4 +482,9 @@ public final class UUID implements java.io.Serializable, Comparable<UUID>
     {
         return ThreadLocalRandom.current();
     }
+
+    public static String get32UUID() {
+        return java.util.UUID.randomUUID().toString().trim().replaceAll("-", "");
+    }
+
 }

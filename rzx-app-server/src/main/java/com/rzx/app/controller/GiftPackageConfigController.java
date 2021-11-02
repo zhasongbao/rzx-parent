@@ -31,11 +31,10 @@ public class GiftPackageConfigController extends BaseController {
     private IGiftPackageConfigService GiftPackageConfigService;
 
     /**
-     * 查询任智行 礼包配置列表
+     * 查询任智行 获取礼包列表 getGitfList.action
      */
-//    @PreAuthorize(hasPermi = "project:config:list")
-    @GetMapping("/list")
-    @ApiOperation(value = "查询任智行 礼包配置列表")
+    @PostMapping("/list")
+    @ApiOperation(value = "查询任智行 获取礼包列表")
     public TableDataInfo list(GiftPackageConfig GiftPackageConfig){
         startPage();
         List<GiftPackageConfig> list = GiftPackageConfigService.selectGiftPackageConfigList(GiftPackageConfig);
@@ -46,7 +45,6 @@ public class GiftPackageConfigController extends BaseController {
      * 导出任智行 礼包配置列表
      */
     @ApiOperation(value = "导出任智行 礼包配置列表")
-//    @PreAuthorize(hasPermi = "project:config:export")
     @Log(title = "任智行 礼包配置", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(GiftPackageConfig GiftPackageConfig) {

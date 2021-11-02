@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectGiftPackageConfigVo">
-        select giftpackage_id, name, explain, init_amount, sale_amount, type, status, create_time, update_time, sallout_count, product_order, product_logo, one_level_integral, two_level_integral, three_level_integral, platform_subsidy_amt, expense_policy, mart_rate, promote_rate, manage_rate, share_rate, it_rate, a_share_rate, b_share_rate, mart_type, product_tax_rate, mart_value, partner from rzx_gift_package_config
+        select giftpackage_id, name, `explain`, init_amount, sale_amount, `type`, status, create_time, update_time, sallout_count, product_order, product_logo, one_level_integral, two_level_integral, three_level_integral, platform_subsidy_amt, expense_policy, mart_rate, promote_rate, manage_rate, share_rate, it_rate, a_share_rate, b_share_rate, mart_type, product_tax_rate, mart_value, partner from rzx_gift_package_config
     </sql>
 
     <select id="selectGiftPackageConfigList" parameterType="GiftPackageConfig" resultMap="GiftPackageConfigResult">

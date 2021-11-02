@@ -1,9 +1,14 @@
 package com.rzx.project.service;
 
 import java.util.List;
+
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.rzx.project.domain.OrderInfo;
+import com.rzx.project.domain.dto.BuyPackageDTO;
 import com.rzx.project.domain.dto.OrderInfoDTO;
+import com.rzx.project.domain.dto.PackageLinkCouponsDTO;
+import com.rzx.project.domain.vo.BuyPackageVO;
 
 /**
  * 任智行 销售订单Service接口
@@ -60,4 +65,18 @@ public interface IOrderInfoService extends IService<OrderInfo> {
      * @return 结果
      */
     int deleteOrderInfoById(String salesorderId);
+
+    /**
+     * 购买礼包
+     * @param dto
+     * @return
+     */
+    BuyPackageVO buyPackage(BuyPackageDTO dto);
+
+    /**
+     * 礼包绑定券号生成订单
+     * @param dto
+     * @return
+     */
+    JSONObject giftPackageLinkCoupons(PackageLinkCouponsDTO dto);
 }

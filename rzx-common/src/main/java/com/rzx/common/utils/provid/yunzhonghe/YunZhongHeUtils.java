@@ -5,13 +5,11 @@ import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.rzx.common.constant.Constants;
 import com.rzx.common.core.mongodb.MongodbService;
-import com.rzx.common.core.mongodb.MongodbUtils;
 import com.rzx.common.utils.MD5;
 import com.rzx.common.utils.http.HttpClientUtil;
 import com.rzx.common.utils.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -34,8 +32,8 @@ public class YunZhongHeUtils {
     /**
      * 云中鹤请求URL
      */
-//    private static String URL_DEV = "http://beta.open.limofang.cn/api";
-    	private static String URL_DEV = "http://open.fygift.com/api";
+    private static String URL_DEV = "http://beta.open.limofang.cn/api";
+//    	private static String URL_DEV = "http://open.fygift.com/api";
     private static String URL_PRO = "http://open.fygift.com/api";
 
     /** 测试环境 wid: 3597 accessToken：3DyQs3P8gaNeXmhhGfutrqmwxFwagg*/
@@ -43,14 +41,14 @@ public class YunZhongHeUtils {
     /**
      * 云中鹤 wid
      */
-//    public static String wid_dev = "3597";
-    	public static String wid_dev = "4066";
+    public static String wid_dev = "3597";
+//    	public static String wid_dev = "4066";
     public static String wid_pro = "4066";
     /**
      * 云中鹤 accessToken
      */
-//    private static String accessToken_dev = "3DyQs3P8gaNeXmhhGfutrqmwxFwagg";
-        private static String accessToken_dev = "tytdn4MkvDhGGRV9JqUb6ynbZDtFk5";
+    private static String accessToken_dev = "3DyQs3P8gaNeXmhhGfutrqmwxFwagg";
+//        private static String accessToken_dev = "tytdn4MkvDhGGRV9JqUb6ynbZDtFk5";
     private static String accessToken_pro = "tytdn4MkvDhGGRV9JqUb6ynbZDtFk5";
 
     public static String url() {

@@ -145,7 +145,14 @@ public class OrderInfo extends BaseEntity {
     @ApiModelProperty(value = "收货地址唯一ID")
     @TableField(value = "receiveaddress_id")
     private String receiveaddressId;
-    
+
+
+    /** 订单备注信息 */
+    @Excel(name = "供应商", readConverterExp = "订单备注信息")
+    @ApiModelProperty(value = "订单备注信息")
+    @TableField(value = "remark")
+    private String remark;
+
     /** 供应商（1-云中鹤，2-百汇） */
     @Excel(name = "供应商", readConverterExp = "1=-云中鹤，2-百汇")
     @ApiModelProperty(value = "供应商（1-云中鹤，2-百汇）")
@@ -241,6 +248,24 @@ public class OrderInfo extends BaseEntity {
     @ApiModelProperty(value = "商品数量")
     @TableField(value = "com_count")
     private String comCount;
+
+    /** 商城订单同步结果 */
+    @Excel(name = "商城订单同步结果")
+    @ApiModelProperty(value = "商城订单同步结果 0-同步失败 1同步成功")
+    @TableField(value = "notics_status")
+    private String noticsStatus;
+
+    /** 核销状态 */
+    @Excel(name = "核销状态")
+    @ApiModelProperty(value = "核销状态(0-未核销 1-已核销)")
+    @TableField(value = "check_status")
+    private String checkStatus;
+
+    /** 供应商订单确认状态 */
+    @Excel(name = "供应商订单确认状态")
+    @ApiModelProperty(value = "百汇使用 供应商订单确认状态（0-未确认 1-已确认）")
+    @TableField(value = "order_confirm")
+    private String orderConfirm;
     
 
 

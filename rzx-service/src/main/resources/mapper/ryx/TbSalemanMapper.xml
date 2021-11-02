@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rzx.project.mapper.TbSalemanMapper">
+
+    <resultMap type="TbSaleman" id="TbSalemanResult">
+        <result property="salemanId"    column="SALEMAN_ID"    />
+        <result property="name"    column="NAME"    />
+        <result property="phone"    column="PHONE"    />
+        <result property="identityCard"    column="IDENTITY_CARD"    />
+        <result property="parentId"    column="PARENT_ID"    />
+        <result property="withdrawPwd"    column="WITHDRAW_PWD"    />
+        <result property="loginPwd"    column="LOGIN_PWD"    />
+        <result property="salesVolume"    column="SALES_VOLUME"    />
+        <result property="createby"    column="CREATEBY"    />
+        <result property="createdate"    column="CREATEDATE"    />
+        <result property="lastlogintime"    column="LASTLOGINTIME"    />
+        <result property="personalIntegralBalance"    column="PERSONAL_INTEGRAL_BALANCE"    />
+        <result property="teamIntegralBalance"    column="TEAM_INTEGRAL_BALANCE"    />
+        <result property="personalIntegral"    column="PERSONAL_INTEGRAL"    />
+        <result property="teamIntegral"    column="TEAM_INTEGRAL"    />
+        <result property="status"    column="STATUS"    />
+        <result property="extendQrurl"    column="EXTEND_QRURL"    />
+        <result property="historysales"    column="historySales"    />
+        <result property="lastmonthsales"    column="lastMonthSales"    />
+        <result property="weixinOpenid"    column="WEIXIN_OPENID"    />
+        <result property="weixinName"    column="WEIXIN_NAME"    />
+        <result property="weixinPortrait"    column="WEIXIN_PORTRAIT"    />
+        <result property="nickname"    column="NICKNAME"    />
+        <result property="alipayOpenid"    column="ALIPAY_OPENID"    />
+        <result property="userFlag"    column="USER_FLAG"    />
+        <result property="ownerWeixinOpenid"    column="OWNER_WEIXIN_OPENID"    />
+        <result property="isVip"    column="IS_VIP"    />
+        <result property="agentcompanyId"    column="AGENTCOMPANY_ID"    />
+        <result property="provinceId"    column="PROVINCE_ID"    />
+        <result property="cityId"    column="CITY_ID"    />
+        <result property="isSeeduser"    column="IS_SEEDUSER"    />
+        <result property="inquiryList"    column="INQUIRY_LIST"    />
+        <result property="singleVolume"    column="SINGLE_VOLUME"    />
+        <result property="baobei"    column="BAOBEI"    />
+        <result property="oldParentId"    column="OLD_PARENT_ID"    />
+        <result property="idcardUrl"    column="IDCARD_URL"    />
+        <result property="hasRealauthen"    column="HAS_REALAUTHEN"    />
+        <result property="isRecords"    column="IS_RECORDS"    />
+        <result property="userType"    column="USER_TYPE"    />
+        <result property="onlinepayFlag"    column="ONLINEPAY_FLAG"    />
+        <result property="vip"    column="VIP"    />
+        <result property="issueCityId"    column="ISSUE_CITY_ID"    />
+        <result property="oneLevel"    column="ONE_LEVEL"    />
+        <result property="twoLevel"    column="TWO_LEVEL"    />
+        <result property="threeLevel"    column="THREE_LEVEL"    />
+        <result property="isOpenLogin"    column="IS_OPEN_LOGIN"    />
+        <result property="examScore"    column="EXAM_SCORE"    />
+        <result property="education"    column="EDUCATION"    />
+        <result property="channelName"    column="CHANNEL_NAME"    />
+        <result property="channelRate"    column="CHANNEL_RATE"    />
+        <result property="channelSaleman"    column="CHANNEL_SALEMAN"    />
+        <result property="etcExtendQrurl"    column="ETC_EXTEND_QRURL"    />
+        <result property="channelAttribute"    column="CHANNEL_ATTRIBUTE"    />
+        <result property="loginWeixinOpenid"    column="LOGIN_WEIXIN_OPENID"    />
+        <result property="subordinateRate"    column="SUBORDINATE_RATE"    />
+        <result property="channelcompanyId"    column="CHANNELCOMPANY_ID"    />
+        <result property="channelTobaobei"    column="CHANNEL_TOBAOBEI"    />
+        <result property="channelLogo"    column="CHANNEL_LOGO"    />
+        <result property="bindMedium"    column="BIND_MEDIUM"    />
+        <result property="mobileNo"    column="MOBILE_NO"    />
+        <result property="bankNo"    column="BANK_NO"    />
+        <result property="corpSerno"    column="CORP_SERNO"    />
+        <result property="hasInsure"    column="HAS_INSURE"    />
+        <result property="belongOperatorCode"    column="BELONG_OPERATOR_CODE"    />
+        <result property="belongArea"    column="BELONG_AREA"    />
+        <result property="belongCity"    column="BELONG_CITY"    />
+        <result property="canWithdraw"    column="CAN_WITHDRAW"    />
+        <result property="practiceCode"    column="PRACTICE_CODE"    />
+    </resultMap>
+
+    <sql id="selectTbSalemanVo">
+        select SALEMAN_ID, NAME, PHONE, IDENTITY_CARD, PARENT_ID, WITHDRAW_PWD, LOGIN_PWD, SALES_VOLUME, CREATEBY, CREATEDATE, LASTLOGINTIME, PERSONAL_INTEGRAL_BALANCE, TEAM_INTEGRAL_BALANCE, PERSONAL_INTEGRAL, TEAM_INTEGRAL, STATUS, EXTEND_QRURL, historySales, lastMonthSales, WEIXIN_OPENID, WEIXIN_NAME, WEIXIN_PORTRAIT, NICKNAME, ALIPAY_OPENID, USER_FLAG, OWNER_WEIXIN_OPENID, IS_VIP, AGENTCOMPANY_ID, PROVINCE_ID, CITY_ID, IS_SEEDUSER, INQUIRY_LIST, SINGLE_VOLUME, BAOBEI, OLD_PARENT_ID, IDCARD_URL, HAS_REALAUTHEN, IS_RECORDS, USER_TYPE, ONLINEPAY_FLAG, VIP, ISSUE_CITY_ID, ONE_LEVEL, TWO_LEVEL, THREE_LEVEL, IS_OPEN_LOGIN, EXAM_SCORE, EDUCATION, CHANNEL_NAME, CHANNEL_RATE, CHANNEL_SALEMAN, ETC_EXTEND_QRURL, CHANNEL_ATTRIBUTE, LOGIN_WEIXIN_OPENID, SUBORDINATE_RATE, CHANNELCOMPANY_ID, CHANNEL_TOBAOBEI, CHANNEL_LOGO, BIND_MEDIUM, MOBILE_NO, BANK_NO, CORP_SERNO, HAS_INSURE, BELONG_OPERATOR_CODE, BELONG_AREA, BELONG_CITY, CAN_WITHDRAW, PRACTICE_CODE from tb_saleman
+    </sql>
+
+    <select id="selectTbSalemanList" parameterType="TbSaleman" resultMap="TbSalemanResult">
+        <include refid="selectTbSalemanVo"/>
+        <where>
+            <if test="name != null  and name != ''"> and NAME like concat('%', #{name}, '%')</if>
+            <if test="phone != null  and phone != ''"> and PHONE = #{phone}</if>
+            <if test="identityCard != null  and identityCard != ''"> and IDENTITY_CARD = #{identityCard}</if>
+            <if test="parentId != null  and parentId != ''"> and PARENT_ID = #{parentId}</if>
+            <if test="withdrawPwd != null  and withdrawPwd != ''"> and WITHDRAW_PWD = #{withdrawPwd}</if>
+            <if test="loginPwd != null  and loginPwd != ''"> and LOGIN_PWD = #{loginPwd}</if>
+            <if test="salesVolume != null "> and SALES_VOLUME = #{salesVolume}</if>
+            <if test="createby != null  and createby != ''"> and CREATEBY = #{createby}</if>
+            <if test="createdate != null  and createdate != ''"> and CREATEDATE = #{createdate}</if>
+            <if test="lastlogintime != null  and lastlogintime != ''"> and LASTLOGINTIME = #{lastlogintime}</if>
+            <if test="personalIntegralBalance != null  and personalIntegralBalance != ''"> and PERSONAL_INTEGRAL_BALANCE = #{personalIntegralBalance}</if>
+            <if test="teamIntegralBalance != null  and teamIntegralBalance != ''"> and TEAM_INTEGRAL_BALANCE = #{teamIntegralBalance}</if>
+            <if test="personalIntegral != null  and personalIntegral != ''"> and PERSONAL_INTEGRAL = #{personalIntegral}</if>
+            <if test="teamIntegral != null  and teamIntegral != ''"> and TEAM_INTEGRAL = #{teamIntegral}</if>
+            <if test="status != null  and status != ''"> and STATUS = #{status}</if>
+            <if test="extendQrurl != null  and extendQrurl != ''"> and EXTEND_QRURL = #{extendQrurl}</if>
+            <if test="historysales != null  and historysales != ''"> and historySales = #{historysales}</if>
+            <if test="lastmonthsales != null  and lastmonthsales != ''"> and lastMonthSales = #{lastmonthsales}</if>
+            <if test="weixinOpenid != null  and weixinOpenid != ''"> and WEIXIN_OPENID = #{weixinOpenid}</if>
+            <if test="weixinName != null  and weixinName != ''"> and WEIXIN_NAME like concat('%', #{weixinName}, '%')</if>
+            <if test="weixinPortrait != null  and weixinPortrait != ''"> and WEIXIN_PORTRAIT = #{weixinPortrait}</if>
+            <if test="nickname != null  and nickname != ''"> and NICKNAME like concat('%', #{nickname}, '%')</if>
+            <if test="alipayOpenid != null  and alipayOpenid != ''"> and ALIPAY_OPENID = #{alipayOpenid}</if>
+            <if test="userFlag != null  and userFlag != ''"> and USER_FLAG = #{userFlag}</if>
+            <if test="ownerWeixinOpenid != null  and ownerWeixinOpenid != ''"> and OWNER_WEIXIN_OPENID = #{ownerWeixinOpenid}</if>
+            <if test="isVip != null  and isVip != ''"> and IS_VIP = #{isVip}</if>
+            <if test="agentcompanyId != null  and agentcompanyId != ''"> and AGENTCOMPANY_ID = #{agentcompanyId}</if>
+            <if test="provinceId != null  and provinceId != ''"> and PROVINCE_ID = #{provinceId}</if>
+            <if test="cityId != null  and cityId != ''"> and CITY_ID = #{cityId}</if>
+            <if test="isSeeduser != null  and isSeeduser != ''"> and IS_SEEDUSER = #{isSeeduser}</if>
+            <if test="inquiryList != null  and inquiryList != ''"> and INQUIRY_LIST = #{inquiryList}</if>
+            <if test="singleVolume != null  and singleVolume != ''"> and SINGLE_VOLUME = #{singleVolume}</if>
+            <if test="baobei != null  and baobei != ''"> and BAOBEI = #{baobei}</if>
+            <if test="oldParentId != null  and oldParentId != ''"> and OLD_PARENT_ID = #{oldParentId}</if>
+            <if test="idcardUrl != null  and idcardUrl != ''"> and IDCARD_URL = #{idcardUrl}</if>
+            <if test="hasRealauthen != null  and hasRealauthen != ''"> and HAS_REALAUTHEN = #{hasRealauthen}</if>
+            <if test="isRecords != null  and isRecords != ''"> and IS_RECORDS = #{isRecords}</if>
+            <if test="userType != null  and userType != ''"> and USER_TYPE = #{userType}</if>
+            <if test="onlinepayFlag != null  and onlinepayFlag != ''"> and ONLINEPAY_FLAG = #{onlinepayFlag}</if>
+            <if test="vip != null  and vip != ''"> and VIP = #{vip}</if>
+            <if test="issueCityId != null  and issueCityId != ''"> and ISSUE_CITY_ID = #{issueCityId}</if>
+            <if test="oneLevel != null  and oneLevel != ''"> and ONE_LEVEL = #{oneLevel}</if>
+            <if test="twoLevel != null  and twoLevel != ''"> and TWO_LEVEL = #{twoLevel}</if>
+            <if test="threeLevel != null  and threeLevel != ''"> and THREE_LEVEL = #{threeLevel}</if>
+            <if test="isOpenLogin != null  and isOpenLogin != ''"> and IS_OPEN_LOGIN = #{isOpenLogin}</if>
+            <if test="examScore != null  and examScore != ''"> and EXAM_SCORE = #{examScore}</if>
+            <if test="education != null  and education != ''"> and EDUCATION = #{education}</if>
+            <if test="channelName != null  and channelName != ''"> and CHANNEL_NAME like concat('%', #{channelName}, '%')</if>
+            <if test="channelRate != null  and channelRate != ''"> and CHANNEL_RATE = #{channelRate}</if>
+            <if test="channelSaleman != null  and channelSaleman != ''"> and CHANNEL_SALEMAN = #{channelSaleman}</if>
+            <if test="etcExtendQrurl != null  and etcExtendQrurl != ''"> and ETC_EXTEND_QRURL = #{etcExtendQrurl}</if>
+            <if test="channelAttribute != null  and channelAttribute != ''"> and CHANNEL_ATTRIBUTE = #{channelAttribute}</if>
+            <if test="loginWeixinOpenid != null  and loginWeixinOpenid != ''"> and LOGIN_WEIXIN_OPENID = #{loginWeixinOpenid}</if>
+            <if test="subordinateRate != null  and subordinateRate != ''"> and SUBORDINATE_RATE = #{subordinateRate}</if>
+            <if test="channelcompanyId != null  and channelcompanyId != ''"> and CHANNELCOMPANY_ID = #{channelcompanyId}</if>
+            <if test="channelTobaobei != null  and channelTobaobei != ''"> and CHANNEL_TOBAOBEI = #{channelTobaobei}</if>
+            <if test="channelLogo != null  and channelLogo != ''"> and CHANNEL_LOGO = #{channelLogo}</if>
+            <if test="bindMedium != null  and bindMedium != ''"> and BIND_MEDIUM = #{bindMedium}</if>
+            <if test="mobileNo != null  and mobileNo != ''"> and MOBILE_NO = #{mobileNo}</if>
+            <if test="bankNo != null  and bankNo != ''"> and BANK_NO = #{bankNo}</if>
+            <if test="corpSerno != null  and corpSerno != ''"> and CORP_SERNO = #{corpSerno}</if>
+            <if test="hasInsure != null  and hasInsure != ''"> and HAS_INSURE = #{hasInsure}</if>
+            <if test="belongOperatorCode != null  and belongOperatorCode != ''"> and BELONG_OPERATOR_CODE = #{belongOperatorCode}</if>
+            <if test="belongArea != null  and belongArea != ''"> and BELONG_AREA = #{belongArea}</if>
+            <if test="belongCity != null  and belongCity != ''"> and BELONG_CITY = #{belongCity}</if>
+            <if test="canWithdraw != null  and canWithdraw != ''"> and CAN_WITHDRAW = #{canWithdraw}</if>
+            <if test="practiceCode != null  and practiceCode != ''"> and PRACTICE_CODE = #{practiceCode}</if>
+        </where>
+    </select>
+
+    <select id="selectTbSalemanById" parameterType="String" resultMap="TbSalemanResult">
+        <include refid="selectTbSalemanVo"/>
+        where SALEMAN_ID = #{salemanId}
+    </select>
+
+
+    <update id="updateTbSaleman" parameterType="TbSaleman">
+        update tb_saleman
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">NAME = #{name},</if>
+            <if test="phone != null">PHONE = #{phone},</if>
+            <if test="identityCard != null">IDENTITY_CARD = #{identityCard},</if>
+            <if test="parentId != null">PARENT_ID = #{parentId},</if>
+            <if test="withdrawPwd != null">WITHDRAW_PWD = #{withdrawPwd},</if>
+            <if test="loginPwd != null">LOGIN_PWD = #{loginPwd},</if>
+            <if test="salesVolume != null">SALES_VOLUME = #{salesVolume},</if>
+            <if test="createby != null">CREATEBY = #{createby},</if>
+            <if test="createdate != null">CREATEDATE = #{createdate},</if>
+            <if test="lastlogintime != null">LASTLOGINTIME = #{lastlogintime},</if>
+            <if test="personalIntegralBalance != null">PERSONAL_INTEGRAL_BALANCE = #{personalIntegralBalance},</if>
+            <if test="teamIntegralBalance != null">TEAM_INTEGRAL_BALANCE = #{teamIntegralBalance},</if>
+            <if test="personalIntegral != null">PERSONAL_INTEGRAL = #{personalIntegral},</if>
+            <if test="teamIntegral != null">TEAM_INTEGRAL = #{teamIntegral},</if>
+            <if test="status != null">STATUS = #{status},</if>
+            <if test="extendQrurl != null">EXTEND_QRURL = #{extendQrurl},</if>
+            <if test="historysales != null">historySales = #{historysales},</if>
+            <if test="lastmonthsales != null">lastMonthSales = #{lastmonthsales},</if>
+            <if test="weixinOpenid != null">WEIXIN_OPENID = #{weixinOpenid},</if>
+            <if test="weixinName != null">WEIXIN_NAME = #{weixinName},</if>
+            <if test="weixinPortrait != null">WEIXIN_PORTRAIT = #{weixinPortrait},</if>
+            <if test="nickname != null">NICKNAME = #{nickname},</if>
+            <if test="alipayOpenid != null">ALIPAY_OPENID = #{alipayOpenid},</if>
+            <if test="userFlag != null">USER_FLAG = #{userFlag},</if>
+            <if test="ownerWeixinOpenid != null">OWNER_WEIXIN_OPENID = #{ownerWeixinOpenid},</if>
+            <if test="isVip != null">IS_VIP = #{isVip},</if>
+            <if test="agentcompanyId != null">AGENTCOMPANY_ID = #{agentcompanyId},</if>
+            <if test="provinceId != null">PROVINCE_ID = #{provinceId},</if>
+            <if test="cityId != null">CITY_ID = #{cityId},</if>
+            <if test="isSeeduser != null">IS_SEEDUSER = #{isSeeduser},</if>
+            <if test="inquiryList != null">INQUIRY_LIST = #{inquiryList},</if>
+            <if test="singleVolume != null">SINGLE_VOLUME = #{singleVolume},</if>
+            <if test="baobei != null">BAOBEI = #{baobei},</if>
+            <if test="oldParentId != null and oldParentId != ''">OLD_PARENT_ID = #{oldParentId},</if>
+            <if test="idcardUrl != null">IDCARD_URL = #{idcardUrl},</if>
+            <if test="hasRealauthen != null">HAS_REALAUTHEN = #{hasRealauthen},</if>
+            <if test="isRecords != null">IS_RECORDS = #{isRecords},</if>
+            <if test="userType != null">USER_TYPE = #{userType},</if>
+            <if test="onlinepayFlag != null">ONLINEPAY_FLAG = #{onlinepayFlag},</if>
+            <if test="vip != null">VIP = #{vip},</if>
+            <if test="issueCityId != null">ISSUE_CITY_ID = #{issueCityId},</if>
+            <if test="oneLevel != null">ONE_LEVEL = #{oneLevel},</if>
+            <if test="twoLevel != null">TWO_LEVEL = #{twoLevel},</if>
+            <if test="threeLevel != null">THREE_LEVEL = #{threeLevel},</if>
+            <if test="isOpenLogin != null">IS_OPEN_LOGIN = #{isOpenLogin},</if>
+            <if test="examScore != null">EXAM_SCORE = #{examScore},</if>
+            <if test="education != null">EDUCATION = #{education},</if>
+            <if test="channelName != null">CHANNEL_NAME = #{channelName},</if>
+            <if test="channelRate != null">CHANNEL_RATE = #{channelRate},</if>
+            <if test="channelSaleman != null">CHANNEL_SALEMAN = #{channelSaleman},</if>
+            <if test="etcExtendQrurl != null">ETC_EXTEND_QRURL = #{etcExtendQrurl},</if>
+            <if test="channelAttribute != null">CHANNEL_ATTRIBUTE = #{channelAttribute},</if>
+            <if test="loginWeixinOpenid != null">LOGIN_WEIXIN_OPENID = #{loginWeixinOpenid},</if>
+            <if test="subordinateRate != null">SUBORDINATE_RATE = #{subordinateRate},</if>
+            <if test="channelcompanyId != null">CHANNELCOMPANY_ID = #{channelcompanyId},</if>
+            <if test="channelTobaobei != null">CHANNEL_TOBAOBEI = #{channelTobaobei},</if>
+            <if test="channelLogo != null">CHANNEL_LOGO = #{channelLogo},</if>
+            <if test="bindMedium != null">BIND_MEDIUM = #{bindMedium},</if>
+            <if test="mobileNo != null">MOBILE_NO = #{mobileNo},</if>
+            <if test="bankNo != null">BANK_NO = #{bankNo},</if>
+            <if test="corpSerno != null">CORP_SERNO = #{corpSerno},</if>
+            <if test="hasInsure != null">HAS_INSURE = #{hasInsure},</if>
+            <if test="belongOperatorCode != null">BELONG_OPERATOR_CODE = #{belongOperatorCode},</if>
+            <if test="belongArea != null">BELONG_AREA = #{belongArea},</if>
+            <if test="belongCity != null">BELONG_CITY = #{belongCity},</if>
+            <if test="canWithdraw != null">CAN_WITHDRAW = #{canWithdraw},</if>
+            <if test="practiceCode != null">PRACTICE_CODE = #{practiceCode},</if>
+        </trim>
+        where SALEMAN_ID = #{salemanId}
+    </update>
+
+    <delete id="deleteTbSalemanById" parameterType="String">
+        delete from tb_saleman where SALEMAN_ID = #{salemanId}
+    </delete>
+
+    <delete id="deleteTbSalemanByIds" parameterType="String">
+        delete from tb_saleman where SALEMAN_ID in
+        <foreach item="salemanId" collection="array" open="(" separator="," close=")">
+            #{salemanId}
+        </foreach>
+    </delete>
+</mapper>

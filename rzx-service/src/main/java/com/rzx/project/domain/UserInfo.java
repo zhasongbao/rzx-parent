@@ -1,7 +1,7 @@
 package com.rzx.project.domain;
 
-    import com.rzx.common.core.domain.BaseEntity;
-    import lombok.EqualsAndHashCode;
+import com.rzx.common.core.domain.BaseEntity;
+import lombok.EqualsAndHashCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.rzx.common.annotation.Excel;
@@ -15,8 +15,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 /**
  * 任智行渠道用户信息对象 rzx_user_info
  *
- * @author zy
- * @date 2021-09-28
+ * @author zhasbao
+ * @date 2021-10-20
  */
 @Data
 @ToString
