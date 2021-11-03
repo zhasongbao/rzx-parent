@@ -1,6 +1,7 @@
 package com.rzx.project.domain;
 
     import com.rzx.common.core.domain.BaseEntity;
+    import lombok.Builder;
     import lombok.EqualsAndHashCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,6 +21,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
  */
 @Data
 @ToString
+@Builder
 @TableName("rzx_receive_address_info")
 @ApiModel(value = "任智行 收货地址对象", description = "任智行 收货地址rzx_receive_address_info表")
 @EqualsAndHashCode(callSuper = true)

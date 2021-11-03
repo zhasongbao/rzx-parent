@@ -1,21 +1,21 @@
 package com.rzx.common.enums;
 
 /**
- * 销售状态枚举 (0-未销售 1-已销售)
+ * 商品状态枚举 (1上架销售中, 0下架)
  *
  * @author zhasbao
  */
-public enum SaleStatusEnum {
+public enum CommodityStatusEnum {
 
-    NO_SALE("0","未销售"),
-    YES_SALE("1","已销售"),
+    SALE_END("0","下架"),
+    SALE_ING("1","上架销售中"),
     ;
 
     private final String code;
 
     private final String info;
 
-    SaleStatusEnum(String code, String info) {
+    CommodityStatusEnum(String code, String info) {
         this.code = code;
         this.info = info;
     }

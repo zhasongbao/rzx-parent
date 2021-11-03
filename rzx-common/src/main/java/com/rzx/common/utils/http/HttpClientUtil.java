@@ -2,6 +2,7 @@ package com.rzx.common.utils.http;
 
 import cn.hutool.http.ssl.TrustAnyHostnameVerifier;
 import com.alibaba.fastjson.JSON;
+import com.rzx.common.utils.provid.yunzhonghe.YunZhongHeUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
@@ -125,7 +126,7 @@ public class HttpClientUtil {
 	 * @return JSONObject 返回的JSON数据
 	 */
 	public static com.alibaba.fastjson.JSONObject postFormUrlEncoded(String targetUrl, String params) {
-//		System.out.println("请求地址：" +targetUrl +" 入参："+ params);
+		System.out.println("请求地址：" +targetUrl +" 入参："+ params);
 		HttpURLConnection urlConnection = null;
 		try {
 			URL url = new URL(targetUrl.trim());
@@ -155,7 +156,8 @@ public class HttpClientUtil {
 					stringBuffer.append(readLine);
 				}
 				responseReader.close();
-//				System.out.println("请求返回："+ stringBuffer.toString());
+				System.out.println("请求返回："+ stringBuffer.toString());
+				YunZhongHeUtils.saveLog(params,JSON.parseObject(stringBuffer.toString()),null ,targetUrl);
 				return JSON.parseObject(stringBuffer.toString());
 			}
 			out.close();

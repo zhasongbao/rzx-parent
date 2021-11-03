@@ -266,7 +266,5 @@ public class OrderInfo extends BaseEntity {
     @ApiModelProperty(value = "百汇使用 供应商订单确认状态（0-未确认 1-已确认）")
     @TableField(value = "order_confirm")
     private String orderConfirm;
-    
-
 
 }

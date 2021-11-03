@@ -208,27 +208,26 @@ public class BaiHuiUtils {
         try {
             JSONObject param = new JSONObject();
             param.put("token", token);
-            param.put("isvirtual", order.getString("PROVID_SOURCE"));
-            param.put("orderId", order.getString("ORDER_ID"));
-            param.put("shouhuo_phone", address.getString("RECEIVE_PHONE"));
-            param.put("shouhuo_name", address.getString("RECEIVE_NAME"));
-            param.put("addr_type", "1");//TODO
-            param.put("provinceId", address.getString("PROVINCE"));
-            param.put("cityId", address.getString("CITY"));
-            param.put("countyId", address.getString("COUNTY"));
-            param.put("townId", address.getString("TOWN"));
-            param.put("shouhuo_addr", address.getString("RECEIVE_ADDRESS"));
-            param.put("confirmModel", "1");
+            param.put("isvirtual", order.getString("providSource"));
+            param.put("orderId", order.getString("orderId"));
+            param.put("shouhuo_phone", address.getString("receivePhone"));
+            param.put("shouhuo_name", address.getString("receiveName"));
+            param.put("addr_type", Constants.YES_FLAG);
+            param.put("provinceId", address.getString("province"));
+            param.put("cityId", address.getString("city"));
+            param.put("countyId", address.getString("county"));
+            param.put("townId", address.getString("town"));
+            param.put("shouhuo_addr", address.getString("receiveAddress"));
+            param.put("confirmModel", order.getString("confirmModel"));// 1自动 2手动  礼包订单为1 商城购买商品为2
             JSONArray products = new JSONArray();
             JSONObject product = new JSONObject();
-            product.put("itemId", order.getString("COMMODITY_CODE"));
-            product.put("number", "1");
-//			product.put("price",""); TODO
+            product.put("itemId", order.getString("commodityCode"));
+            product.put("number", StringUtils.isEmpty(order.getString("comCount")) ? "1" : order.getString("comCount"));
             products.add(product);
             param.put("products", products);
             param.put("sendcms", "1"); //1-出库时短信提示 0-不提示
             respJson = requestToBh(getReqUrl() + "/Order/createOrder", param);
-            saveLog(param, respJson, order.getString("ORDER_ID"), "/Order/createOrder");
+            saveLog(param, respJson, order.getString("orderId"), "/Order/createOrder");
         } catch (Exception e) {
             logger.error("BaiHuiUtil_getGoodsId_e", e);
         }

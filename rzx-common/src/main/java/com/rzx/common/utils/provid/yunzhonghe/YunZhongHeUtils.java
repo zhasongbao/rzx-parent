@@ -10,6 +10,7 @@ import com.rzx.common.utils.http.HttpClientUtil;
 import com.rzx.common.utils.spring.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -137,20 +138,26 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject createOrder(JSONObject order, JSONObject address) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&thirdOrder=" + order.getString("ORDER_ID")
-                + "&pid_nums=" + order.getString("COMMODITY_CODE") + "_1"
-                + "&receiverName=" + address.getString("RECEIVE_NAME")
-                + "&province=" + address.getString("PROVINCE")
-                + "&city=" + address.getString("CITY")
-                + "&county=" + address.getString("COUNTY")
-                + "&town=" + address.getString("TOWN")
-                + "&address=" + address.getString("RECEIVE_ADDRESS")
-                + "&mobile=" + address.getString("RECEIVE_PHONE");
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/order/submit.php", param);
-        saveLog(param, respJson, order.getString("ORDER_ID"), "/order/submit.php");
+        StringBuffer param =  paramInit();
+        param = param.append("&thirdOrder=").append(order.getString("orderId"))
+                .append("&pid_nums=").append(order.getString("commodityCode")).append("_").append((StringUtils.isEmpty(order.getString("comCount"))?"1":order.getString("comCount")))
+                .append("&receiverName=").append(address.getString("receiveName"))
+                .append("&province=").append(address.getString("province"))
+                .append("&city=").append(address.getString("city"))
+                .append("&county=").append(address.getString("county"))
+                .append("&town=").append(address.getString("town"))
+                .append("&address=").append(address.getString("receiveAddress"))
+                .append("&mobile=").append(address.getString("receivePhone"));
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/order/submit.php", param.toString());
         return respJson;
+    }
+
+    private static StringBuffer paramInit() {
+        String timestamp = String.valueOf((new Date()).getTime());
+        StringBuffer param = new StringBuffer();
+        return param.append("wid=").append(wid())
+                .append("&timestamp=").append(timestamp)
+                .append("&token=").append(MD5.md5(wid() + accessToken() + timestamp).toUpperCase());
     }
 
     /**
@@ -160,11 +167,9 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject cancel(String orderId) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&thirdOrder=" + orderId;
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/order/cancel.php", param);
-        saveLog(param, respJson, orderId, "/order/cancel.php");
+        StringBuffer param =  paramInit();
+        param = param.append("&thirdOrder=").append(orderId);
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/order/cancel.php", param.toString());
         return respJson;
     }
 
@@ -175,10 +180,10 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject cancelByOrderKey(JSONObject order) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&thirdOrder=" + order.getString("ORDER_ID") + "&orderKey=" + order.getString("ORDER_KEY");
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/order/cancelByOrderKey.php", param);
+        StringBuffer param =  paramInit();
+        param = param.append("&thirdOrder=").append(order.getString("ORDER_ID"))
+                .append("&orderKey=").append(order.getString("ORDER_KEY"));
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/order/cancelByOrderKey.php", param.toString());
         return respJson;
     }
 
@@ -190,10 +195,10 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject stockBatch(String pid_nums, String address) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&pid_nums=" + pid_nums + "&address=" + address;
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/product/v2/stockBatch.php", param);
+        StringBuffer param =  paramInit();
+        param = param.append("&pid_nums=").append(pid_nums)
+                .append("&address=").append(address);
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/product/v2/stockBatch.php", param.toString());
         return respJson;
     }
 
@@ -204,11 +209,9 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject orderTrack(String orderId) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&thirdOrder=" + orderId;
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/order/orderTrack.php", param);
-        saveLog(param, respJson, orderId, "/order/orderTrack.php");
+        StringBuffer param =  paramInit();
+        param = param.append("&thirdOrder=").append(orderId);
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/order/orderTrack.php", param.toString());
         return respJson;
     }
 
@@ -218,10 +221,8 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject getAllProductIds() {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/product/getAllProductIds.php", param);
-        saveLog(param, respJson, null, "/product/getAllProductIds.php");
+        StringBuffer param =  paramInit();
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/product/getAllProductIds.php", param.toString());
         return respJson;
     }
 
@@ -232,11 +233,9 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject getProductIdsByPage(int page) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&page=" + page;
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/product/v2/getProductIdsByPage.php", param);
-		saveLog(param,respJson,null,"/product/v2/getProductIdsByPage.php");
+        StringBuffer param =  paramInit();
+        param = param.append("&page=").append(page);
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/product/v2/getProductIdsByPage.php", param.toString());
         return respJson;
     }
 
@@ -247,11 +246,9 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject detial(String pid) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&pid=" + pid;
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/product/detial.php", param);
-        saveLog(param, respJson, null, "/product/detial.php");
+        StringBuffer param =  paramInit();
+        param = param.append("&pid=").append(pid);
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/product/detial.php", param.toString());
         return respJson;
     }
 
@@ -262,11 +259,9 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject getSaleStatus(String pid) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&pid=" + pid;
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/product/saleStatus.php", param);
-        saveLog(param, respJson, null, "/product/saleStatus.php");
+        StringBuffer param =  paramInit();
+        param = param.append("&pid=").append(pid);
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/product/saleStatus.php", param.toString());
         return respJson;
     }
 
@@ -276,10 +271,8 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject remain() {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/finance/remain.php", param);
-        saveLog(param, respJson, null, "/finance/remain.php");
+        StringBuffer param =  paramInit();
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/finance/remain.php", param.toString());
         return respJson;
     }
 
@@ -289,10 +282,8 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject getProvince() {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/area/province.php", param);
-        saveLog(param, respJson, null, "/area/province.php");
+        StringBuffer param =  paramInit();
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/area/province.php", param.toString());
         return respJson;
     }
 
@@ -303,11 +294,9 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject getCity(String province) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&province=" + province;
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/area/city.php", param);
-        saveLog(param, respJson, null, "/area/city.php");
+        StringBuffer param =  paramInit();
+        param = param.append("&province=").append(province);
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/area/city.php", param.toString());
         return respJson;
     }
 
@@ -318,11 +307,9 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject getCounty(String city) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&city=" + city;
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/area/county.php", param);
-        saveLog(param, respJson, null, "/area/county.php");
+        StringBuffer param =  paramInit();
+        param = param.append("&city=").append(city);
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/area/county.php", param.toString());
         return respJson;
     }
 
@@ -333,11 +320,9 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject getTown(String county) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&county=" + county;
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/area/town.php", param);
-        saveLog(param, respJson, null, "/area/town.php");
+        StringBuffer param =  paramInit();
+        param = param.append("&county=").append(county);
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/area/town.php", param.toString());
         return respJson;
     }
 
@@ -348,11 +333,9 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject getAreaCodeByAddress(String address) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&address=" + address;
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/area/getAreaCodeByAddress.php", param);
-        saveLog(param, respJson, null, "/area/town.php");
+        StringBuffer param =  paramInit();
+        param = param.append("&address=").append(address);
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/area/getAreaCodeByAddress.php", param.toString());
         return respJson;
     }
 
@@ -366,14 +349,12 @@ public class YunZhongHeUtils {
      * @return true 地址正确
      */
     public static JSONObject checkArea(String provinceId, String cityId, String countyId, String townId) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&provinceId=" + provinceId
-                + "&cityId=" + cityId
-                + "&countyId=" + countyId
-                + "&townId=" + townId;
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/area/checkArea.php", param);
-        saveLog(param, respJson, null, "/area/checkArea.php");
+        StringBuffer param =  paramInit();
+        param = param.append("&provinceId=").append(provinceId)
+                .append("&cityId=").append(cityId)
+                .append("&countyId=").append(countyId)
+                .append("&townId=").append(townId);
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/area/checkArea.php", param.toString());
         return respJson;
     }
 
@@ -383,10 +364,8 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject cateRootCate() {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/cate/rootCate.php", param);
-        saveLog(param, respJson, null, "/cate/rootCate.php");
+        StringBuffer param =  paramInit();
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/cate/rootCate.php", param.toString());
         return respJson;
     }
 
@@ -396,11 +375,9 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject cateChilds(String parentCate) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&parentCate=" + parentCate;
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/cate/childs.php", param);
-        saveLog(param, respJson, null, "/cate/childs.php");
+        StringBuffer param =  paramInit();
+        param = param.append("&parentCate=").append(parentCate);
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/cate/childs.php", param.toString());
         return respJson;
     }
 
@@ -410,11 +387,9 @@ public class YunZhongHeUtils {
      * @return
      */
     public static JSONObject cateDetials(String cid) {
-        String timestamp = String.valueOf((new Date()).getTime());
-        String param = "wid=" + wid() + "&timestamp=" + timestamp + "&token=" + MD5.md5(wid() + accessToken() + timestamp).toUpperCase();
-        param = param + "&cid=" + cid;
-        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/cate/detial.php", param);
-        saveLog(param, respJson, null, "/cate/detial.php");
+        StringBuffer param =  paramInit();
+        param = param.append("&cid=").append(cid);
+        JSONObject respJson = HttpClientUtil.postFormUrlEncoded(url() + "/cate/detial.php", param.toString());
         return respJson;
     }
 

@@ -8,10 +8,7 @@ import java.io.Serializable;
 
 /**
  * @author zhasbao
- * @version 1.0
- * @title
  * @description
- * @company 深圳分米互联科技有限公司
  * @date 2021/9/16 16:30
  */
 @Data

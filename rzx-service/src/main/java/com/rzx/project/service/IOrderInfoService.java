@@ -5,10 +5,9 @@ import java.util.List;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.rzx.project.domain.OrderInfo;
-import com.rzx.project.domain.dto.BuyPackageDTO;
-import com.rzx.project.domain.dto.OrderInfoDTO;
-import com.rzx.project.domain.dto.PackageLinkCouponsDTO;
+import com.rzx.project.domain.dto.*;
 import com.rzx.project.domain.vo.BuyPackageVO;
+import com.rzx.project.domain.vo.NowExchangeVO;
 
 /**
  * 任智行 销售订单Service接口
@@ -79,4 +78,27 @@ public interface IOrderInfoService extends IService<OrderInfo> {
      * @return
      */
     JSONObject giftPackageLinkCoupons(PackageLinkCouponsDTO dto);
+
+    /**
+     * 发票信息提交
+     * @param dto
+     * @return
+     */
+    Integer billRecordCommit(BillRecordCommitDTO dto);
+
+
+    /**
+     * 马上兑换
+     * @param dto
+     * @return
+     */
+    NowExchangeVO nowExchange(NowExchangeDTO dto);
+
+    /**
+     * 确认兑换
+     * @param dto
+     * @return
+     */
+    Integer confirmExchange(ConfirmExchangeDTO dto);
+
 }
