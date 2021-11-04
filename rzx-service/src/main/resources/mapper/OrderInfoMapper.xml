@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rzx.project.mapper.OrderInfoMapper">
 
-    <resultMap type="OrderInfo" id="OrderInfoResult">
+    <resultMap type="com.rzx.project.domain.OrderInfo" id="OrderInfoResult">
         <result property="salesorderId"    column="salesorder_id"    />
         <result property="orderNum"    column="order_num"    />
         <result property="orderId"    column="order_id"    />

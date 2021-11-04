@@ -1,6 +1,7 @@
 package com.rzx.project.domain;
 
     import com.rzx.common.core.domain.BaseEntity;
+    import lombok.Builder;
     import lombok.EqualsAndHashCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.ToString;
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableId;
+    import lombok.experimental.Tolerate;
 
 /**
  * 任智行 礼包配置对象 rzx_gift_package_config
@@ -19,13 +21,16 @@ import com.baomidou.mybatisplus.annotation.TableId;
  * @date 2021-09-28
  */
 @Data
-@ToString
+@Builder
 @TableName("rzx_gift_package_config")
 @ApiModel(value = "任智行 礼包配置对象", description = "任智行 礼包配置rzx_gift_package_config表")
-@EqualsAndHashCode(callSuper = true)
 public class GiftPackageConfig extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
+
+    @Tolerate
+    public GiftPackageConfig() {
+    }
 
     /** $column.columnComment */
     @ApiModelProperty(value = "${column.columnComment}")

@@ -1,16 +1,16 @@
 package com.rzx.project.domain;
 
-    import com.rzx.common.core.domain.BaseEntity;
-    import lombok.EqualsAndHashCode;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.rzx.common.annotation.Excel;
+import com.rzx.common.core.domain.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.rzx.common.annotation.Excel;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.ToString;
+import lombok.Builder;
 import lombok.Data;
-import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.experimental.Tolerate;
 
 /**
  * 任智行渠道用户积分流水对象 rzx_score_record
@@ -19,13 +19,16 @@ import com.baomidou.mybatisplus.annotation.TableId;
  * @date 2021-09-28
  */
 @Data
-@ToString
+@Builder
 @TableName("rzx_score_record")
 @ApiModel(value = "任智行渠道用户积分流水对象", description = "任智行渠道用户积分流水rzx_score_record表")
-@EqualsAndHashCode(callSuper = true)
 public class ScoreRecord extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
+
+    @Tolerate
+    public ScoreRecord() {
+    }
 
     /** $column.columnComment */
     @ApiModelProperty(value = "${column.columnComment}")

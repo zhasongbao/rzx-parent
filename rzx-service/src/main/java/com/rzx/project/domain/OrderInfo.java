@@ -1,18 +1,17 @@
 package com.rzx.project.domain;
 
-    import com.rzx.common.core.domain.BaseEntity;
-    import lombok.Builder;
-    import lombok.EqualsAndHashCode;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.rzx.common.annotation.Excel;
+import com.rzx.common.core.domain.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.rzx.common.annotation.Excel;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.ToString;
+import lombok.Builder;
 import lombok.Data;
-import com.baomidou.mybatisplus.annotation.TableId;
-    import lombok.experimental.Tolerate;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Tolerate;
 
 /**
  * 任智行 销售订单对象 rzx_order_info

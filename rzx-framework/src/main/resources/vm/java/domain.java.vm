@@ -17,15 +17,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
     #break
 #end
 #end
-import lombok.EqualsAndHashCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.rzx.common.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.ToString;
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 import com.baomidou.mybatisplus.annotation.TableId;
 #if($table.crud || $table.sub)
 #elseif($table.tree)
@@ -43,13 +43,16 @@ import com.baomidou.mybatisplus.annotation.TableId;
 #set($Entity="TreeEntity")
 #end
 @Data
-@ToString
+@Builder
 @TableName("${tableName}")
 @ApiModel(value = "${functionName}对象", description = "${functionName}${tableName}表")
-@EqualsAndHashCode(callSuper = true)
 public class ${ClassName} extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
+
+    @Tolerate
+    public CommodityClass() {
+    }
 
 #foreach ($column in $columns)
 #if(!$table.isSuperColumn($column.javaField))

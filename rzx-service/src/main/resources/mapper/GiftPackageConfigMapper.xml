@@ -33,10 +33,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="productTaxRate"    column="product_tax_rate"    />
         <result property="martValue"    column="mart_value"    />
         <result property="partner"    column="partner"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
     </resultMap>
 
     <sql id="selectGiftPackageConfigVo">
-        select giftpackage_id, name, gift_explain, init_amount, sale_amount, `type`, status, create_time, update_time, sallout_count, product_order, product_logo, one_level_integral, two_level_integral, three_level_integral, platform_subsidy_amt, expense_policy, mart_rate, promote_rate, manage_rate, share_rate, it_rate, a_share_rate, b_share_rate, mart_type, product_tax_rate, mart_value, partner from rzx_gift_package_config
+        select giftpackage_id, name, gift_explain, init_amount, sale_amount, `type`, status, create_time, update_time, sallout_count, product_order, product_logo, one_level_integral, two_level_integral, three_level_integral, platform_subsidy_amt, expense_policy, mart_rate, promote_rate, manage_rate, share_rate, it_rate, a_share_rate, b_share_rate, mart_type, product_tax_rate, mart_value, partner, create_by, update_by from rzx_gift_package_config
     </sql>
 
     <select id="selectGiftPackageConfigList" parameterType="com.rzx.project.domain.GiftPackageConfig" resultMap="GiftPackageConfigResult">
@@ -106,6 +108,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="productTaxRate != null">product_tax_rate = #{productTaxRate},</if>
             <if test="martValue != null">mart_value = #{martValue},</if>
             <if test="partner != null">partner = #{partner},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
         </trim>
         where giftpackage_id = #{giftpackageId}
     </update>

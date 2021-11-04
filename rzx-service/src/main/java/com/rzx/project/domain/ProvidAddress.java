@@ -1,18 +1,16 @@
 package com.rzx.project.domain;
 
-    import com.rzx.common.core.domain.BaseEntity;
-    import lombok.Builder;
-    import lombok.EqualsAndHashCode;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.rzx.common.annotation.Excel;
+import com.rzx.common.core.domain.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.rzx.common.annotation.Excel;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.ToString;
+import lombok.Builder;
 import lombok.Data;
-import com.baomidou.mybatisplus.annotation.TableId;
-    import lombok.experimental.Tolerate;
+import lombok.experimental.Tolerate;
 
 /**
  * 任智行 供应商地址信息对象 rzx_provid_address
@@ -24,7 +22,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 @Builder
 @TableName("rzx_provid_address")
 @ApiModel(value = "任智行 供应商地址信息对象", description = "任智行 供应商地址信息rzx_provid_address表")
-@EqualsAndHashCode(callSuper = true)
 public class ProvidAddress extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

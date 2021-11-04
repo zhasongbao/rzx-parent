@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rzx.project.mapper.BillRecordMapper">
 
-    <resultMap type="BillRecord" id="BillRecordResult">
+    <resultMap type="com.rzx.project.domain.BillRecord" id="BillRecordResult">
         <result property="billRecordId"    column="bill_record_id"    />
         <result property="billStatus"    column="bill_status"    />
         <result property="type"    column="type"    />
@@ -17,13 +17,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="accountBank"    column="account_bank"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
     </resultMap>
 
     <sql id="selectBillRecordVo">
-        select bill_record_id, bill_status, type, up_name, email, tax_number, company_address, company_phone, open_bank, account_bank, create_time, update_time from rzx_bill_record
+        select bill_record_id, bill_status, type, up_name, email, tax_number, company_address, company_phone, open_bank, account_bank, create_time, update_time, create_by, update_by from rzx_bill_record
     </sql>
 
-    <select id="selectBillRecordList" parameterType="BillRecord" resultMap="BillRecordResult">
+    <select id="selectBillRecordList" parameterType="com.rzx.project.domain.BillRecord" resultMap="BillRecordResult">
         <include refid="selectBillRecordVo"/>
         <where>
             <if test="billStatus != null  and billStatus != ''"> and bill_status = #{billStatus}</if>
@@ -44,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 
-    <update id="updateBillRecord" parameterType="BillRecord">
+    <update id="updateBillRecord" parameterType="com.rzx.project.domain.BillRecord">
         update rzx_bill_record
         <trim prefix="SET" suffixOverrides=",">
             <if test="billStatus != null">bill_status = #{billStatus},</if>
@@ -58,6 +60,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="accountBank != null">account_bank = #{accountBank},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
         </trim>
         where bill_record_id = #{billRecordId}
     </update>

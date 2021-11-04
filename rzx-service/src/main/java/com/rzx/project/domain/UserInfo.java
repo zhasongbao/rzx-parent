@@ -1,16 +1,16 @@
 package com.rzx.project.domain;
 
 import com.rzx.common.core.domain.BaseEntity;
-import lombok.EqualsAndHashCode;
+import lombok.Builder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.rzx.common.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.ToString;
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.experimental.Tolerate;
 
 /**
  * 任智行渠道用户信息对象 rzx_user_info
@@ -19,13 +19,16 @@ import com.baomidou.mybatisplus.annotation.TableId;
  * @date 2021-10-20
  */
 @Data
-@ToString
+@Builder
 @TableName("rzx_user_info")
 @ApiModel(value = "任智行渠道用户信息对象", description = "任智行渠道用户信息rzx_user_info表")
-@EqualsAndHashCode(callSuper = true)
 public class UserInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
+
+    @Tolerate
+    public UserInfo() {
+    }
 
     /** $column.columnComment */
     @ApiModelProperty(value = "${column.columnComment}")
@@ -33,8 +36,8 @@ public class UserInfo extends BaseEntity {
     private String userInfoId;
     
     /** 渠道来源用户id 各渠道用户openId */
-    @Excel(name = "渠道来源用户id 各渠道用户openId")
-    @ApiModelProperty(value = "渠道来源用户id 各渠道用户openId")
+    @Excel(name = "渠道来源用户id")
+    @ApiModelProperty(value = "渠道来源用户id")
     @TableField(value = "user_id")
     private String userId;
 

@@ -1,16 +1,16 @@
 package com.rzx.project.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.rzx.common.annotation.Excel;
 import com.rzx.common.core.domain.BaseEntity;
-import lombok.EqualsAndHashCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.rzx.common.annotation.Excel;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.ToString;
+import lombok.Builder;
 import lombok.Data;
-import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.experimental.Tolerate;
 
 /**
  * 任意行用户对象 tb_saleman
@@ -19,13 +19,16 @@ import com.baomidou.mybatisplus.annotation.TableId;
  * @date 2021-11-02
  */
 @Data
-@ToString
+@Builder
 @TableName("tb_saleman")
 @ApiModel(value = "任意行用户对象", description = "任意行用户tb_saleman表")
-@EqualsAndHashCode(callSuper = true)
 public class TbSaleman extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
+
+    @Tolerate
+    public TbSaleman() {
+    }
 
     /** $column.columnComment */
     @ApiModelProperty(value = "${column.columnComment}")

@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rzx.project.mapper.UserInfoMapper">
 
-    <resultMap type="UserInfo" id="UserInfoResult">
+    <resultMap type="com.rzx.project.domain.UserInfo" id="UserInfoResult">
         <result property="userInfoId"    column="user_info_id"    />
         <result property="userId"    column="user_id"    />
         <result property="userType"    column="user_type"    />
@@ -13,6 +13,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="score"    column="score"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
     </resultMap>
 
     <resultMap type="com.rzx.common.core.domain.entity.ChannelUserInfo" id="ChannelUserInfoResult">
@@ -25,10 +27,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectUserInfoVo">
-        select user_info_id, user_id, source, status, score, create_time, update_time from rzx_user_info
+        select user_info_id, user_id, user_type, source, status, score, create_time, update_time, create_by, update_by from rzx_user_info
     </sql>
 
-    <select id="selectUserInfoList" parameterType="UserInfo" resultMap="UserInfoResult">
+    <select id="selectUserInfoList" parameterType="com.rzx.project.domain.UserInfo" resultMap="UserInfoResult">
         <include refid="selectUserInfoVo"/>
         <where>
             <if test="userId != null  and userId != ''"> and user_id = #{userId}</if>
@@ -49,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where user_id = #{userId} and user_type =  #{userType} and source =  #{source}
     </select>
 
-    <update id="updateUserInfo" parameterType="UserInfo">
+    <update id="updateUserInfo" parameterType="com.rzx.project.domain.UserInfo">
         update rzx_user_info
         <trim prefix="SET" suffixOverrides=",">
             <if test="userId != null">user_id = #{userId},</if>
@@ -59,6 +61,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="score != null">score = #{score},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
         </trim>
         where user_info_id = #{userInfoId}
     </update>
