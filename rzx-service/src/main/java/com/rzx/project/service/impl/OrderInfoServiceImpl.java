@@ -2,6 +2,7 @@ package com.rzx.project.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rzx.common.constant.Constants;
 import com.rzx.common.enums.*;
@@ -224,11 +225,12 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper,OrderInfo>
      */
     @Override
     public Integer billRecordCommit(BillRecordCommitDTO dto) {
-        List<OrderInfo> list = orderInfoMapper.selectOrderInfoList(OrderInfo.builder().orderId(dto.getOrderId()).build());
-        if (CollectionUtils.isEmpty(list)) {
+        LambdaQueryWrapper<OrderInfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(OrderInfo::getOrderId, dto.getOrderId());
+        OrderInfo order = getOne(queryWrapper);
+        if (ObjectUtils.isEmpty(order)) {
             throw new CustomException("未找到对应订单!");
         }
-        OrderInfo order = list.get(0);
         if (!StringUtils.isEmpty(order.getBillrecordId())) {
             throw new CustomException("该订单开票信息已提交，请勿重复提交！");
         }
@@ -259,25 +261,23 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper,OrderInfo>
     @Override
     public NowExchangeVO nowExchange(NowExchangeDTO dto) {
         // 查询对应券是否为已销售未核销
-        List<CouponsInfo> list = couponsInfoService.selectCouponsInfoList(CouponsInfo.builder()
-                .couponsinfoId(dto.getCouponsInfoId())
-                .couponsPwd(dto.getCouponsPwd())
-                .saleStatus(CouponsSaleStatusEnum.YES_SALE.getCode())
-                .checkStatus(CheckStatusEnum.NO_CHECK.getCode())
-                .build()
-        );
-        if (CollectionUtils.isEmpty(list)) {
+        LambdaQueryWrapper<CouponsInfo> queryWrapperCoupons = new LambdaQueryWrapper<>();
+        queryWrapperCoupons.eq(CouponsInfo::getCouponsinfoId, dto.getCouponsInfoId());
+        queryWrapperCoupons.eq(CouponsInfo::getCouponsPwd, dto.getCouponsPwd());
+        queryWrapperCoupons.eq(CouponsInfo::getSaleStatus, CouponsSaleStatusEnum.YES_SALE.getCode());
+        queryWrapperCoupons.eq(CouponsInfo::getCheckStatus, CheckStatusEnum.NO_CHECK.getCode());
+        CouponsInfo coupons =  couponsInfoService.getOne(queryWrapperCoupons);
+        if (ObjectUtils.isEmpty(coupons)) {
             throw new CustomException("未找到该礼品信息！");
         }
-        List<OrderInfo> orderList = orderInfoMapper.selectOrderInfoList(OrderInfo.builder()
-                .couponsinfoId(dto.getCouponsInfoId())
-                .orderStatus(SalesOrderStatusEnum.YES_PAY.getCode())
-                .build()
-        );
-        if (CollectionUtils.isEmpty(orderList)) {
+
+        LambdaQueryWrapper<OrderInfo> queryWrapperOrder = new LambdaQueryWrapper<>();
+        queryWrapperOrder.eq(OrderInfo::getCouponsinfoId, dto.getCouponsInfoId());
+        queryWrapperOrder.eq(OrderInfo::getOrderStatus, SalesOrderStatusEnum.YES_PAY.getCode());
+        OrderInfo order = getOne(queryWrapperOrder);
+        if (ObjectUtils.isEmpty(order)) {
             throw new CustomException("未找到对应订单或对应订单未支付！");
         }
-        OrderInfo order = orderList.get(0);
         GiftPackageConfig gift = giftPackageConfigService.selectGiftPackageConfigById(order.getGiftpackageId());
         if (ObjectUtils.isEmpty(gift)) {
             throw new CustomException("未找对应礼包信息！");
@@ -291,14 +291,6 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper,OrderInfo>
                 .build();
     }
 
-    public static void main(String[] args) {
-        UserInfo user = new UserInfo();
-        user.setUserId("1");
-        System.out.println(user);
-        JSONObject json = (JSONObject) JSON.toJSON(user);
-        System.out.println(json);
-    }
-
     /**
      * 确认兑换
      *
@@ -307,12 +299,11 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper,OrderInfo>
      */
     @Override
     public Integer confirmExchange(ConfirmExchangeDTO dto) {
-        List<CommodityConfig> list = commodityConfigService.selectCommodityConfigList(CommodityConfig.builder()
-                .commodityCode(dto.getCommodityCode())
-                .provid(dto.getProvid())
-                .build()
-        );
-        if (CollectionUtils.isEmpty(list)) {
+        LambdaQueryWrapper<CommodityConfig> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(CommodityConfig::getCommodityCode, dto.getCommodityCode());
+        queryWrapper.eq(CommodityConfig::getProvid, dto.getProvid());
+        CommodityConfig commodity = commodityConfigService.getOne(queryWrapper);
+        if (ObjectUtils.isEmpty(commodity)) {
             throw new CustomException("商品不存在或已下架！");
         }
 
@@ -350,7 +341,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper,OrderInfo>
 
         JSONObject orderJson = (JSONObject) JSON.toJSON(order);
         orderJson.put("confirmModel",Constants.YES_FLAG);//自动
-        orderJson.put("providSource",list.get(0).getProvidSource());
+        orderJson.put("providSource", commodity.getProvidSource());
         // 调用供应商生成订单
         JSONObject resp = suppliere.createOrder(orderJson, (JSONObject) JSON.toJSON(address));
         if(Constants.SUCCESS_CODE.equals(resp.getString("RC"))){

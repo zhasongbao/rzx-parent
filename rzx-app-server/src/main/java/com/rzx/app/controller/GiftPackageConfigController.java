@@ -33,7 +33,7 @@ public class GiftPackageConfigController extends BaseController {
     /**
      * 查询任智行 获取礼包列表 getGitfList.action
      */
-    @PostMapping("/list")
+    @GetMapping("/list")
     @ApiOperation(value = "查询任智行 获取礼包列表")
     public TableDataInfo list(GiftPackageConfig GiftPackageConfig){
         startPage();

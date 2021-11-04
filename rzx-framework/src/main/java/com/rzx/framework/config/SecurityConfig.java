@@ -121,7 +121,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").anonymous()
                 .antMatchers("/code/getVeriCode").anonymous()
                 .antMatchers("/test/**").anonymous()
-//                .antMatchers("/gift/**", "/order/**").anonymous()
+                .antMatchers("/gift/**", "/order/**").anonymous()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated()
                 .and()

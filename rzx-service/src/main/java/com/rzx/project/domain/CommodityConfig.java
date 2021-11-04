@@ -83,8 +83,8 @@ public class CommodityConfig extends BaseEntity {
     /** 商品描述 */
     @Excel(name = "商品描述")
     @ApiModelProperty(value = "商品描述")
-    @TableField(value = "explain")
-    private String explain;
+    @TableField(value = "commodity_explain")
+    private String commodityExplain;
     
     /** 商品价格 (=成本价+成本价*溢价比例) */
     @Excel(name = "商品价格 (=成本价+成本价*溢价比例)")

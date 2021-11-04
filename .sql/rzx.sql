@@ -32,7 +32,9 @@ CREATE TABLE `rzx_score_record`  (
   `surplus_score` 		int(10) 	DEFAULT NULL COMMENT '当前剩余积分',
   `status` 				varchar(1) 	DEFAULT '1' COMMENT '状态(1-有效 0-无效)',
   `create_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by`           varchar(32) DEFAULT NULL COMMENT '创建人',
   `update_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_by`           varchar(32) DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (score_record_id) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '任智行渠道用户积分流水表' ROW_FORMAT = Dynamic;
 
@@ -48,7 +50,9 @@ CREATE TABLE `rzx_user_info`  (
   `status` 				varchar(1) 	DEFAULT '1' COMMENT '状态(1-有效 0-无效)',
   `score` 				int(10) 	DEFAULT NULL COMMENT '积分',
   `create_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by`           varchar(32) DEFAULT NULL COMMENT '创建人',
   `update_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_by`           varchar(32) DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`user_info_id`) USING BTREE,
   UNIQUE KEY `user_source` (`user_id`,`user_type`,`source`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '任智行渠道用户信息表' ROW_FORMAT = Dynamic;
@@ -65,7 +69,9 @@ CREATE TABLE `rzx_com_order_info`  (
   `products` 			text 					 COMMENT '商品明细',
   `status` 				varchar(1) DEFAULT '1' COMMENT '状态(1-有效 0-无效)',
   `create_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by`           varchar(32) DEFAULT NULL COMMENT '创建人',
   `update_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_by`           varchar(32) DEFAULT NULL COMMENT '更新人',
   `order_nums` 			text 	 				COMMENT '子订单处理结果',
   PRIMARY KEY (`comsalesorder_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '任智行 主订单表' ROW_FORMAT = Dynamic;
@@ -136,13 +142,15 @@ DROP TABLE IF EXISTS `rzx_gift_package_config`;
 CREATE TABLE `rzx_gift_package_config`  (
   `giftpackage_id` 			varchar(32) NOT NULL,
   `name` 					varchar(32) DEFAULT NULL COMMENT '礼包名称',
-  `explain` 				varchar(32) DEFAULT NULL COMMENT '礼包描述',
+  `gift_explain` 			varchar(32) DEFAULT NULL COMMENT '礼包描述',
   `init_amount` 			varchar(16) DEFAULT NULL COMMENT '礼包原价',
   `sale_amount` 			varchar(16) DEFAULT NULL COMMENT '礼包售价',
   `type` 					varchar(2)  DEFAULT NULL COMMENT '礼包类型（0-单品 1-多选一）',
   `status` 					varchar(1) 	DEFAULT '1' COMMENT '状态(1-有效 0-无效)',
   `create_time` 			datetime 	DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by`               varchar(32) DEFAULT NULL COMMENT '创建人',
   `update_time` 			datetime 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_by`               varchar(32) DEFAULT NULL COMMENT '更新人',
   `sallout_count` 			varchar(20) DEFAULT NULL COMMENT '已售份数',
   `product_order` 			int(5) 		DEFAULT NULL COMMENT '礼包排序',
   `product_logo` 			varchar(255) DEFAULT NULL COMMENT '礼包封面',
@@ -185,7 +193,9 @@ CREATE TABLE `rzx_receive_address_info`  (
   `receive_address` 	varchar(200) DEFAULT NULL COMMENT '收货地址',
   `status` 				varchar(1) 	DEFAULT '1' COMMENT '状态(1-有效 0-无效)',
   `create_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by`           varchar(32) DEFAULT NULL COMMENT '创建人',
   `update_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_by`           varchar(32) DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`receiveaddress_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '任智行 收货地址表' ROW_FORMAT = Dynamic;
 
@@ -205,7 +215,9 @@ CREATE TABLE `rzx_bill_record`  (
   `open_bank` 			varchar(50) DEFAULT NULL COMMENT '开户银行',
   `account_bank` 		varchar(50) DEFAULT NULL COMMENT '银行账户',
   `create_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by`           varchar(32) DEFAULT NULL COMMENT '创建人',
   `update_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_by`           varchar(32) DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`bill_record_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '任智行 开票信息表' ROW_FORMAT = Dynamic;
 
@@ -222,12 +234,14 @@ CREATE TABLE `rzx_commodity_config`  (
   `thumbnail_image` 	text 		COMMENT '商品列表缩略图',
   `image` 				text 		COMMENT '商品详细图片',
   `image_urls` 			text 		COMMENT '商品轮播图片',
-  `explain` 			text 		COMMENT '商品描述',
+  `commodity_explain` 	text 		COMMENT '商品描述',
   `amount` 				varchar(16) DEFAULT NULL COMMENT '商品价格 (=成本价+成本价*溢价比例)',
   `provid` 				varchar(2)  DEFAULT NULL COMMENT '提供方（1-云中鹤，2-百汇）',
   `status` 				varchar(1) 	DEFAULT '1' COMMENT '状态(1-有效 0-无效)',
   `create_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by`           varchar(32) DEFAULT NULL COMMENT '创建人',
   `update_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_by`           varchar(32) DEFAULT NULL COMMENT '更新人',
   `product_cate`		varchar(32) DEFAULT NULL COMMENT '商品分类',
   `product_place` 		varchar(80) DEFAULT NULL COMMENT '商品产地',
   `sale_status` 		varchar(20) DEFAULT NULL COMMENT '商品状态 1上架销售中, 0下架)',
@@ -262,7 +276,9 @@ CREATE TABLE `rzx_commodity_class`  (
   `parentid` 			varchar(20) DEFAULT NULL COMMENT '分类父ID',
   `status` 				varchar(1) 	DEFAULT '1' COMMENT '状态(1-有效 0-无效)',
   `create_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by`           varchar(32) DEFAULT NULL COMMENT '创建人',
   `update_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_by`           varchar(32) DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`commodityclass_id`) USING BTREE,
   UNIQUE INDEX `provid`(`provid`, `code`) USING BTREE,
   INDEX `code_index`(`code`) USING BTREE,
@@ -304,7 +320,9 @@ CREATE TABLE `rzx_provid_address`  (
   `provid` 				varchar(1) DEFAULT NULL COMMENT '供应商（1-云中鹤，2-百汇）',
   `status` 				varchar(1) DEFAULT '1' COMMENT '状态(1-有效 0-无效)',
   `create_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by`           varchar(32) DEFAULT NULL COMMENT '创建人',
   `update_time` 		datetime 	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_by`           varchar(32) DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`providaddress_id`) USING BTREE,
   UNIQUE INDEX `id_provid`(`id`, `provid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '任智行 供应商地址信息表' ROW_FORMAT = Dynamic;

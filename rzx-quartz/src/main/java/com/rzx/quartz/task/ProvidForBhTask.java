@@ -144,7 +144,7 @@ public class ProvidForBhTask {
             pd.setTypeId(product.getString("typeid"));
             pd.setCommodityName(StringUtils.isEmpty(product.getString("product_name")) ? "" : URLDecoder.decode(product.getString("product_name")));
             pd.setProvidSource(product.getString("product_group"));
-            pd.setExplain(StringUtils.isEmpty(product.getString("sell_point")) ? "" : URLDecoder.decode(product.getString("sell_point")));
+            pd.setCommodityExplain(StringUtils.isEmpty(product.getString("sell_point")) ? "" : URLDecoder.decode(product.getString("sell_point")));
             pd.setProductCate(product.getString("category_id"));
             pd.setBrand(StringUtils.isEmpty(product.getString("brand")) ? "" : URLDecoder.decode(product.getString("brand")));
             pd.setMarketPrice(product.getString("market_price"));

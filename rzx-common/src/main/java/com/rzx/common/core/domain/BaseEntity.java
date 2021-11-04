@@ -89,11 +89,4 @@ public class BaseEntity implements Serializable {
         this.params = params;
     }
 
-    @Setter
-    @Getter
-    private String startDate;
-
-    @Setter
-    @Getter
-    private String endDate;
 }

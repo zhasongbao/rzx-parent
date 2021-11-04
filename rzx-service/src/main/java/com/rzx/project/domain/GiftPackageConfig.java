@@ -41,8 +41,8 @@ public class GiftPackageConfig extends BaseEntity {
     /** 礼包描述 */
     @Excel(name = "礼包描述")
     @ApiModelProperty(value = "礼包描述")
-    @TableField(value = "explain")
-    private String explain;
+    @TableField(value = "gift_explain")
+    private String giftExplain;
     
     /** 礼包原价 */
     @Excel(name = "礼包原价")

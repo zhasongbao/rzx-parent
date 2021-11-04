@@ -106,7 +106,7 @@ public class OrderInfoController extends BaseController {
     @ApiOperation(value = "购买礼包 入口为商城销售礼包icon跳转")
     @Log(title = "购买礼包", businessType = BusinessType.INSERT)
     @PostMapping("/buyPackage")
-    public AjaxResult<BuyPackageVO> buyPackage(@Validated BuyPackageDTO dto){
+    public AjaxResult<BuyPackageVO> buyPackage(@RequestBody @Validated BuyPackageDTO dto){
         return AjaxResult.success(orderInfoService.buyPackage(dto));
     }
 
@@ -118,7 +118,7 @@ public class OrderInfoController extends BaseController {
     @ApiOperation(value = "礼包绑定券号生成订单")
     @Log(title = "礼包绑定券号生成订单", businessType = BusinessType.UPDATE)
     @PostMapping("/giftPackageLinkCoupons")
-    public AjaxResult<JSONObject> giftPackageLinkCoupons(@Validated PackageLinkCouponsDTO dto){
+    public AjaxResult<JSONObject> giftPackageLinkCoupons(@RequestBody @Validated PackageLinkCouponsDTO dto){
         return AjaxResult.success(orderInfoService.giftPackageLinkCoupons(dto));
     }
 
@@ -130,7 +130,7 @@ public class OrderInfoController extends BaseController {
     @ApiOperation(value = "发票信息提交接口")
     @Log(title = "发票信息提交接口", businessType = BusinessType.INSERT)
     @PostMapping("/billRecordCommit")
-    public AjaxResult<Integer> billRecordCommit(@Validated BillRecordCommitDTO dto){
+    public AjaxResult<Integer> billRecordCommit(@RequestBody @Validated BillRecordCommitDTO dto){
         return toAjax(orderInfoService.billRecordCommit(dto));
     }
 
@@ -142,7 +142,7 @@ public class OrderInfoController extends BaseController {
     @ApiOperation(value = "马上兑换接口")
     @Log(title = "马上兑换接口", businessType = BusinessType.UPDATE)
     @PostMapping("/nowExchange")
-    public AjaxResult<NowExchangeVO> nowExchange(@Validated NowExchangeDTO dto){
+    public AjaxResult<NowExchangeVO> nowExchange(@RequestBody @Validated NowExchangeDTO dto){
         return AjaxResult.success(orderInfoService.nowExchange(dto));
     }
 
@@ -154,7 +154,7 @@ public class OrderInfoController extends BaseController {
     @ApiOperation(value = "马上兑换接口")
     @Log(title = "马上兑换接口", businessType = BusinessType.UPDATE)
     @PostMapping("/confirmExchange")
-    public AjaxResult<Integer> confirmExchange(@Validated ConfirmExchangeDTO dto){
+    public AjaxResult<Integer> confirmExchange(@RequestBody @Validated ConfirmExchangeDTO dto){
         return toAjax(orderInfoService.confirmExchange(dto));
     }
 
