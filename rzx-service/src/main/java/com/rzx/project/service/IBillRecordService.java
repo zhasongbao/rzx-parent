@@ -2,7 +2,7 @@ package com.rzx.project.service;
 
 import java.util.List;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.rzx.project.domain.BillRecord;
+import com.rzx.project.model.domain.BillRecord;
 
 /**
  * 任智行 开票信息Service接口

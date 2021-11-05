@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rzx.project.mapper.ProvidAddressMapper">
 
-    <resultMap type="com.rzx.project.domain.ProvidAddress" id="ProvidAddressResult">
+    <resultMap type="com.rzx.project.model.domain.ProvidAddress" id="ProvidAddressResult">
         <result property="providaddressId"    column="providaddress_id"    />
         <result property="id"    column="id"    />
         <result property="name"    column="name"    />
@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select providaddress_id, id, name, parent_id, type, provid, status, create_time, update_time, create_by, update_by from rzx_provid_address
     </sql>
 
-    <select id="selectProvidAddressList" parameterType="com.rzx.project.domain.ProvidAddress" resultMap="ProvidAddressResult">
+    <select id="selectProvidAddressList" parameterType="com.rzx.project.model.domain.ProvidAddress" resultMap="ProvidAddressResult">
         <include refid="selectProvidAddressVo"/>
         <where>
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 
-    <update id="updateProvidAddress" parameterType="com.rzx.project.domain.ProvidAddress">
+    <update id="updateProvidAddress" parameterType="com.rzx.project.model.domain.ProvidAddress">
         update rzx_provid_address
         <trim prefix="SET" suffixOverrides=",">
             <if test="id != null">id = #{id},</if>
@@ -68,7 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <!-- 批量插入 -->
-    <insert id="batchInsertOrUpdate" parameterType="com.rzx.project.domain.ProvidAddress">
+    <insert id="batchInsertOrUpdate" parameterType="com.rzx.project.model.domain.ProvidAddress">
         insert into
         rzx_provid_address
         (

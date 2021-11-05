@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rzx.project.mapper.OrderInfoMapper">
 
-    <resultMap type="com.rzx.project.domain.OrderInfo" id="OrderInfoResult">
+    <resultMap type="com.rzx.project.model.domain.OrderInfo" id="OrderInfoResult">
         <result property="salesorderId"    column="salesorder_id"    />
         <result property="orderNum"    column="order_num"    />
         <result property="orderId"    column="order_id"    />
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateBy"    column="update_by"    />
         <result property="brokerage"    column="brokerage"    />
         <result property="qrBillUrl"    column="qr_bill_url"    />
-        <result property="billrecordId"    column="billrecord_id"    />
+        <result property="billRecordId"    column="bill_record_id"    />
         <result property="payEndTime"    column="pay_end_time"    />
         <result property="inSource"    column="in_source"    />
         <result property="orderType"    column="order_type"    />
@@ -50,48 +50,62 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectOrderInfoVo">
-        select salesorder_id, order_num, order_id, order_key, order_shipment_fee, saleman_id, user_info_id, giftpackage_id, commodity_code, couponsinfo_id, init_total_amount, sale_total_amount, pay_way, out_trade_id, notifyjson, qr_code, order_status, sale_time, receiveaddress_id, remark, order_provid, error_code, error_message, status, create_time, create_by, update_time, update_by, brokerage, qr_bill_url, billrecord_id, pay_end_time, in_source, order_type, com_order_id, pay_type, pay_score, express_code, com_price, com_count, notics_status, check_status from rzx_order_info
+        select salesorder_id, order_num, order_id, order_key, order_shipment_fee, saleman_id, user_info_id, giftpackage_id, commodity_code, couponsinfo_id, init_total_amount, sale_total_amount, pay_way, out_trade_id, notifyjson, qr_code, order_status, sale_time, receiveaddress_id, remark, order_provid, error_code, error_message, status, create_time, create_by, update_time, update_by, brokerage, qr_bill_url, bill_record_id, pay_end_time, in_source, order_type, com_order_id, pay_type, pay_score, express_code, com_price, com_count, notics_status, check_status from rzx_order_info
     </sql>
 
-    <select id="selectOrderInfoList" parameterType="com.rzx.project.domain.OrderInfo" resultMap="OrderInfoResult">
-        <include refid="selectOrderInfoVo"/>
+    <sql id="FieldTabA">
+        a.salesorder_id, a.order_num, a.order_id, a.order_key, a.order_shipment_fee, a.saleman_id, a.user_info_id, a.giftpackage_id, a.commodity_code, a.couponsinfo_id, a.init_total_amount, a.sale_total_amount, a.pay_way, a.out_trade_id, a.notifyjson, a.qr_code, a.order_status, a.sale_time, a.receiveaddress_id, a.remark, a.order_provid, a.error_code, a.error_message, a.status, a.create_time, a.create_by, a.update_time, a.update_by, a.brokerage, a.qr_bill_url, a.bill_record_id, a.pay_end_time, a.in_source, a.order_type, a.com_order_id, a.pay_type, a.pay_score, a.express_code, a.com_price, a.com_count, a.notics_status, a.check_status, a.order_confirm
+    </sql>
+
+    <select id="selectOrderInfoList" parameterType="com.rzx.project.model.domain.OrderInfo" resultType="com.rzx.project.model.domain.OrderInfo">
+        select
+          <include refid="FieldTabA"/>,
+          b.name,
+          b.gift_explain,
+          b.init_amount,
+          b.sale_amount,
+          b.product_logo,
+          c.bill_status
+        from rzx_order_info a
+          left join rzx_gift_package_config b on a.giftpackage_id = b.giftpackage_id
+          left join rzx_bill_record c on a.bill_record_id = c.bill_record_id
         <where>
-            <if test="orderNum != null  and orderNum != ''"> and order_num = #{orderNum}</if>
-            <if test="orderId != null  and orderId != ''"> and order_id = #{orderId}</if>
-            <if test="orderKey != null  and orderKey != ''"> and order_key = #{orderKey}</if>
-            <if test="orderShipmentFee != null  and orderShipmentFee != ''"> and order_shipment_fee = #{orderShipmentFee}</if>
-            <if test="salemanId != null  and salemanId != ''"> and saleman_id = #{salemanId}</if>
-            <if test="userInfoId != null  and userInfoId != ''"> and user_info_id = #{userInfoId}</if>
-            <if test="giftpackageId != null  and giftpackageId != ''"> and giftpackage_id = #{giftpackageId}</if>
-            <if test="commodityCode != null  and commodityCode != ''"> and commodity_code = #{commodityCode}</if>
-            <if test="couponsinfoId != null  and couponsinfoId != ''"> and couponsinfo_id = #{couponsinfoId}</if>
-            <if test="initTotalAmount != null  and initTotalAmount != ''"> and init_total_amount = #{initTotalAmount}</if>
-            <if test="saleTotalAmount != null  and saleTotalAmount != ''"> and sale_total_amount = #{saleTotalAmount}</if>
-            <if test="payWay != null  and payWay != ''"> and pay_way = #{payWay}</if>
-            <if test="outTradeId != null  and outTradeId != ''"> and out_trade_id = #{outTradeId}</if>
-            <if test="notifyjson != null  and notifyjson != ''"> and notifyjson = #{notifyjson}</if>
-            <if test="qrCode != null  and qrCode != ''"> and qr_code = #{qrCode}</if>
-            <if test="orderStatus != null  and orderStatus != ''"> and order_status = #{orderStatus}</if>
-            <if test="saleTime != null  and saleTime != ''"> and sale_time = #{saleTime}</if>
-            <if test="receiveaddressId != null  and receiveaddressId != ''"> and receiveaddress_id = #{receiveaddressId}</if>
-            <if test="orderProvid != null  and orderProvid != ''"> and order_provid = #{orderProvid}</if>
-            <if test="errorCode != null  and errorCode != ''"> and error_code = #{errorCode}</if>
-            <if test="errorMessage != null  and errorMessage != ''"> and error_message = #{errorMessage}</if>
-            <if test="status != null  and status != ''"> and status = #{status}</if>
-            <if test="brokerage != null  and brokerage != ''"> and brokerage = #{brokerage}</if>
-            <if test="qrBillUrl != null  and qrBillUrl != ''"> and qr_bill_url = #{qrBillUrl}</if>
-            <if test="billrecordId != null  and billrecordId != ''"> and billrecord_id = #{billrecordId}</if>
-            <if test="payEndTime != null  and payEndTime != ''"> and pay_end_time = #{payEndTime}</if>
-            <if test="inSource != null  and inSource != ''"> and in_source = #{inSource}</if>
-            <if test="orderType != null  and orderType != ''"> and order_type = #{orderType}</if>
-            <if test="comOrderId != null  and comOrderId != ''"> and com_order_id = #{comOrderId}</if>
-            <if test="payType != null  and payType != ''"> and pay_type = #{payType}</if>
-            <if test="payScore != null  and payScore != ''"> and pay_score = #{payScore}</if>
-            <if test="expressCode != null  and expressCode != ''"> and express_code = #{expressCode}</if>
-            <if test="comPrice != null  and comPrice != ''"> and com_price = #{comPrice}</if>
-            <if test="comCount != null  and comCount != ''"> and com_count = #{comCount}</if>
-            <if test="noticsStatus != null  and noticsStatus != ''"> and notics_status = #{noticsStatus}</if>
-            <if test="checkStatus != null  and checkStatus != ''"> and check_status = #{checkStatus}</if>
+            <if test="orderNum != null  and orderNum != ''"> and a.order_num = #{orderNum}</if>
+            <if test="orderId != null  and orderId != ''"> and a.order_id = #{orderId}</if>
+            <if test="orderKey != null  and orderKey != ''"> and a.order_key = #{orderKey}</if>
+            <if test="orderShipmentFee != null  and orderShipmentFee != ''"> and a.order_shipment_fee = #{orderShipmentFee}</if>
+            <if test="salemanId != null  and salemanId != ''"> and a.saleman_id = #{salemanId}</if>
+            <if test="userInfoId != null  and userInfoId != ''"> and a.user_info_id = #{userInfoId}</if>
+            <if test="giftpackageId != null  and giftpackageId != ''"> and a.giftpackage_id = #{giftpackageId}</if>
+            <if test="commodityCode != null  and commodityCode != ''"> and a.commodity_code = #{commodityCode}</if>
+            <if test="couponsinfoId != null  and couponsinfoId != ''"> and a.couponsinfo_id = #{couponsinfoId}</if>
+            <if test="initTotalAmount != null  and initTotalAmount != ''"> and a.init_total_amount = #{initTotalAmount}</if>
+            <if test="saleTotalAmount != null  and saleTotalAmount != ''"> and a.sale_total_amount = #{saleTotalAmount}</if>
+            <if test="payWay != null  and payWay != ''"> and a.pay_way = #{payWay}</if>
+            <if test="outTradeId != null  and outTradeId != ''"> and a.out_trade_id = #{outTradeId}</if>
+            <if test="notifyjson != null  and notifyjson != ''"> and a.notifyjson = #{notifyjson}</if>
+            <if test="qrCode != null  and qrCode != ''"> and a.qr_code = #{qrCode}</if>
+            <if test="orderStatus != null  and orderStatus != ''"> and a.order_status = #{orderStatus}</if>
+            <if test="saleTime != null  and saleTime != ''"> and a.sale_time = #{saleTime}</if>
+            <if test="receiveaddressId != null  and receiveaddressId != ''"> and a.receiveaddress_id = #{receiveaddressId}</if>
+            <if test="orderProvid != null  and orderProvid != ''"> and a.order_provid = #{orderProvid}</if>
+            <if test="errorCode != null  and errorCode != ''"> and a.error_code = #{errorCode}</if>
+            <if test="errorMessage != null  and errorMessage != ''"> and a.error_message = #{errorMessage}</if>
+            <if test="status != null  and status != ''"> and a.status = #{status}</if>
+            <if test="brokerage != null  and brokerage != ''"> and a.brokerage = #{brokerage}</if>
+            <if test="qrBillUrl != null  and qrBillUrl != ''"> and a.qr_bill_url = #{qrBillUrl}</if>
+            <if test="billRecordId != null  and billRecordId != ''"> and a.bill_record_id = #{billRecordId}</if>
+            <if test="payEndTime != null  and payEndTime != ''"> and a.pay_end_time = #{payEndTime}</if>
+            <if test="inSource != null  and inSource != ''"> and a.in_source = #{inSource}</if>
+            <if test="orderType != null  and orderType != ''"> and a.order_type = #{orderType}</if>
+            <if test="comOrderId != null  and comOrderId != ''"> and a.com_order_id = #{comOrderId}</if>
+            <if test="payType != null  and payType != ''"> and a.pay_type = #{payType}</if>
+            <if test="payScore != null  and payScore != ''"> and a.pay_score = #{payScore}</if>
+            <if test="expressCode != null  and expressCode != ''"> and a.express_code = #{expressCode}</if>
+            <if test="comPrice != null  and comPrice != ''"> and a.com_price = #{comPrice}</if>
+            <if test="comCount != null  and comCount != ''"> and a.com_count = #{comCount}</if>
+            <if test="noticsStatus != null  and noticsStatus != ''"> and a.notics_status = #{noticsStatus}</if>
+            <if test="checkStatus != null  and checkStatus != ''"> and a.check_status = #{checkStatus}</if>
         </where>
     </select>
 
@@ -133,7 +147,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="brokerage != null">brokerage = #{brokerage},</if>
             <if test="qrBillUrl != null">qr_bill_url = #{qrBillUrl},</if>
-            <if test="billrecordId != null">billrecord_id = #{billrecordId},</if>
+            <if test="billRecordId != null">bill_record_id = #{billRecordId},</if>
             <if test="payEndTime != null">pay_end_time = #{payEndTime},</if>
             <if test="inSource != null">in_source = #{inSource},</if>
             <if test="orderType != null">order_type = #{orderType},</if>

@@ -2,7 +2,7 @@ package com.rzx.project.service.ryx.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.rzx.project.domain.TbSaleman;
+import com.rzx.project.model.domain.TbSaleman;
 import com.rzx.project.mapper.ryx.TbSalemanMapper;
 import com.rzx.project.service.ryx.ITbSalemanService;
 import org.springframework.beans.factory.annotation.Autowired;

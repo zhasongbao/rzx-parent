@@ -2,7 +2,7 @@ package com.rzx.project.service.ryx;
 
 import java.util.List;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.rzx.project.domain.TbSaleman;
+import com.rzx.project.model.domain.TbSaleman;
 
 /**
  * 任意行用户Service接口

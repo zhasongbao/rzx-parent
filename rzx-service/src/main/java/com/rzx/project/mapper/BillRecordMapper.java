@@ -2,7 +2,7 @@ package com.rzx.project.mapper;
 
 import java.util.List;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.rzx.project.domain.BillRecord;
+import com.rzx.project.model.domain.BillRecord;
 
 /**
  * 任智行 开票信息Mapper接口

@@ -2,7 +2,7 @@ package com.rzx.project.mapper;
 
 import java.util.List;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.rzx.project.domain.ScoreRecord;
+import com.rzx.project.model.domain.ScoreRecord;
 
 /**
  * 任智行渠道用户积分流水Mapper接口

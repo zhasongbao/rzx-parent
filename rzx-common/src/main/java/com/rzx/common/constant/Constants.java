@@ -158,6 +158,11 @@ public class Constants {
     public static final String FAILURE_MSG = "请求失败!";
 
     /**
+     * 查询一条
+     */
+    public static final String SQL_LIMIT_1 = "LIMIT 1";
+
+    /**
      * 重庆百汇商城授权token
      */
     public static final String REDIS_BAIHUI_TOKEN = "baihui:token";

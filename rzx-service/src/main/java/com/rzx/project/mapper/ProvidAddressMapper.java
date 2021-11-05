@@ -2,7 +2,7 @@ package com.rzx.project.mapper;
 
 import java.util.List;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.rzx.project.domain.ProvidAddress;
+import com.rzx.project.model.domain.ProvidAddress;
 
 /**
  * 任智行 供应商地址信息Mapper接口

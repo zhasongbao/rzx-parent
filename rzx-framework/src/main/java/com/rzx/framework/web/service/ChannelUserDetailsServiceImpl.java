@@ -5,7 +5,7 @@ import com.rzx.common.constant.Constants;
 import com.rzx.common.core.domain.entity.ChannelUserInfo;
 import com.rzx.common.core.domain.model.AppLoginUser;
 import com.rzx.common.exception.BaseException;
-import com.rzx.project.domain.dto.UserLoginDTO;
+import com.rzx.project.model.dto.UserLoginDTO;
 import com.rzx.project.service.IUserInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

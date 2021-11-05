@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rzx.project.mapper.BillRecordMapper">
 
-    <resultMap type="com.rzx.project.domain.BillRecord" id="BillRecordResult">
+    <resultMap type="com.rzx.project.model.domain.BillRecord" id="BillRecordResult">
         <result property="billRecordId"    column="bill_record_id"    />
         <result property="billStatus"    column="bill_status"    />
         <result property="type"    column="type"    />
@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select bill_record_id, bill_status, type, up_name, email, tax_number, company_address, company_phone, open_bank, account_bank, create_time, update_time, create_by, update_by from rzx_bill_record
     </sql>
 
-    <select id="selectBillRecordList" parameterType="com.rzx.project.domain.BillRecord" resultMap="BillRecordResult">
+    <select id="selectBillRecordList" parameterType="com.rzx.project.model.domain.BillRecord" resultMap="BillRecordResult">
         <include refid="selectBillRecordVo"/>
         <where>
             <if test="billStatus != null  and billStatus != ''"> and bill_status = #{billStatus}</if>
@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 
-    <update id="updateBillRecord" parameterType="com.rzx.project.domain.BillRecord">
+    <update id="updateBillRecord" parameterType="com.rzx.project.model.domain.BillRecord">
         update rzx_bill_record
         <trim prefix="SET" suffixOverrides=",">
             <if test="billStatus != null">bill_status = #{billStatus},</if>

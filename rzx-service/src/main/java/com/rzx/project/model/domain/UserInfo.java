@@ -1,4 +1,4 @@
-package com.rzx.project.domain;
+package com.rzx.project.model.domain;
 
 import com.rzx.common.core.domain.BaseEntity;
 import lombok.Builder;

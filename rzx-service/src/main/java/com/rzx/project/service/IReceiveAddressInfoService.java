@@ -2,7 +2,7 @@ package com.rzx.project.service;
 
 import java.util.List;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.rzx.project.domain.ReceiveAddressInfo;
+import com.rzx.project.model.domain.ReceiveAddressInfo;
 
 /**
  * 任智行 收货地址Service接口

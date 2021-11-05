@@ -2,8 +2,8 @@ package com.rzx.project.handler;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.rzx.project.domain.CommodityConfig;
-import com.rzx.project.domain.OrderInfo;
+import com.rzx.project.model.domain.CommodityConfig;
+import com.rzx.project.model.domain.OrderInfo;
 
 import java.util.List;
 

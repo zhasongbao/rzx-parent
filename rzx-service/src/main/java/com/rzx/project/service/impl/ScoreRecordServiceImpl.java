@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rzx.project.mapper.ScoreRecordMapper;
-import com.rzx.project.domain.ScoreRecord;
+import com.rzx.project.model.domain.ScoreRecord;
 import com.rzx.project.service.IScoreRecordService;
 
 /**

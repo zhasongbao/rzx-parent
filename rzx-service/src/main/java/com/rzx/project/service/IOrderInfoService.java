@@ -1,13 +1,13 @@
 package com.rzx.project.service;
 
-import java.util.List;
-
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.rzx.project.domain.OrderInfo;
-import com.rzx.project.domain.dto.*;
-import com.rzx.project.domain.vo.BuyPackageVO;
-import com.rzx.project.domain.vo.NowExchangeVO;
+import com.rzx.project.model.domain.OrderInfo;
+import com.rzx.project.model.dto.*;
+import com.rzx.project.model.vo.BuyPackageVO;
+import com.rzx.project.model.vo.NowExchangeVO;
+
+import java.util.List;
 
 /**
  * 任智行 销售订单Service接口
@@ -100,5 +100,27 @@ public interface IOrderInfoService extends IService<OrderInfo> {
      * @return
      */
     Integer confirmExchange(ConfirmExchangeDTO dto);
+
+    /**
+     * 兑换记录列表
+     *
+     * @param dto
+     * @return 任智行 销售订单集合
+     */
+    List<OrderInfo> exchangeRecordList(ExchangeRecordListDTO dto);
+
+    /**
+     * 物流信息查询
+     * @param dto
+     * @return
+     */
+    JSONObject orderLogistics(OrderLogisticsDTO dto);
+
+    /**
+     * C扫B支付 获取支付二维码
+     * @param salesOrderId
+     * @return
+     */
+    String preCreate(String salesOrderId);
 
 }

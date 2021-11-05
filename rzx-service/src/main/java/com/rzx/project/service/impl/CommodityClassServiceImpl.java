@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rzx.project.mapper.CommodityClassMapper;
-import com.rzx.project.domain.CommodityClass;
+import com.rzx.project.model.domain.CommodityClass;
 import com.rzx.project.service.ICommodityClassService;
 
 /**

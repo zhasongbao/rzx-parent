@@ -1,4 +1,4 @@
-package com.rzx.project.domain;
+package com.rzx.project.model.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

@@ -2,7 +2,7 @@ package com.rzx.project.mapper;
 
 import java.util.List;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.rzx.project.domain.GiftPackageConfig;
+import com.rzx.project.model.domain.GiftPackageConfig;
 
 /**
  * 任智行 礼包配置Mapper接口

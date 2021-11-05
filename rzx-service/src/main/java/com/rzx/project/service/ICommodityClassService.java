@@ -2,7 +2,7 @@ package com.rzx.project.service;
 
 import java.util.List;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.rzx.project.domain.CommodityClass;
+import com.rzx.project.model.domain.CommodityClass;
 
 /**
  * 任智行 商品分类Service接口

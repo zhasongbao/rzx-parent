@@ -1,4 +1,4 @@
-package com.rzx.project.domain.dto;
+package com.rzx.project.model.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;

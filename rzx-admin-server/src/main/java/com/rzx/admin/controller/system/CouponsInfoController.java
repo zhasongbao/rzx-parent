@@ -2,7 +2,6 @@ package com.rzx.admin.controller.system;
 
 import java.util.List;
 
-import com.rzx.common.constant.Constants;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +16,7 @@ import com.rzx.common.annotation.Log;
 import com.rzx.common.core.controller.BaseController;
 import com.rzx.common.core.domain.AjaxResult;
 import com.rzx.common.enums.BusinessType;
-import com.rzx.project.domain.CouponsInfo;
+import com.rzx.project.model.domain.CouponsInfo;
 import com.rzx.project.service.ICouponsInfoService;
 import com.rzx.common.utils.poi.ExcelUtil;
 import io.swagger.annotations.Api;

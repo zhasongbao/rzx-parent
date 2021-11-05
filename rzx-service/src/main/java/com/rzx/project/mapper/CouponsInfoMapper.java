@@ -2,7 +2,7 @@ package com.rzx.project.mapper;
 
 import java.util.List;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.rzx.project.domain.CouponsInfo;
+import com.rzx.project.model.domain.CouponsInfo;
 
 /**
  * 任智行 券信息Mapper接口

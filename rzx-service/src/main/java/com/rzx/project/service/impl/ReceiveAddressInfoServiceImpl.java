@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rzx.project.mapper.ReceiveAddressInfoMapper;
-import com.rzx.project.domain.ReceiveAddressInfo;
+import com.rzx.project.model.domain.ReceiveAddressInfo;
 import com.rzx.project.service.IReceiveAddressInfoService;
 
 /**

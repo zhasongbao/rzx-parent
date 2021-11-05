@@ -3,8 +3,8 @@ package com.rzx.project.mapper;
 import java.util.List;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rzx.common.core.domain.entity.ChannelUserInfo;
-import com.rzx.project.domain.UserInfo;
-import com.rzx.project.domain.dto.UserLoginDTO;
+import com.rzx.project.model.domain.UserInfo;
+import com.rzx.project.model.dto.UserLoginDTO;
 
 /**
  * 任智行渠道用户信息Mapper接口

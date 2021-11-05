@@ -2,7 +2,7 @@ package com.rzx.project.service;
 
 import java.util.List;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.rzx.project.domain.ProvidAddress;
+import com.rzx.project.model.domain.ProvidAddress;
 
 /**
  * 任智行 供应商地址信息Service接口

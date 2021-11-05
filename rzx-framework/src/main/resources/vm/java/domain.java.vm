@@ -1,4 +1,4 @@
-package ${packageName}.domain.${moduleName};
+package ${packageName}.model.domain.${moduleName};
 
 #foreach ($import in $importList)
 import ${import};
@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 #end
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import com.rzx.common.core.domain.BaseEntity;
 import com.rzx.common.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -51,7 +52,7 @@ public class ${ClassName} extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @Tolerate
-    public CommodityClass() {
+    public ${ClassName}() {
     }
 
 #foreach ($column in $columns)

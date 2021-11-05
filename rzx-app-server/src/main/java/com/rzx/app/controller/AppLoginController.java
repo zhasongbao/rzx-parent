@@ -3,7 +3,7 @@ package com.rzx.app.controller;
 import com.rzx.common.constant.Constants;
 import com.rzx.common.core.domain.AjaxResult;
 import com.rzx.framework.web.service.ChannelUserLoginService;
-import com.rzx.project.domain.dto.UserLoginDTO;
+import com.rzx.project.model.dto.UserLoginDTO;
 import com.rzx.project.service.IUserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;

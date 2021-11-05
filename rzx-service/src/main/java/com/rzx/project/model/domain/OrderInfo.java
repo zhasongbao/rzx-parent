@@ -1,4 +1,4 @@
-package com.rzx.project.domain;
+package com.rzx.project.model.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -191,8 +191,8 @@ public class OrderInfo extends BaseEntity {
     /** 开票信息ID */
     @Excel(name = "开票信息ID")
     @ApiModelProperty(value = "开票信息ID")
-    @TableField(value = "billrecord_id")
-    private String billrecordId;
+    @TableField(value = "bill_record_id")
+    private String billRecordId;
     
     /** 支付有效截至时间 */
     @Excel(name = "支付有效截至时间")
@@ -266,4 +266,11 @@ public class OrderInfo extends BaseEntity {
     @TableField(value = "order_confirm")
     private String orderConfirm;
 
+    private String name;
+    private String giftExplain;
+    private String initAmount;
+    private String saleAmount;
+    private String productLogo;
+    private String billStatus;
+    private String receivePhone;
 }

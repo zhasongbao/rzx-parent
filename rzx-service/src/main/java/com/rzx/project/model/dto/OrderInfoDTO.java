@@ -1,9 +1,8 @@
-package com.rzx.project.domain.dto;
+package com.rzx.project.model.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**

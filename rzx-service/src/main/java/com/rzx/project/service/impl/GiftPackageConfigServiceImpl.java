@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rzx.project.mapper.GiftPackageConfigMapper;
-import com.rzx.project.domain.GiftPackageConfig;
+import com.rzx.project.model.domain.GiftPackageConfig;
 import com.rzx.project.service.IGiftPackageConfigService;
 
 /**

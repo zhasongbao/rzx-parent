@@ -1,16 +1,14 @@
-package com.rzx.project.domain;
+package com.rzx.project.model.domain;
 
     import com.rzx.common.core.domain.BaseEntity;
     import lombok.Builder;
-    import lombok.EqualsAndHashCode;
-import io.swagger.annotations.ApiModel;
+    import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.rzx.common.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.ToString;
-import lombok.Data;
+    import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableId;
     import lombok.experimental.Tolerate;
 

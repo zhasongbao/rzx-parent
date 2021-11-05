@@ -4,12 +4,12 @@ import java.util.List;
 import java.time.LocalDateTime;
 
 import com.rzx.common.core.domain.entity.ChannelUserInfo;
-import com.rzx.project.domain.dto.UserLoginDTO;
+import com.rzx.project.model.dto.UserLoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rzx.project.mapper.UserInfoMapper;
-import com.rzx.project.domain.UserInfo;
+import com.rzx.project.model.domain.UserInfo;
 import com.rzx.project.service.IUserInfoService;
 
 /**

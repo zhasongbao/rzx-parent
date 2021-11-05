@@ -111,7 +111,7 @@ CREATE TABLE `rzx_order_info`  (
   `update_by` 			varchar(32)  DEFAULT NULL COMMENT '更新人',
   `brokerage` 			varchar(15)  DEFAULT NULL COMMENT '佣金',
   `qr_bill_url` 		varchar(225) DEFAULT NULL COMMENT '发票获取二维码',
-  `billrecord_id` 		varchar(32)  DEFAULT NULL COMMENT '开票信息ID',
+  `bill_record_id` 		varchar(32)  DEFAULT NULL COMMENT '开票信息ID',
   `pay_end_time` 		varchar(30)  DEFAULT NULL COMMENT '支付有效截至时间',
   `in_source` 			varchar(1)	DEFAULT NULL COMMENT '来源(1-任货行 2-任意行 3-任通行)',
   `order_type` 			varchar(1) 	DEFAULT NULL COMMENT '订单类型 1-礼包 2-商品订单',
@@ -130,7 +130,7 @@ CREATE TABLE `rzx_order_info`  (
   INDEX `commodity_code_index`(`commodity_code`) USING BTREE,
   INDEX `couponsinfo_id_index`(`couponsinfo_id`) USING BTREE,
   INDEX `receiveaddress_id_index`(`receiveaddress_id`) USING BTREE,
-  INDEX `billrecord_id_index`(`billrecord_id`) USING BTREE,
+  INDEX `bill_record_id_index`(`bill_record_id`) USING BTREE,
   INDEX `create_time_index`(`create_time`) USING BTREE,
   INDEX `sale_time_index`(`sale_time`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '任智行 销售订单表' ROW_FORMAT = Dynamic;

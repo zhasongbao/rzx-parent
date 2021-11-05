@@ -9,9 +9,9 @@ package com.rzx.common.constant;
 public class CacheConstants {
 
     /**
-     * 司机贷手机验证码
+     * 支付渠道编码
      */
-    public static final String CACHED_MOBILE = "load:app:user_mobile:";
+    public static final String CACHED_CHANNEL_CODE = "appRzx:pay:channel_code:";
 
 
 }

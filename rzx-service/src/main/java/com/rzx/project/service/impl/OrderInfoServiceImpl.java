@@ -11,20 +11,19 @@ import com.rzx.common.utils.Tools;
 import com.rzx.common.utils.spring.SpringUtils;
 import com.rzx.common.utils.uuid.IdUtils;
 import com.rzx.common.utils.uuid.UUID;
-import com.rzx.project.domain.*;
-import com.rzx.project.domain.dto.*;
-import com.rzx.project.domain.vo.BuyPackageVO;
-import com.rzx.project.domain.vo.NowExchangeVO;
+import com.rzx.project.model.domain.*;
+import com.rzx.project.model.dto.*;
+import com.rzx.project.model.vo.*;
 import com.rzx.project.handler.SuppliereInterface;
 import com.rzx.project.mapper.OrderInfoMapper;
 import com.rzx.project.service.*;
 import com.rzx.project.service.ryx.ITbSalemanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -36,8 +35,8 @@ import java.util.List;
  * @date 2021-09-28
  */
 @Service
-public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper,OrderInfo> implements IOrderInfoService {
-    @Autowired
+public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> implements IOrderInfoService {
+    @Resource
     private OrderInfoMapper orderInfoMapper;
     @Autowired
     private IUserInfoService userInfoService;
@@ -231,7 +230,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper,OrderInfo>
         if (ObjectUtils.isEmpty(order)) {
             throw new CustomException("未找到对应订单!");
         }
-        if (!StringUtils.isEmpty(order.getBillrecordId())) {
+        if (!StringUtils.isEmpty(order.getBillRecordId())) {
             throw new CustomException("该订单开票信息已提交，请勿重复提交！");
         }
         String billrecordId = UUID.get32UUID();
@@ -248,7 +247,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper,OrderInfo>
                 .accountBank(dto.getOpenBank())
                 .build()
         );
-        order.setBillrecordId(billrecordId);
+        order.setBillRecordId(billrecordId);
         return orderInfoMapper.updateOrderInfo(order);
     }
 
@@ -369,6 +368,47 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper,OrderInfo>
             order.setOrderConfirm(Constants.YES_FLAG);
         }
         return orderInfoMapper.updateOrderInfo(order);
+    }
+
+    @Override
+    public List<OrderInfo> exchangeRecordList(ExchangeRecordListDTO dto) {
+        return orderInfoMapper.selectOrderInfoList(OrderInfo.builder()
+                .status(StatusEnum.VALID.getCode())
+                .orderStatus(SalesOrderStatusEnum.YES_PAY.getCode())
+                .receivePhone(dto.getReceivePhone())
+                .userInfoId(dto.getUserInfoId())
+                .build());
+    }
+
+    @Override
+    public JSONObject orderLogistics(OrderLogisticsDTO dto) {
+        LambdaQueryWrapper<OrderInfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(OrderInfo::getOrderId, dto.getOrderId());
+        OrderInfo order = getOne(queryWrapper);
+        if(ObjectUtils.isEmpty(order)){
+            throw new CustomException("未找到订单信息!");
+        }
+        SuppliereInterface suppliere = SpringUtils.getBean(CommodityProvidEnum.getImplClassByValue(order.getOrderProvid()));
+        return suppliere.orderTrack(order);
+    }
+
+    @Override
+    public String preCreate(String salesOrderId) {
+        OrderInfo order = orderInfoMapper.selectOrderInfoById(salesOrderId);
+        if(ObjectUtils.isEmpty(order)){
+            throw new CustomException("未找到订单信息!");
+        }
+        if(!StringUtils.isEmpty(order.getQrCode())){
+            return order.getQrCode();
+        }
+        JSONObject json = new JSONObject();
+        json.put("orderId", order.getOrderId());
+        double newAmount = Double.parseDouble(order.getSaleTotalAmount());
+        json.put("amount", (int) newAmount * 100);
+        json.put("cashierType", 2);
+        json.put("payTypeId", Constants.NO_FLAG);
+//        Map<String, String> resMap =  YZPay.preCreate(pd,null);
+        return null;
     }
 
     private ReceiveAddressInfo buildAddress(ConfirmExchangeDTO dto) {

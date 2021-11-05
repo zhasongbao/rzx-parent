@@ -2,7 +2,7 @@ package com.rzx.app.controller;
 
 import com.rzx.common.core.controller.BaseController;
 import com.rzx.common.core.page.TableDataInfo;
-import com.rzx.project.domain.OrderInfo;
+import com.rzx.project.model.domain.OrderInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.validation.annotation.Validated;

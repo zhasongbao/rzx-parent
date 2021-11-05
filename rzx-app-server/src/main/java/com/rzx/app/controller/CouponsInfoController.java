@@ -6,7 +6,7 @@ import com.rzx.common.core.domain.AjaxResult;
 import com.rzx.common.core.page.TableDataInfo;
 import com.rzx.common.enums.BusinessType;
 import com.rzx.common.utils.poi.ExcelUtil;
-import com.rzx.project.domain.CouponsInfo;
+import com.rzx.project.model.domain.CouponsInfo;
 import com.rzx.project.service.ICouponsInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;

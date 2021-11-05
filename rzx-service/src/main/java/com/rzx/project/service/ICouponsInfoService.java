@@ -2,7 +2,7 @@ package com.rzx.project.service;
 
 import java.util.List;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.rzx.project.domain.CouponsInfo;
+import com.rzx.project.model.domain.CouponsInfo;
 
 /**
  * 任智行 券信息Service接口

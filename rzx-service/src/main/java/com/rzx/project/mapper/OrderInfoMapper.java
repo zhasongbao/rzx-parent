@@ -2,8 +2,8 @@ package com.rzx.project.mapper;
 
 import java.util.List;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.rzx.project.domain.OrderInfo;
-import com.rzx.project.domain.dto.OrderInfoDTO;
+import com.rzx.project.model.domain.OrderInfo;
+import com.rzx.project.model.dto.OrderInfoDTO;
 
 /**
  * 任智行 销售订单Mapper接口

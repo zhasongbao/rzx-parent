@@ -14,7 +14,7 @@ import com.rzx.common.annotation.Log;
 import com.rzx.common.core.controller.BaseController;
 import com.rzx.common.core.domain.AjaxResult;
 import com.rzx.common.enums.BusinessType;
-import com.rzx.project.domain.CommodityConfig;
+import com.rzx.project.model.domain.CommodityConfig;
 import com.rzx.project.service.ICommodityConfigService;
 import com.rzx.common.utils.poi.ExcelUtil;
 import io.swagger.annotations.Api;

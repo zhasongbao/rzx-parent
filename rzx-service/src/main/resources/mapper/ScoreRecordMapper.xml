@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rzx.project.mapper.ScoreRecordMapper">
 
-    <resultMap type="com.rzx.project.domain.ScoreRecord" id="ScoreRecordResult">
+    <resultMap type="com.rzx.project.model.domain.ScoreRecord" id="ScoreRecordResult">
         <result property="scoreRecordId"    column="score_record_id"    />
         <result property="userInfoId"    column="user_info_id"    />
         <result property="userId"    column="user_id"    />
@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select score_record_id, user_info_id, user_id, in_source, source_id, source_type, score, surplus_score, status, create_time, update_time, create_by, update_by from rzx_score_record
     </sql>
 
-    <select id="selectScoreRecordList" parameterType="com.rzx.project.domain.ScoreRecord" resultMap="ScoreRecordResult">
+    <select id="selectScoreRecordList" parameterType="com.rzx.project.model.domain.ScoreRecord" resultMap="ScoreRecordResult">
         <include refid="selectScoreRecordVo"/>
         <where>
             <if test="userInfoId != null  and userInfoId != ''"> and user_info_id = #{userInfoId}</if>
@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 
-    <update id="updateScoreRecord" parameterType="com.rzx.project.domain.ScoreRecord">
+    <update id="updateScoreRecord" parameterType="com.rzx.project.model.domain.ScoreRecord">
         update rzx_score_record
         <trim prefix="SET" suffixOverrides=",">
             <if test="userInfoId != null">user_info_id = #{userInfoId},</if>

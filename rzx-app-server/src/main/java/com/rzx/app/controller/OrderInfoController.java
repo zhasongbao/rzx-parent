@@ -6,17 +6,21 @@ import com.rzx.common.core.controller.BaseController;
 import com.rzx.common.core.domain.AjaxResult;
 import com.rzx.common.core.page.TableDataInfo;
 import com.rzx.common.enums.BusinessType;
+import com.rzx.common.enums.OrderTypeEnum;
+import com.rzx.common.enums.SalesOrderStatusEnum;
+import com.rzx.common.enums.StatusEnum;
+import com.rzx.common.exception.CustomException;
+import com.rzx.common.utils.StringUtils;
 import com.rzx.common.utils.poi.ExcelUtil;
-import com.rzx.project.domain.OrderInfo;
-import com.rzx.project.domain.dto.*;
-import com.rzx.project.domain.vo.BuyPackageVO;
-import com.rzx.project.domain.vo.NowExchangeVO;
+import com.rzx.project.model.domain.OrderInfo;
+import com.rzx.project.model.dto.*;
+import com.rzx.project.model.vo.BuyPackageVO;
+import com.rzx.project.model.vo.NowExchangeVO;
 import com.rzx.project.service.IOrderInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,11 +41,14 @@ public class OrderInfoController extends BaseController {
     private IOrderInfoService orderInfoService;
 
     /**
-     * 查询已购订单列表
+     * 礼包订单列表 salesOrderList.action
      */
-    @PostMapping("/list")
-    @ApiOperation(value = "查询已购订单列表")
-    public TableDataInfo list(@RequestBody @Validated OrderInfo dto){
+    @GetMapping("/list")
+    @ApiOperation(value = "礼包订单列表")
+    public TableDataInfo list(OrderInfo dto){
+        dto.setStatus(StatusEnum.VALID.getCode());
+        dto.setOrderType(OrderTypeEnum.GIFT_PACK.getCode());
+        dto.setOrderStatus(SalesOrderStatusEnum.YES_PAY.getCode());
         startPage();
         List<OrderInfo> list = orderInfoService.selectOrderInfoList(dto);
         return getDataTable(list);
@@ -140,7 +147,6 @@ public class OrderInfoController extends BaseController {
      * @return
      */
     @ApiOperation(value = "马上兑换接口")
-    @Log(title = "马上兑换接口", businessType = BusinessType.UPDATE)
     @PostMapping("/nowExchange")
     public AjaxResult<NowExchangeVO> nowExchange(@RequestBody @Validated NowExchangeDTO dto){
         return AjaxResult.success(orderInfoService.nowExchange(dto));
@@ -158,4 +164,39 @@ public class OrderInfoController extends BaseController {
         return toAjax(orderInfoService.confirmExchange(dto));
     }
 
+    /**
+     * 兑换记录查询 exchangeRecordList.action
+     */
+    @GetMapping("/exchangeRecordList")
+    @ApiOperation(value = "兑换记录列表")
+    public TableDataInfo exchangeRecordList(ExchangeRecordListDTO dto){
+        startPage();
+        List<OrderInfo> list = orderInfoService.exchangeRecordList(dto);
+        return getDataTable(list);
+    }
+
+    /**
+     * 物流信息查询      * orderLogistics.action
+     * @param dto
+     * @return
+     */
+    @ApiOperation(value = "物流信息查询")
+    @PostMapping("/orderLogistics")
+    public AjaxResult<JSONObject> orderLogistics(@RequestBody @Validated OrderLogisticsDTO dto){
+        return AjaxResult.success(orderInfoService.orderLogistics(dto));
+    }
+
+    /**
+     * C扫B支付 获取支付二维码      * preCreate.action
+     * @param salesOrderId 订单唯一标识
+     * @return
+     */
+    @ApiOperation(value = "C扫B支付 获取支付二维码")
+    @PostMapping("/preCreate")
+    public AjaxResult<String> preCreate(@PathVariable String salesOrderId){
+        if(StringUtils.isEmpty(salesOrderId)){
+            throw new CustomException("订单唯一标识不能为空!");
+        }
+        return AjaxResult.success(orderInfoService.preCreate(salesOrderId));
+    }
 }
