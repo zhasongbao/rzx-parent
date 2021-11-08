@@ -14,7 +14,9 @@
     <description>common通用工具</description>
 
     <properties>
-        <org.apache.httpcomponents.version>4.2.1</org.apache.httpcomponents.version>
+        <org.apache.httpcomponents.version>4.5.7</org.apache.httpcomponents.version>
+        <aliyun.oss.version>3.6.0</aliyun.oss.version>
+        <redisson.vsrson>3.14.1</redisson.vsrson>
     </properties>
 
     <dependencies>
@@ -67,6 +69,13 @@
             <artifactId>fastjson</artifactId>
         </dependency>
 
+        <!-- json-lib-2.4-jdk15.jar -->
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.4</version>
+            <classifier>jdk15</classifier>
+        </dependency>
         <!-- io常用工具类 -->
         <dependency>
             <groupId>commons-io</groupId>
@@ -149,9 +158,65 @@
             <version>${org.apache.httpcomponents.version}</version>
         </dependency>
 
+        <!-- aliyun oss -->
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>${aliyun.oss.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>httpclient</artifactId>
+                    <groupId>org.apache.httpcomponents</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.60</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+        <!--redisson-->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>${redisson.vsrson}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hgsoft.zengzhiyingyong</groupId>
+            <artifactId>secure-sdk</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
+            <artifactId>httpmime</artifactId>
+            <version>4.3.6</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>httpclient</artifactId>
+                    <groupId>org.apache.httpcomponents</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>

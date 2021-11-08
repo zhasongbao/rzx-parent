@@ -12,4 +12,11 @@ public interface ICommonService {
      */
     String getBaihuiToken();
 
+    /**
+     * 获取云卓商户号
+     *
+     * @return
+     */
+    String getYZPaySN();
+
 }

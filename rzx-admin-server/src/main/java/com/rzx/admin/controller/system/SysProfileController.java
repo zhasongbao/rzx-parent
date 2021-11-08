@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.rzx.common.annotation.Log;
-import com.rzx.common.config.DriveLoadConfig;
+import com.rzx.common.config.RzxConfig;
 import com.rzx.common.constant.UserConstants;
 import com.rzx.common.core.controller.BaseController;
 import com.rzx.common.core.domain.AjaxResult;
@@ -114,7 +114,7 @@ public class SysProfileController extends BaseController {
     public AjaxResult<String> avatar(@RequestParam("avatarfile") MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
             LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
-            String avatar = FileUploadUtils.upload(DriveLoadConfig.getAvatarPath(), file);
+            String avatar = FileUploadUtils.upload(RzxConfig.getAvatarPath(), file);
             if (userService.updateUserAvatar(loginUser.getUsername(), avatar)) {
                 // 更新缓存用户头像
                 loginUser.getUser().setAvatar(avatar);

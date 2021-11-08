@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.rzx.common.config.DriveLoadConfig;
+import com.rzx.common.config.RzxConfig;
 import io.swagger.annotations.ApiOperation;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -35,7 +35,7 @@ public class SwaggerConfig {
      * 系统基础配置
      */
     @Autowired
-    private DriveLoadConfig driveLoadConfig;
+    private RzxConfig driveLoadConfig;
 
     /**
      * 是否开启swagger

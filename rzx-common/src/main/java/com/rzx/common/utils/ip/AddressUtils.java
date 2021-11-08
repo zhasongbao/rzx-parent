@@ -4,7 +4,7 @@ import com.rzx.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
-import com.rzx.common.config.DriveLoadConfig;
+import com.rzx.common.config.RzxConfig;
 import com.rzx.common.constant.Constants;
 import com.rzx.common.utils.http.HttpUtils;
 
@@ -31,7 +31,7 @@ public class AddressUtils
         {
             return "内网IP";
         }
-        if (DriveLoadConfig.isAddressEnabled())
+        if (RzxConfig.isAddressEnabled())
         {
             try
             {

@@ -12,7 +12,7 @@ import com.rzx.common.utils.StringUtils;
 import org.apache.poi.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.rzx.common.config.DriveLoadConfig;
+import com.rzx.common.config.RzxConfig;
 import com.rzx.common.constant.Constants;
 
 /**
@@ -82,7 +82,7 @@ public class ImageUtils
             else
             {
                 // 本机地址
-                String localPath = DriveLoadConfig.getProfile();
+                String localPath = RzxConfig.getProfile();
                 String downloadPath = localPath + StringUtils.substringAfter(url, Constants.RESOURCE_PREFIX);
                 in = new FileInputStream(downloadPath);
             }

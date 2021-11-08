@@ -11,11 +11,13 @@ import com.rzx.common.utils.Tools;
 import com.rzx.common.utils.spring.SpringUtils;
 import com.rzx.common.utils.uuid.IdUtils;
 import com.rzx.common.utils.uuid.UUID;
+import com.rzx.project.facade.dto.CnpPayPreParam;
 import com.rzx.project.model.domain.*;
 import com.rzx.project.model.dto.*;
 import com.rzx.project.model.vo.*;
-import com.rzx.project.handler.SuppliereInterface;
+import com.rzx.project.strategy.SuppliereInterface;
 import com.rzx.project.mapper.OrderInfoMapper;
+import com.rzx.project.pay.yunzhuo.YunZhuoPayUtils;
 import com.rzx.project.service.*;
 import com.rzx.project.service.ryx.ITbSalemanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +26,11 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 任智行 销售订单Service业务层处理
@@ -201,7 +205,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
                 .couponsinfoId(dto.getCouponsInfoId())
                 .initTotalAmount(dto.getInitAmount())
                 .saleTotalAmount(dto.getSaleAmount())
-                .payWay(PayWayEnum.YZ.getCode())
+                .payWay(PayWayEnum.YUN_ZHUO_PAY.getCode())
                 .orderStatus(SalesOrderStatusEnum.NO_PAY.getCode())
                 .status(StatusEnum.VALID.getCode())
                 .orderType(OrderTypeEnum.GIFT_PACK.getCode())
@@ -401,13 +405,19 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         if(!StringUtils.isEmpty(order.getQrCode())){
             return order.getQrCode();
         }
-        JSONObject json = new JSONObject();
-        json.put("orderId", order.getOrderId());
+//        JSONObject json = new JSONObject();
+//        json.put("orderId", order.getOrderId());
         double newAmount = Double.parseDouble(order.getSaleTotalAmount());
-        json.put("amount", (int) newAmount * 100);
-        json.put("cashierType", 2);
-        json.put("payTypeId", Constants.NO_FLAG);
-//        Map<String, String> resMap =  YZPay.preCreate(pd,null);
+//        json.put("amount", (int) newAmount * 100);
+//        json.put("cashierType", 2);
+//        json.put("payTypeId", Constants.NO_FLAG);
+
+        CnpPayPreParam param = new CnpPayPreParam();
+        param.setOutTrxNo(order.getOrderId());
+        param.setPayAmount(new BigDecimal(newAmount * 100));
+        PayChannelCode channel = new PayChannelCode();
+        Map<String, String> resMap =  YunZhuoPayUtils.preCreate(param,channel);
+
         return null;
     }
 

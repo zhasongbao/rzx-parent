@@ -52,7 +52,7 @@ import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFDataValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.rzx.common.config.DriveLoadConfig;
+import com.rzx.common.config.RzxConfig;
 import com.rzx.common.utils.file.FileTypeUtils;
 import com.rzx.common.utils.file.ImageUtils;
 import com.rzx.common.utils.reflect.ReflectUtils;
@@ -748,7 +748,7 @@ public class ExcelUtil<T> {
      * @param filename 文件名称
      */
     public String getAbsoluteFile(String filename) {
-        String downloadPath = DriveLoadConfig.getDownloadPath() + filename;
+        String downloadPath = RzxConfig.getDownloadPath() + filename;
         File desc = new File(downloadPath);
         if (!desc.getParentFile().exists()) {
             desc.getParentFile().mkdirs();

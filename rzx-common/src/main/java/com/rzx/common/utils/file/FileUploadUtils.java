@@ -10,7 +10,7 @@ import com.rzx.common.utils.DateUtils;
 import com.rzx.common.utils.StringUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
-import com.rzx.common.config.DriveLoadConfig;
+import com.rzx.common.config.RzxConfig;
 import com.rzx.common.constant.Constants;
 import com.rzx.common.utils.uuid.IdUtils;
 
@@ -34,7 +34,7 @@ public class FileUploadUtils
     /**
      * 默认上传的地址
      */
-    private static String defaultBaseDir = DriveLoadConfig.getProfile();
+    private static String defaultBaseDir = RzxConfig.getProfile();
 
     public static void setDefaultBaseDir(String defaultBaseDir)
     {
@@ -144,7 +144,7 @@ public class FileUploadUtils
 
     private static final String getPathFileName(String uploadDir, String fileName) throws IOException
     {
-        int dirLastIndex = DriveLoadConfig.getProfile().length() + 1;
+        int dirLastIndex = RzxConfig.getProfile().length() + 1;
         String currentDir = StringUtils.substring(uploadDir, dirLastIndex);
         String pathFileName = Constants.RESOURCE_PREFIX + "/" + currentDir + "/" + fileName;
         return pathFileName;

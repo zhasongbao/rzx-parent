@@ -163,6 +163,11 @@ public class Constants {
     public static final String SQL_LIMIT_1 = "LIMIT 1";
 
     /**
+     * 外部渠道调用支付标识
+     */
+    public static final String OUT_PAY_FLAG = "outPayFlag";
+
+    /**
      * 重庆百汇商城授权token
      */
     public static final String REDIS_BAIHUI_TOKEN = "baihui:token";

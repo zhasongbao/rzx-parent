@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ConfigurationProperties(prefix = "fenmi")
-public class DriveLoadConfig {
+public class RzxConfig {
 
     /**
      * 项目名称
@@ -79,7 +79,7 @@ public class DriveLoadConfig {
     }
 
     public void setProfile(String profile) {
-        DriveLoadConfig.profile = profile;
+        RzxConfig.profile = profile;
     }
 
     public static boolean isAddressEnabled() {
@@ -87,7 +87,7 @@ public class DriveLoadConfig {
     }
 
     public void setAddressEnabled(boolean addressEnabled) {
-        DriveLoadConfig.addressEnabled = addressEnabled;
+        RzxConfig.addressEnabled = addressEnabled;
     }
 
     /**

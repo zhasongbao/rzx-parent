@@ -202,12 +202,22 @@ public class BigDecimalUtils {
         return divide(price, BigDecimal.valueOf(100));
     }
 
+    /**
+     * 元转分
+     *
+     * @param price 金额（单位：元）
+     * @return
+     */
+    public static Long yuanToCent(BigDecimal price) {
+        return multiply(price, BigDecimal.valueOf(100)).longValue();
+    }
+
 
     public static void main(String[] args) {
-        System.out.println(centToYuan(BigDecimal.valueOf(100)));
-//        System.out.println(BigDecimalUtil.formatAllUp(BigDecimal.valueOf(Double.valueOf("0.123")),2));
-//        System.out.println(BigDecimalUtil.formatAllUp(BigDecimal.valueOf(Double.valueOf("-0.123")),2));
-//        System.out.println(BigDecimalUtils.format(BigDecimal.valueOf(Double.parseDouble("0.010000")),"#0.00"));
+//        System.out.println(centToYuan(BigDecimal.valueOf(100)));
+//        System.out.println(formatAllUp(BigDecimal.valueOf(Double.valueOf("0.123")),2));
+//        System.out.println(formatAllUp(BigDecimal.valueOf(Double.valueOf("-0.123")),2));
+//        System.out.println(format(BigDecimal.valueOf(Double.parseDouble("0.010000")),"#0.00"));
 
     }
 }

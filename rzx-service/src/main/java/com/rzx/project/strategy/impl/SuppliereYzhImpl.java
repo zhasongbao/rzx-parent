@@ -1,4 +1,4 @@
-package com.rzx.project.handler;
+package com.rzx.project.strategy.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -9,6 +9,7 @@ import com.rzx.common.utils.provid.yunzhonghe.YunZhongHeUtils;
 import com.rzx.project.model.domain.CommodityConfig;
 import com.rzx.project.model.domain.OrderInfo;
 import com.rzx.project.service.ICommodityConfigService;
+import com.rzx.project.strategy.SuppliereInterface;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
