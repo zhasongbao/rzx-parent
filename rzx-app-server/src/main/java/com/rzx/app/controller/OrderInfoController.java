@@ -157,7 +157,7 @@ public class OrderInfoController extends BaseController {
      * @param dto
      * @return
      */
-    @ApiOperation(value = "马上兑换接口")
+    @ApiOperation(value = "确认兑换接口")
     @Log(title = "马上兑换接口", businessType = BusinessType.UPDATE)
     @PostMapping("/confirmExchange")
     public AjaxResult<Integer> confirmExchange(@RequestBody @Validated ConfirmExchangeDTO dto){

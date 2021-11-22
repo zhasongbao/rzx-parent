@@ -32,6 +32,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="typeId"    column="type_id"    />
         <result property="providSource"    column="provid_source"    />
         <result property="rate"    column="rate"    />
+        <result property="gxGiftpackageId"    column="gx_giftpackage_id"    />
+        <result property="gxChooseFlag"    column="gx_choose_flag"    />
+        <result property="gxAmount"    column="gx_amount"    />
     </resultMap>
 
     <sql id="selectCommodityConfigVo">
@@ -65,6 +68,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="typeId != null  and typeId != ''"> and type_id = #{typeId}</if>
             <if test="providSource != null  and providSource != ''"> and provid_source = #{providSource}</if>
             <if test="rate != null  and rate != ''"> and rate = #{rate}</if>
+            <if test="gxGiftpackageId != null  and gxGiftpackageId != ''"> and gx_giftpackage_id = #{gxGiftpackageId}</if>
+            <if test="gxChooseFlag != null  and gxChooseFlag != ''"> and gx_choose_flag = #{gxChooseFlag}</if>
+            <if test="gxAmount != null  and gxAmount != ''"> and gx_amount = #{gxAmount}</if>
         </where>
     </select>
 
@@ -103,6 +109,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="typeId != null">type_id = #{typeId},</if>
             <if test="providSource != null">provid_source = #{providSource},</if>
             <if test="rate != null">rate = #{rate},</if>
+            <if test="gxGiftpackageId != null">gx_giftpackage_id = #{gxGiftpackageId},</if>
+            <if test="gxChooseFlag != null">gx_choose_flag = #{gxChooseFlag},</if>
+            <if test="gxAmount != null">gx_amount = #{gxAmount},</if>
         </trim>
         where commodityconfig_id = #{commodityconfigId}
     </update>

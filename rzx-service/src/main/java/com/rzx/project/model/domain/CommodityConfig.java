@@ -178,7 +178,23 @@ public class CommodityConfig extends BaseEntity {
     @ApiModelProperty(value = "溢价比例%")
     @TableField(value = "rate")
     private String rate;
-    
 
+    /** 广西所属礼包ID */
+    @Excel(name = "广西所属礼包ID")
+    @ApiModelProperty(value = "广西所属礼包ID")
+    @TableField(value = "gx_giftpackage_id")
+    private String gxGiftpackageId;
+
+    /** 是否选品库商品(1-是) */
+    @Excel(name = "是否选品库商品(1-是)")
+    @ApiModelProperty(value = "是否选品库商品(1-是)")
+    @TableField(value = "gx_choose_flag")
+    private String gxChooseFlag;
+
+    /** 商品价格 (=成本价+成本价*溢价比例) */
+    @Excel(name = "商品价格 (=成本价+成本价*溢价比例)")
+    @ApiModelProperty(value = "商品价格 (=成本价+成本价*溢价比例)")
+    @TableField(value = "gx_amount")
+    private String gxAmount;
 
 }
