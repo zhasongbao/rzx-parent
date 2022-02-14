@@ -87,7 +87,7 @@ public class MallController extends BaseController {
     /**
      * 批量查询商品区域内库存状态 regionStore.action
      */
-    @PostMapping("/commodityDepotList")
+    @PostMapping("/regionStore")
     @ApiOperation(value = "批量查询商品区域内库存状态")
     public TableDataInfo regionStore(@RequestBody CommodityDepotDTO dto){
         return getDataTable(null);
