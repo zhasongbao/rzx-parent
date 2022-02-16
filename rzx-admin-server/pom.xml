@@ -60,20 +60,15 @@
             <artifactId>rzx-framework</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.baomidou</groupId>-->
-<!--            <artifactId>mybatis-plus-boot-starter</artifactId>-->
-<!--        </dependency>-->
-
-        <!-- 代码生成 -->
-<!--        <dependency>-->
-<!--            <groupId>com.fenmi</groupId>-->
-<!--            <artifactId>rzx-generator</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+        </dependency>
 
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
