@@ -15,7 +15,7 @@ import com.rzx.project.service.IGiftPackageConfigService;
 /**
  * 任智行 礼包配置Service业务层处理
  *
- * @author zy
+ * @author zhasbao
  * @date 2021-09-28
  */
 @Service

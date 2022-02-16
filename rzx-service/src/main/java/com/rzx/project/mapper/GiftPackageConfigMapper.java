@@ -7,7 +7,7 @@ import com.rzx.project.model.domain.GiftPackageConfig;
 /**
  * 任智行 礼包配置Mapper接口
  *
- * @author zy
+ * @author zhasbao
  * @date 2021-09-28
  */
 public interface GiftPackageConfigMapper extends BaseMapper<GiftPackageConfig> {
