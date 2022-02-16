@@ -54,10 +54,10 @@
             <artifactId>rzx-common</artifactId>
         </dependency>
 
+        <!-- mybatis-plus 多数据源 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-            <version>${dynamic-datasource.version}</version>
         </dependency>
     </dependencies>
 </project>
