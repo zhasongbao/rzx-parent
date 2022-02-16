@@ -16,7 +16,7 @@ import java.util.List;
  * @author zy
  * @date 2021-11-02
  */
-@DS("slave_1")
+@DS("slave1")
 @Service
 public class TbSalemanServiceImpl extends ServiceImpl<TbSalemanMapper,TbSaleman> implements ITbSalemanService {
     @Autowired

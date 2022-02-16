@@ -3,6 +3,7 @@ package com.rzx.project.service.impl;
 import java.util.List;
 import java.time.LocalDateTime;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.rzx.common.enums.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import com.rzx.project.service.IGiftPackageConfigService;
  * @date 2021-09-28
  */
 @Service
+@DS("slave1")
 public class GiftPackageConfigServiceImpl extends ServiceImpl<GiftPackageConfigMapper,GiftPackageConfig> implements IGiftPackageConfigService {
     @Autowired
     private GiftPackageConfigMapper giftPackageConfigMapper;
