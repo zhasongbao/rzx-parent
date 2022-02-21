@@ -221,4 +221,23 @@
 
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>thirdparty</id>
+            <name>3rd party</name>
+            <url>http://ectbao.imdo.co/nexus/content/repositories/thirdparty/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
 </project>
